@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 14 10:45:23 2023
+
+# GOAL:
+    
+    Go through the protostar target list and acquire their single exposure 
+    metadata. From this metadata, determine the epochs of each object, 
+    and construct the urls for each epoch to download the coadds from IRSA.
+    Note: if the coadds on command line timeout, we will need to manually 
+    download images using the web interface of the coadder tool (https://irsa.ipac.caltech.edu/applications/ICORE/)
+    
+
+@author: dzakaria 
+"""
+
+# %% # imports
+
+import pandas as pd
+import numpy as np
+import pyvo
+from astropy.coordinates import SkyCoord 
+import astropy.units as u
+from astropy.table import vstack, QTable
+
+# %%  # Read in the table of targets
+
+# directory path
+
+directory = '/users/dzakaria/dzfiles/'
+filename = 'targets-daphne.csv'
+path = directory + filename
+targets_tab = QTable.read(path, format = 'ascii.csv')
+
+# %%  # Format table (assign units and make SkyCoord object column)
+
+# assign units to columns
+targets_tab['ra'].unit= u.hourangle
+targets_tab['dec'].unit= u.deg
+
+# make skycoord object column
+targets_tab['coord'] = SkyCoord(targets_tab['ra'], targets_tab['dec'], frame='icrs', unit=(u.hourangle, u.deg))
+
+
+
+# %% # query_IRSA function 
+# make a TAP query to IRSA given: catalog, ra, dec, and radius
+
+def query_IRSA(catalog, ra, dec, rad = 0.5 , columns = '*' ):
+    # query base:
+    query_base = """
+               SELECT {columns}
+               FROM {catalog}
+               WHERE CONTAINS(POINT('ICRS',crval1, crval2), CIRCLE('ICRS',{ra},{dec},{rad}))=1
+               """
+    query = query_base.format(columns=columns, catalog=catalog, ra=ra, dec=dec, rad=rad)
+    
+    # make connection with IRSA
+    service = pyvo.dal.TAPService('https://irsa.ipac.caltech.edu/TAP')
+    result = service.run_async(query)
+    tab = result.to_table()
+    return tab
+
+
+#%% # Make a new output table that will contain the object info as well as epochs
+
+# use the targets_tab to read in the correct columns
+epochs_tab = QTable(names=('obj_name', 'ra', 'dec', 'coord', 'band', 'obj_epoch', 'date_obs1', 'mjd_obs1', 'date_obs2', 'mjd_obs2'))
+
+epochs_tab['obj_name'].dtype='<U64'
+epochs_tab['ra'].dtype='<U64'
+epochs_tab['dec'].dtype='<U64'
+epochs_tab['date_obs'].dtype='<U64'
+#%% # Loop through targets and determine object epochs
+
+
+
+for row in range(len(targets_tab)):
+    
+    # print an update every time the next target is processed
+    print('target: ', targets_tab[row]['obj_name'])
+    
+
+    coord = targets_tab[row]['coord']
+    
+    # query ALLSKY (original WISE observations)
+    # WISE All-Sky Single Exposure (L1b) Image Inventory Table (allsky_4band_p1bm_frm)
+
+    allwise_tab = query_IRSA(catalog='allsky_4band_p1bm_frm', ra=coord.ra.deg,
+                            dec=coord.dec.deg, rad=0.5,
+                            columns = 'date_obs, mjd_obs, band')
+    
+    # query NEOWISE (post-cryo WISE observations)
+    # query NEOWISE-R Single Exposure (L1b) Image Inventory Table  (wise.wise_allwise_p3am_cdd)
+
+    neowise_tab = query_IRSA(catalog='neowiser_p1bm_frm', ra=coord.ra.deg,
+                            dec=coord.dec.deg, rad=0.5,
+                            columns = 'date_obs, mjd_obs, band')
+
+    
+    # combine the lists of datses from ALLWISE and NEOWISE and sort by date 
+    all_obs_tab = vstack([allwise_tab, neowise_tab])
+
+    all_obs_tab.sort('mjd_obs')
+    
+    # ===================================================================
+    # now: it's time to determine epochs based on the observation dates
+    
+
+
+    # the all_obs_tab is sorted, so naturally, the first observation will be 
+    # the first observation of the first epoch
+    # before entering the loop, we need to populate the output table with this information
+    epochs_tab['date_obs1'][row] = all_obs_tab[0]['date_obs']
+    epochs_tab['mjd_obs1'][row] = all_obs_tab[0]['mjd_obs']
+
+    epochs_tab['obj_epoch'][row]=epoch
+    epochs_tab['obj_name'][row] = obj_name
+    epochs_tab['ra'][row] = coord.ra
+    epochs_tab['dec'][row] = coord.dec
+    
+    # initialize n_images counter 
+    # tells us how many images were observed in one epoch (in all bands)
+    
+    for row in range(1, len(all_obs_tab)):
+        # compare row to previous row to determine if it is a new epoch or not
+        prev_row = row -1
+        
+        prev_mjd = all_obs_tab[prev_row]['mjd_obs']
+        mjd = all_obs_tab[row]['mjd_obs']
+        
+        
+        # when loop reaches the last observation, that should be the final end of the last epoch
+        if row == len(all_obs_tab) -1:
+            # add to the counter on number of images
+            n_images+=1
+            
+            # first update the end of the previous epoch 
+            epochs_tab['date_obs2'][row] = all_obs_tab[prev_row]['date_obs']
+            epochs_tab['mjd_obs2'][row] = all_obs_tab[prev_row]['mjd_obs']
+            epochs_tab['n_images'][row] = n_images
+            
+            
+            break
+            
+            
+        
+        # if time between obs is less than 2 days... the two obs are in the same epoch
+        # we do want to count how many images are in each epoch
+        if mjd - prev_mjd <= 15:
+            n_images+=1
+            continue
+        
+        # if obs are more than 2 days apart... there's a new epoch!
+        elif mjd - prev_mjd > 15:
+            
+            # add to the counter on number of images
+            n_images+=1
+            
+            # first update the end of the previous epoch 
+            epochs_tab['date_obs2'][row] = all_obs_tab[prev_row]['date_obs']
+            epochs_tab['mjd_obs2'][row] = all_obs_tab[prev_row]['mjd_obs']
+            epochs_tab['n_images'][row] = n_images
+            
+            # then update the beginning of the next epoch
+            epoch +=1 
+            
+            coadd_epochs_tab.add_row()
+            
+            epochs_tab['date_obs1'][row] = all_obs_tab[row]['date_obs']
+            epochs_tab['mjd_obs1'][row] = all_obs_tab[row]['mjd_obs']
+            epochs_tab['obj_epoch'][row]=epoch
+            epochs_tab['obj_name'][row] = obj_name
+            epochs_tab['crval1'][row] = coord.ra
+            epochs_tab['crval2'][row] = coord.dec
+            
+            
+          
+            # reset n_images to 0
+            n_images = 0
+            continue 
+
+#%%
+

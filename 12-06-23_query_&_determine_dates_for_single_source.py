@@ -181,7 +181,7 @@ for row in range(1, len(all_obs_tab)):
         coadd_epochs_tab['crval2'][-1] = dec
         
         
-    
+      
         # reset n_images to 0
         n_images = 0
         continue 
