@@ -33,6 +33,10 @@ filename = 'targets-daphne.csv'
 path = directory + filename
 targets_tab = QTable.read(path, format = 'ascii.csv')
 
+# first column has a weird unicode thing happening - fix that by renaming column
+# you can see column names by doing table.colnames()
+targets_tab.rename_column('\ufeffobj_name', 'obj_name')
+
 # %%  # Format table (assign units and make SkyCoord object column)
 
 # assign units to columns
@@ -66,29 +70,35 @@ def query_IRSA(catalog, ra, dec, rad = 0.5 , columns = '*' ):
 #%% # Make a new output table that will contain the object info as well as epochs
 
 # use the targets_tab to read in the correct columns
-epochs_tab = QTable(names=('obj_name', 'ra', 'dec', 'coord', 'band', 'obj_epoch', 'date_obs1', 'mjd_obs1', 'date_obs2', 'mjd_obs2'))
+epochs_tab = QTable(names=('obj_name', 'ra', 'dec', 'coord', 'band', 'obj_epoch', 'date_obs1', 'mjd_obs1', 'date_obs2', 'mjd_obs2', 'n_images'))
 
 epochs_tab['obj_name'].dtype='<U64'
 epochs_tab['ra'].dtype='<U64'
 epochs_tab['dec'].dtype='<U64'
-epochs_tab['date_obs'].dtype='<U64'
+epochs_tab['date_obs1'].dtype='<U64'
+epochs_tab['date_obs2'].dtype='<U64'
 #%% # Loop through targets and determine object epochs
 
 
+# initialize epochs_tab_rownum counter
+epochs_tab_rownum = 0
 
-for row in range(len(targets_tab)):
+for targets_row in range(len(targets_tab)):
+  
+    obj_name = targets_tab[targets_row]['obj_name']
+    
     
     # print an update every time the next target is processed
-    print('target: ', targets_tab[row]['obj_name'])
+    print('target: ', obj_name)
     
 
-    coord = targets_tab[row]['coord']
+    coord = targets_tab[targets_row]['coord']
     
     # query ALLSKY (original WISE observations)
     # WISE All-Sky Single Exposure (L1b) Image Inventory Table (allsky_4band_p1bm_frm)
 
     allwise_tab = query_IRSA(catalog='allsky_4band_p1bm_frm', ra=coord.ra.deg,
-                            dec=coord.dec.deg, rad=0.5,
+                            dec=coord.dec.deg, rad=0.5, 
                             columns = 'date_obs, mjd_obs, band')
     
     # query NEOWISE (post-cryo WISE observations)
@@ -97,7 +107,8 @@ for row in range(len(targets_tab)):
     neowise_tab = query_IRSA(catalog='neowiser_p1bm_frm', ra=coord.ra.deg,
                             dec=coord.dec.deg, rad=0.5,
                             columns = 'date_obs, mjd_obs, band')
-
+ 
+    epoch = 0
     
     # combine the lists of datses from ALLWISE and NEOWISE and sort by date 
     all_obs_tab = vstack([allwise_tab, neowise_tab])
@@ -107,23 +118,32 @@ for row in range(len(targets_tab)):
     # ===================================================================
     # now: it's time to determine epochs based on the observation dates
     
-
-
+    # initialize the epoch counter 
+    epoch = 0
+    
+    # add a row to epochs_tab and update rownum counter
+    epochs_tab.add_row()
+    
+    
     # the all_obs_tab is sorted, so naturally, the first observation will be 
     # the first observation of the first epoch
     # before entering the loop, we need to populate the output table with this information
-    epochs_tab['date_obs1'][row] = all_obs_tab[0]['date_obs']
-    epochs_tab['mjd_obs1'][row] = all_obs_tab[0]['mjd_obs']
+    epochs_tab['date_obs1'][epochs_tab_rownum ] = all_obs_tab[0]['date_obs']
+    epochs_tab['mjd_obs1'][epochs_tab_rownum ] = all_obs_tab[0]['mjd_obs']
 
-    epochs_tab['obj_epoch'][row]=epoch
-    epochs_tab['obj_name'][row] = obj_name
-    epochs_tab['ra'][row] = coord.ra
-    epochs_tab['dec'][row] = coord.dec
+    epochs_tab['obj_epoch'][epochs_tab_rownum ]=epoch
+    epochs_tab['obj_name'][epochs_tab_rownum ] = obj_name
+    epochs_tab['ra'][epochs_tab_rownum ] = coord.ra
+    epochs_tab['dec'][epochs_tab_rownum ] = coord.dec
     
     # initialize n_images counter 
     # tells us how many images were observed in one epoch (in all bands)
+    n_images = 0
     
     for row in range(1, len(all_obs_tab)):
+        
+        
+        
         # compare row to previous row to determine if it is a new epoch or not
         prev_row = row -1
         
@@ -137,9 +157,9 @@ for row in range(len(targets_tab)):
             n_images+=1
             
             # first update the end of the previous epoch 
-            epochs_tab['date_obs2'][row] = all_obs_tab[prev_row]['date_obs']
-            epochs_tab['mjd_obs2'][row] = all_obs_tab[prev_row]['mjd_obs']
-            epochs_tab['n_images'][row] = n_images
+            epochs_tab['date_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['date_obs']
+            epochs_tab['mjd_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['mjd_obs']
+            epochs_tab['n_images'][epochs_tab_rownum] = n_images
             
             
             break
@@ -159,21 +179,22 @@ for row in range(len(targets_tab)):
             n_images+=1
             
             # first update the end of the previous epoch 
-            epochs_tab['date_obs2'][row] = all_obs_tab[prev_row]['date_obs']
-            epochs_tab['mjd_obs2'][row] = all_obs_tab[prev_row]['mjd_obs']
-            epochs_tab['n_images'][row] = n_images
+            epochs_tab['date_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['date_obs']
+            epochs_tab['mjd_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['mjd_obs']
+            epochs_tab['n_images'][epochs_tab_rownum] = n_images
             
             # then update the beginning of the next epoch
             epoch +=1 
             
-            coadd_epochs_tab.add_row()
+            epochs_tab_rownum += 1
+            epochs_tab.add_row()
             
-            epochs_tab['date_obs1'][row] = all_obs_tab[row]['date_obs']
-            epochs_tab['mjd_obs1'][row] = all_obs_tab[row]['mjd_obs']
-            epochs_tab['obj_epoch'][row]=epoch
-            epochs_tab['obj_name'][row] = obj_name
-            epochs_tab['crval1'][row] = coord.ra
-            epochs_tab['crval2'][row] = coord.dec
+            epochs_tab['date_obs1'][epochs_tab_rownum] = all_obs_tab[row]['date_obs']
+            epochs_tab['mjd_obs1'][epochs_tab_rownum] = all_obs_tab[row]['mjd_obs']
+            epochs_tab['obj_epoch'][epochs_tab_rownum]=epoch
+            epochs_tab['obj_name'][epochs_tab_rownum] = obj_name
+            epochs_tab['ra'][epochs_tab_rownum] = coord.ra
+            epochs_tab['dec'][epochs_tab_rownum] = coord.dec
             
             
           
