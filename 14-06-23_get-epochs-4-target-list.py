@@ -159,7 +159,7 @@ for targets_row in range(len(targets_tab)):
             # first update the end of the previous epoch 
             epochs_tab['date_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['date_obs']
             epochs_tab['mjd_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['mjd_obs']
-            epochs_tab['n_images'][epochs_tab_rownum] = n_images
+            epochs_tab['n_images'][epochs_tab_rownum] = n_images 
             
             
             break
