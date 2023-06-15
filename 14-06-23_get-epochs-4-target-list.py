@@ -23,7 +23,7 @@ import pyvo
 from astropy.coordinates import SkyCoord 
 import astropy.units as u
 from astropy.table import vstack, QTable
-
+from astropy.io import ascii
 # %%  # Read in the table of targets
 
 # directory path
@@ -70,7 +70,7 @@ def query_IRSA(catalog, ra, dec, rad = 0.5 , columns = '*' ):
 #%% # Make a new output table that will contain the object info as well as epochs
 
 # use the targets_tab to read in the correct columns
-epochs_tab = QTable(names=('obj_name', 'ra', 'dec', 'coord', 'band', 'obj_epoch', 'date_obs1', 'mjd_obs1', 'date_obs2', 'mjd_obs2', 'n_images'))
+epochs_tab = QTable(names=('obj_name', 'ra', 'dec', 'coord', 'obj_epoch', 'date_obs1', 'mjd_obs1', 'date_obs2', 'mjd_obs2', 'n_images'))
 
 epochs_tab['obj_name'].dtype='<U64'
 epochs_tab['ra'].dtype='<U64'
@@ -202,5 +202,23 @@ for targets_row in range(len(targets_tab)):
             n_images = 0
             continue 
 
-#%%
 
+#%% save epochs_tab table 
+ascii.write(epochs_tab, '{path}15-06-23_epochs_table.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+ascii.write(epochs_tab, '{path}15-06-23_epochs_table.csv'.format(path=directory), format='csv', overwrite=True)   
+
+
+#%% read in tables
+
+epochs_tab=QTable.read('{path}15-06-23_epochs_table.ecsv'.format(path=directory))
+
+#%% clean table
+
+# it had a bunch of empty rows at the end; delete all of those
+
+for row in range(len(epochs_tab)):
+    if epochs_tab[row]['n_images']==0:
+        epochs_tab.remove_row(row)
+        
+        
+#%% make the urls to coadd for each epoch for bands 1 and 2
