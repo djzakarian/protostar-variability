@@ -24,6 +24,8 @@ from astropy.coordinates import SkyCoord
 import astropy.units as u
 from astropy.table import vstack, QTable
 from astropy.io import ascii
+
+from datetime import datetime
 # %%  # Read in the table of targets
 
 # directory path
@@ -221,4 +223,45 @@ for row in range(len(epochs_tab)):
         epochs_tab.remove_row(row)
         
         
+#%% in order to save the urls in the table: add new columns for urls in band1 and band2
+
+url_band1 = np.empty((1,), dtype='<U256')
+url_band2 = np.empty((1,), dtype='<U256')
+
+epochs_tab['url_band1'] = url_band1
+epochs_tab['url_band2'] = url_band2
+
 #%% make the urls to coadd for each epoch for bands 1 and 2
+
+size = 0.07
+
+for row in range(len(epochs_tab)):
+    ra = epochs_tab[row]['ra']
+    dec = epochs_tab[row]['dec']
+    date1_str = epochs_tab[row]['date_obs1']
+    date2_str = epochs_tab[row]['date_obs2']
+    
+    # formate date1 and date2 for the url
+    
+    # date1:
+    dt1 = datetime.strptime(date1_str, '%Y-%m-%d %H:%M:%S.%f')
+    date1 = dt1.strftime('%d%b%Y %H:%M:%S')
+    
+    dt2 = datetime.strptime(date2_str, '%Y-%m-%d %H:%M:%S.%f')
+    date2 = dt2.strftime('%d%b%Y %H:%M:%S')
+    
+    coordinate = SkyCoord(ra=ra*u.deg, dec=dec*u.deg)
+    
+    coord = coord.to_string('hmsdms', sep=':', precision = 3)
+        
+    
+    url_band1 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
+        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date{date2}&mode=PI" \
+            .format(coord=coord,band=1, sizeX=size, sizeY=size, date1=date1, date2=date2)
+            
+    url_band2 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
+        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date{date2}&mode=PI" \
+            .format(coord=coord,band=2, sizeX=size, sizeY=size, date1=date1, date2=date2)
+            
+    
+    # update the table with the urls for bands 1 and 2
