@@ -3,6 +3,8 @@
 """
 Created on Wed Jun 14 10:45:23 2023
 
+14-06-23_get-epochs-4-target-list.py
+
 # GOAL:
     
     Go through the protostar target list and acquire their single exposure 
@@ -258,12 +260,10 @@ for row in range(len(epochs_tab)):
     coord = coordinate.to_string('hmsdms', sep=':', precision = 3)
         
     
-    url_band1 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
-        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
+    url_band1 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord}&band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
             .format(coord=coord,band=1, sizeX=size, sizeY=size, date1=date1, date2=date2)
             
-    url_band2 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
-        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
+    url_band2 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord}&band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
             .format(coord=coord,band=2, sizeX=size, sizeY=size, date1=date1, date2=date2)
             
     
@@ -273,8 +273,8 @@ for row in range(len(epochs_tab)):
     
     #%%
     
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0.1.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0.1.csv'.format(path=directory), format='csv', overwrite=True)   
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_1.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_1.csv'.format(path=directory), format='csv', overwrite=True)   
 
     
     

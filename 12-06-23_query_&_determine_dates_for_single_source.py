@@ -4,6 +4,9 @@
 Created on Fri Jun  9 15:17:55 2023
 
 
+12-06-23_query_&_determine_dates_for_single_source.py
+
+
 GOAL: 
 
     Acquire single exposure metadata from WISE and NEOWISE observations. 
@@ -198,7 +201,7 @@ date2 = '27Feb2010+11:00:00'
 band = 1
 
 url = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
-    &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date{date2}&mode=PI" \
+    &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
         .format(coord=coord,band=band, sizeX=size, sizeY=size, date1=date1, date2=date2)
 
 
@@ -211,7 +214,7 @@ coadd_epochs_tab['duration'] = coadd_epochs_tab['mjd_obs2'] - coadd_epochs_tab['
 ## curl -o out.xml "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr=L1527&band=1&date1=22Feb2010+01:00:00&date2=27Feb2010+11:00:00&mode=PI"
 
 ## wget -O L1527.xml "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr=043953.59 +260305.50&band=1&sizeX=0.05&sizeY=0.05&date1=22Feb2010+01:00:00&date2=27Feb2010+11:00:00&mode=PI"
-
+ 
 ## wget -O L1527.xml "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr=043953.59 +260305.50&band=1&sizeX=0.07&sizeY=0.07&date1=22Feb2010+01:00:00&date2=27Feb2010+11:00:00&mode=PI"
 
 
