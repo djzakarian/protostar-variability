@@ -17,7 +17,6 @@ Created on Wed Jun 14 10:45:23 2023
 
 # %% # imports
 
-import pandas as pd
 import numpy as np
 import pyvo
 from astropy.coordinates import SkyCoord 
@@ -233,9 +232,13 @@ epochs_tab['url_band2'] = url_band2
 
 #%% make the urls to coadd for each epoch for bands 1 and 2
 
-size = 0.07
+size = 0.1
 
 for row in range(len(epochs_tab)):
+    
+    if row%10==0:
+        print(row)
+    
     ra = epochs_tab[row]['ra']
     dec = epochs_tab[row]['dec']
     date1_str = epochs_tab[row]['date_obs1']
@@ -250,18 +253,53 @@ for row in range(len(epochs_tab)):
     dt2 = datetime.strptime(date2_str, '%Y-%m-%d %H:%M:%S.%f')
     date2 = dt2.strftime('%d%b%Y %H:%M:%S')
     
-    coordinate = SkyCoord(ra=ra*u.deg, dec=dec*u.deg)
+    coordinate = SkyCoord(ra=ra, dec=dec, unit=u.deg)
     
-    coord = coord.to_string('hmsdms', sep=':', precision = 3)
+    coord = coordinate.to_string('hmsdms', sep=':', precision = 3)
         
     
     url_band1 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
-        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date{date2}&mode=PI" \
+        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
             .format(coord=coord,band=1, sizeX=size, sizeY=size, date1=date1, date2=date2)
             
     url_band2 = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord} \
-        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date{date2}&mode=PI" \
+        &band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
             .format(coord=coord,band=2, sizeX=size, sizeY=size, date1=date1, date2=date2)
             
     
     # update the table with the urls for bands 1 and 2
+    epochs_tab['url_band1'][row] = url_band1
+    epochs_tab['url_band2'][row] = url_band2
+    
+    #%%
+    
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0.1.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0.1.csv'.format(path=directory), format='csv', overwrite=True)   
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
