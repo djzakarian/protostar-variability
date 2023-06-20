@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<result status="ok">
+  <description>
+     <ra>  339.720540000</ra>
+     <dec>   75.189590000</dec>
+     <band>2</band>
+     <sizeX>0.1</sizeX>
+     <sizeY>0.1</sizeY>
+     <rot></rot>
+     <pix></pix>
+     <qframe></qframe>
+     <moon></moon>
+     <saa></saa>
+     <date1>12Aug2016 17:08:05</date1>
+     <date2>15Aug2016 06:27:20</date2>
+     <sccoad>area</sccoad>
+     <prodtype>coadd</prodtype>
+  </description>
+  <summary>
+     <ngood>
+       1
+     </ngood>
+     <resultHtml>
+       https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/result.html
+     </resultHtml>
+     <framesused>
+       https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_query_used.tbl
+     </framesused>
+  </summary>
+  <images>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-int.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-int.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-unc.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-unc.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-cov.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-cov.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-std.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_fJU4TA_2925/ICORE/22_38_52.933__75_11_22.520.v0001/results/ICORE_0001_W2_mosaic-std.jpg
+ </jpg>
+  </images>
+</result>
+
