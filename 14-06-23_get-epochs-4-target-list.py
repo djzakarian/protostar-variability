@@ -219,7 +219,7 @@ epochs_tab=QTable.read('{path}15-06-23_epochs_table.ecsv'.format(path=directory)
 
 # it had a bunch of empty rows at the end; delete all of those
 
-for row in range(len(epochs_tab)):
+for row in reversed(range(len(epochs_tab))):
     if epochs_tab[row]['n_images']==0:
         epochs_tab.remove_row(row)
         
@@ -234,7 +234,7 @@ epochs_tab['url_band2'] = url_band2
 
 #%% make the urls to coadd for each epoch for bands 1 and 2
 
-size = 0.1
+size = 0.0667
 
 for row in range(len(epochs_tab)):
     
@@ -273,8 +273,8 @@ for row in range(len(epochs_tab)):
     
     #%%
     
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_1.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_1.csv'.format(path=directory), format='csv', overwrite=True)   
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
 
     
     
