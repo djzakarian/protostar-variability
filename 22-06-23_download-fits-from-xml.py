@@ -54,7 +54,7 @@ from datetime import datetime
 
 #%% define directory and date
 
-directory ='/users/dzakaria/dzfiles/coadds-0_0667/'
+coadd_directory ='/users/dzakaria/dzfiles/coadds-0_0667/'
 
 current_datetime =  datetime.now()
 date = current_datetime.strftime('%Y-%m-%d_%H:%M:%S') # update this so the log is correct
