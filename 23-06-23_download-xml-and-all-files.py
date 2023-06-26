@@ -75,10 +75,17 @@ for obj in obj_names:
     for sub_dir in new_directory_list:
         if not os.path.exists(f'{obj}/{sub_dir}'):
             os.makedirs(f'{obj}/{sub_dir}')
-            print(f'{sub_dir} created sucessfully')
-        else: 
-            print(f'{sub_dir} already exists')
+            # print(f'{sub_dir} created sucessfully')
+        # else: 
+            # print(f'{sub_dir} already exists')
  
+#%% now put sub-subdirectories that sort each file by band 
+bands = ['b1','b2']
+for obj in obj_names:
+    for sub_dir in new_directory_list:
+        for band in bands:
+            if not os.path.exists(f'{obj}/{sub_dir}/{band}'):
+                os.makedirs(f'{obj}/{sub_dir}/{band}')
 
 
 #%% 
@@ -87,10 +94,9 @@ relevant_tags=['resultHtml', 'framesused', 'images', 'fits', 'jpg', 'fits', 'jpg
 
 #%% loop through the epochs_tab table and use urls to download coadds and relevant files
 
-for row in range(len(epochs_tab)): 
+for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't working
 
-       
-        
+    
     name = epochs_tab[row]['obj_name']
     # remove slashes and spaces
     name = name.replace('/','_')
@@ -103,34 +109,88 @@ for row in range(len(epochs_tab)):
     file_b1 = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch, band=1)  
     file_b2 = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch, band=2)  
     
-#    print(file_b1.replace('_b1', ''))
+
         
-    # if the file exists, don't redo it
+
+    
+    # if the xml file exists, don't redo it
+    # and if it takes more than five attempts to download, pass that file
+    
+    xml_files = [] # initialize xml_files (records which downloads were sucessful)
     
     if os.path.exists(file_b1) and os.path.getsize(file_b1) > 1024:
         pass
     else:
-    
-        # check in 
-        print(file_b1.replace('_b1', ''))
-
         
-        url_b1 = epochs_tab[row]['url_band1']
-        os.system('wget -O {file} \"{url}\"'.format(file=file_b1, url=url_b1))
+        # checkpoint
+        print(f'row: {row}')
+                 
+        # try downloading the file 5 times before moving on to the next row
+        max_attempts = 5
+        attempt_count = 0
+        downloaad_sucess_1 = False
     
-    # now that the xml is downloaded, get the files downloaded from the xml
+        while attempt_count < max_attempts:
+            attempt_count+=1
+            
+            try: 
+            
+                # check in 
+                print(file_b1.replace('_b1', ''))
+        
+                
+                url_b1 = epochs_tab[row]['url_band1']
+                
+                os.system('wget -O {file} \"{url}\"'.format(file=file_b1, url=url_b1))
+                download_sucess_1 = True
+                xml_files.append(file_b1)
+                break # leave the while loop once file is downloaded
+                
+            except Exception as e:
+                print(f'Download attempt {attempt_count} failed: {str(e)}')
+                if attempt_count == max_attempts:
+                    print('Max download attempts reached. Moving on')
+            
+    
     
     
     
     if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
-        pass
+        continue
     else:
-        url_b2 = epochs_tab[row]['url_band2']
-        os.system('wget -O {file} \"{url}\"'.format(file=file_b2, url=url_b2))
         
+                         
+        # try downloading the file 5 times before moving on to the next row
+        max_attempts = 5
+        attempt_count = 0
+        download_sucess_2 = False
+    
+        while attempt_count < max_attempts:
+            attempt_count+=1
+            
+            try: 
+            
+                url_b2 = epochs_tab[row]['url_band2']
+                os.system('wget -O {file} \"{url}\"'.format(file=file_b2, url=url_b2))
+                download_sucess_2 = True
+                xml_files.append(file_b2)
+                break # leave the while loop once file is downloaded
+                
+            except Exception as e:
+                print(f'Download attempt {attempt_count} failed: {str(e)}')
+                if attempt_count == max_attempts:
+                    print('Max download attempts reached. Moving on to next row')
         
-    b1_and_b2_files = [file_b1, file_b2]
-    for xml_file in b1_and_b2_files:
+
+    
+    if not download_sucess_1 and not download_sucess_2:
+        continue # move on to next row
+
+        
+    # now that the xml is downloaded, get the files downloaded from the xml
+        
+    
+    for xml_file in xml_files:
         # checkpoint
         print(f'xml_file: {xml_file}')
         
@@ -165,14 +225,17 @@ for row in range(len(epochs_tab)):
             # remove the \n character at the end of file_name
             file_name = file_name.replace('\n','').strip()
             
+            # remove the .xml
+            file_name = file_name.replace('.xml', '').strip()
+            
             
             # checkpoint
             print(f'file name: {file_name}')
             print(f'url: {url}')
         
             # define save_directory depending on the file being downloaded
-            if file_name.endswith('result.html'):
-                save_path = coadd_directory + f'{name}/' + 'results_html/'
+            if file_name.endswith('b1_result.html'):
+                save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -180,8 +243,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('query_used.tbl'):
-                save_path = coadd_directory + f'{name}/' + 'framesused_tbl/'
+            elif file_name.endswith('W1_query_used.tbl'):
+                save_path = coadd_directory + f'{name}/' + 'framesused_tbl/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -189,8 +252,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-int.fits'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-int_fits/'
+            elif file_name.endswith('W1_mosaic-int.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-int_fits/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -198,8 +261,16 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-int.jpg'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-int_jpg/'
+            elif file_name.endswith('W1_mosaic-int.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-int_jpg/' + 'b1/'
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W1_mosaic-unc.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_fits/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -207,8 +278,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-unc.fits'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_fits/'
+            elif file_name.endswith('W1_mosaic-unc.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_jpg/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -216,8 +287,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-unc.jpg'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_jpg/'
+            elif file_name.endswith('W1_mosaic-cov.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_fits/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -225,8 +296,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-cov.fits'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_fits/'
+            elif file_name.endswith('W1_mosaic-cov.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_jpg/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -234,8 +305,8 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-cov.jpg'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_jpg/'
+            elif file_name.endswith('W1_mosaic-std.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-std_fits/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
@@ -243,24 +314,104 @@ for row in range(len(epochs_tab)):
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('mosaic-std.fits'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-std_fits/'
+            elif file_name.endswith('W1_mosaic-std.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-std_jpg/' + 'b1/'
                 
                 # Build the full path to save the file
                 file_path = os.path.join(save_path, file_name)
             
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
-                
-            elif file_name.endswith('mosaic-std.jpg'):
-                save_path = coadd_directory + f'{name}/' + 'mosaic-std_jpg/'
-                
-                # Build the full path to save the file
-                file_path = os.path.join(save_path, file_name)
-            
-                # Download the file
-                os.system(f'wget -O "{file_path}" "{url}"')
-    
     
 
+            elif file_name.endswith('b2_result.html'):
+                save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_query_used.tbl'):
+                save_path = coadd_directory + f'{name}/' + 'framesused_tbl/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-int.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-int_fits/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-int.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-int_jpg/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-unc.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_fits/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-unc.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-unc_jpg/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-cov.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_fits/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-cov.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-cov_jpg/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-std.fits'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-std_fits/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+                
+            elif file_name.endswith('W2_mosaic-std.jpg'):
+                save_path = coadd_directory + f'{name}/' + 'mosaic-std_jpg/' + 'b2/'
+                
+                # Build the full path to save the file
+                file_path = os.path.join(save_path, file_name)
+            
+                # Download the file
+                os.system(f'wget -O "{file_path}" "{url}"')
+        
 
