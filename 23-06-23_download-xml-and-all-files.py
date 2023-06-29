@@ -29,8 +29,8 @@ import numpy as np
 
 #%% define directory and establish date (for naming the log)
 
-directory ='/users/dzakaria/dzfiles/'
-coadd_directory ='/users/dzakaria/dzfiles/coadds-0_0667/'
+directory ='/users/dzakaria/DATA/dzfiles/'
+coadd_directory ='/users/dzakaria/DATA/dzfiles/coadds-0_0667/'
 
 current_datetime =  datetime.now()
 date = current_datetime.strftime('%Y-%m-%d_%H:%M:%S') # update this so the log is correct
@@ -39,7 +39,7 @@ date = current_datetime.strftime('%Y-%m-%d_%H:%M:%S') # update this so the log i
 
 size ='0_0667'
 
-epochs_tab=QTable.read('{path}16-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
+epochs_tab=QTable.read('{path}27-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
 
 
 #%% make directories for each object
@@ -128,7 +128,7 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
         # try downloading the file 5 times before moving on to the next row
         max_attempts = 5
         attempt_count = 0
-        downloaad_sucess_1 = False
+        download_sucess_1 = False
     
         while attempt_count < max_attempts:
             attempt_count+=1
@@ -233,17 +233,18 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
             print(f'file name: {file_name}')
             print(f'url: {url}')
         
-            # define save_directory depending on the file being downloaded
-            if file_name.endswith('b1_result.html'):
-                save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b1/'
+            # html doesn't save useful info
+            # # define save_directory depending on the file being downloaded
+            # if file_name.endswith('b1result.html'):
+            #     save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b1/'
                 
-                # Build the full path to save the file
-                file_path = os.path.join(save_path, file_name)
+                # # Build the full path to save the file
+                # file_path = os.path.join(save_path, file_name)
             
-                # Download the file
-                os.system(f'wget -O "{file_path}" "{url}"')
+                # # Download the file
+                # os.system(f'wget -O "{file_path}" "{url}"')
                 
-            elif file_name.endswith('W1_query_used.tbl'):
+            if file_name.endswith('W1_query_used.tbl'):
                 save_path = coadd_directory + f'{name}/' + 'framesused_tbl/' + 'b1/'
                 
                 # Build the full path to save the file
@@ -323,15 +324,15 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
                 # Download the file
                 os.system(f'wget -O "{file_path}" "{url}"')
     
-
-            elif file_name.endswith('b2_result.html'):
-                save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b2/'
+            # html doesn't save useful info
+            # elif file_name.endswith('b2result.html'):
+            #     save_path = coadd_directory + f'{name}/' + 'results_html/' + 'b2/'
                 
-                # Build the full path to save the file
-                file_path = os.path.join(save_path, file_name)
+            #     # Build the full path to save the file
+            #     file_path = os.path.join(save_path, file_name)
             
-                # Download the file
-                os.system(f'wget -O "{file_path}" "{url}"')
+            #     # Download the file
+            #     os.system(f'wget -O "{file_path}" "{url}"')
                 
             elif file_name.endswith('W2_query_used.tbl'):
                 save_path = coadd_directory + f'{name}/' + 'framesused_tbl/' + 'b2/'

@@ -31,7 +31,7 @@ from datetime import datetime
 
 # directory path
 
-directory = '/users/dzakaria/dzfiles/'
+directory = '/users/dzakaria/DATA/dzfiles/'
 filename = 'targets-daphne.csv'
 path = directory + filename
 targets_tab = QTable.read(path, format = 'ascii.csv')
@@ -39,6 +39,14 @@ targets_tab = QTable.read(path, format = 'ascii.csv')
 # first column has a weird unicode thing happening - fix that by renaming column
 # you can see column names by doing table.colnames()
 targets_tab.rename_column('\ufeffobj_name', 'obj_name')
+
+
+
+#%% some of the targets have imprecise coordinates... fix those here
+
+# L483
+targets_tab[2]['ra'] = '18 17 29.8'
+targets_tab[2]['dec'] = '-4 39 36.4'
 
 # %%  # Format table (assign units and make SkyCoord object column)
 
@@ -80,6 +88,8 @@ epochs_tab['ra'].dtype='<U64'
 epochs_tab['dec'].dtype='<U64'
 epochs_tab['date_obs1'].dtype='<U64'
 epochs_tab['date_obs2'].dtype='<U64'
+
+
 #%% # Loop through targets and determine object epochs
 
 
@@ -271,10 +281,19 @@ for row in range(len(epochs_tab)):
     epochs_tab['url_band1'][row] = url_band1
     epochs_tab['url_band2'][row] = url_band2
     
-    #%%
     
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-    ascii.write(epochs_tab, '{path}16-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
+
+
+#%% delete the extra rows
+
+for row in reversed(range(len(epochs_tab))):
+    if epochs_tab[row]['mjd_obs1'] == 0:
+        epochs_tab.remove_row(row)
+    
+#%% save files
+    
+    ascii.write(epochs_tab, '{path}27-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}27-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
 
     
     

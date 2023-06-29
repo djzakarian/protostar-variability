@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 26 14:44:47 2023
+
+GOAL: 
+    learn how to do aperture photometry
+    with photutils
+
+@author: dzakaria
+"""
+
+#%% imports
+
+import numpy as np
+from photutils.datasets import load_star_image
+from photutils.detection import DAOStarFinder
+from photutils.aperture import aperture_photometry, CircularAperture
+from astropy.stats import mad_std
+import matplotlib.pyplot as plt
+
+#%% load image from bundled datasets and slect a subset of image
+hdu = load_star_image()
+image = hdu.data[500:700, 500:700].astype(float)
+
+#%% subtract a rough estimate of background (the median brightness)
+
+image -= np.median(image) # now we treat the image as background subtracted
+
+#%% use DAOStarFinder to detect stars in the image
+# dectection threshold: 3 sigma noise level, estimated using median abs deviation (mad_std)
+
+bkg_sigma = mad_std(image)
+daofind = DAOStarFinder(fwhm=4, threshold=3*bkg_sigma)
+sources = daofind(image)
+for col in sources.colnames:
+    sources[col].info.format = '%.8g' # for consistent table output
+
+print(sources)
+
+#%% use source locations to define apertures centered at these positions with a radius of 4 pixels
+# and compute the sum of the pixel values within the apertures
+
+positions = np.transpose((sources['xcentroid'], sources['ycentroid']))
+apertures = CircularAperture(positions, r=4.0)
+phot_table = aperture_photometry(image, apertures)
+for col in phot_table.colnames:
+    phot_table[col].info.format = '%.8g' # for consistent table output
+    
+print(phot_table)
+
+#%% plot the image and defined apertures
+
+plt.imshow(image, cmap='gray_r', origin='lower')
+apertures.plot(color='blue', lw=1.5, alpha=0.5)

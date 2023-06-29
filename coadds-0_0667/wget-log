@@ -1,0 +1,15 @@
+--2023-06-26 14:34:25--  https://irsa.ipac.caltech.edu/work/TMP_HiTXtn_22094/ICORE/08_14_25.100_-34_31_13.100.v0001/results/ICORE_0001_W2_mosaic-std.fits
+Resolving irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)... 134.4.54.110
+Connecting to irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)|134.4.54.110|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 233280 (228K) [image/x-fits]
+Saving to: ‘/users/dzakaria/dzfiles/coadds-0_0667/BHR7_IRAS08124-3422/mosaic-std_fits/b2/BHR7_IRAS08124-3422_size0_0667_ep12_b2ICORE_0001_W2_mosaic-std.fits’
+
+     0K .......... .......... .......... .......... .......... 21% 19.5K 9s
+    50K .......... .......... .......... .......... .......... 43% 24.8K 6s
+   100K .......... .......... .......... .......... .......... 65% 22.6K 4s
+   150K .......... .......... .......... .......... .......... 87% 21.4K 1s
+   200K .......... .......... .......                         100% 61.7K=9.6s
+
+2023-06-26 14:34:45 (23.8 KB/s) - ‘/users/dzakaria/dzfiles/coadds-0_0667/BHR7_IRAS08124-3422/mosaic-std_fits/b2/BHR7_IRAS08124-3422_size0_0667_ep12_b2ICORE_0001_W2_mosaic-std.fits’ saved [233280/233280]
+
