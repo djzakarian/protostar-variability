@@ -21,11 +21,13 @@ INSTRUCTIONS:
 
 import xml.etree.ElementTree as ET
 import os
-from astropy.table import QTable, Column
+from astropy.table import QTable
+from astropy.coordinates import SkyCoord 
+import astropy.units as u
+from astropy.time import Time
 from datetime import datetime
-import time
 import numpy as np
-import psutil
+
 
 
 #%% define directory and establish date (for naming the log)
@@ -33,14 +35,12 @@ import psutil
 directory ='/users/dzakaria/DATA/dzfiles/'
 coadd_directory ='/users/dzakaria/DATA/dzfiles/coadds-0_0667/'
 
-current_datetime =  datetime.now()
-date = current_datetime.strftime('%Y-%m-%d_%H:%M:%S') # update this so the log is correct
 
 #%% read in the table with all of the coadd urls are held
 
 size ='0_0667'
 
-epochs_tab=QTable.read('{path}29-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
+epochs_tab=QTable.read('{path}30-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
 
 
 #%% make directories for each object
@@ -94,6 +94,51 @@ for obj in obj_names:
 relevant_tags=['resultHtml', 'framesused', 'images', 'fits', 'jpg', 'fits', 'jpg', 'fits', 'jpg', 'fits', 'jpg']
 
 
+#%% 
+
+def sub_epoch_urls(epochs_tab_row, band, size = 0.0667):
+    
+    # split epoch into two and get urls
+    ra = epochs_tab[row]['ra']
+    dec = epochs_tab[row]['dec']
+    date1_str = epochs_tab[row]['date_obs1']
+    date2_str = epochs_tab[row]['date_obs2']
+
+    
+    
+    # turn mjd date of middle date to a consistent format (ISO 8601 format according to chatgpt :)
+    date1, date2 = epochs_tab[row]['mjd_obs1'], epochs_tab[row]['mjd_obs2']
+    mid_obs = (date1 + date2) / 2
+    t = Time(mid_obs, format='mjd', scale='utc')
+    datemid_str = t.iso
+    
+
+
+    
+    # formate date1 and date2 for the url
+    
+    # date1:
+    dt1 = datetime.strptime(date1_str, '%Y-%m-%d %H:%M:%S.%f')
+    date1 = dt1.strftime('%d%b%Y %H:%M:%S')
+    
+    dtmid = datetime.strptime(datemid_str, '%Y-%m-%d %H:%M:%S.%f') 
+    datemid =  dtmid.strftime('%d%b%Y %H:%M:%S')
+    
+    dt2 = datetime.strptime(date2_str, '%Y-%m-%d %H:%M:%S.%f')
+    date2 = dt2.strftime('%d%b%Y %H:%M:%S')
+    
+    coordinate = SkyCoord(ra=ra, dec=dec, unit=u.deg)
+    
+    coord = coordinate.to_string('hmsdms', sep=':', precision = 3)
+        
+    
+    url_a = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord}&band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
+            .format(coord=coord,band=band, sizeX=size, sizeY=size, date1=date1, date2=datemid)
+    
+    url_b = "https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr={coord}&band={band}&sizeX={sizeX}&sizeY={sizeY}&date1={date1}&date2={date2}&mode=PI" \
+            .format(coord=coord,band=band, sizeX=size, sizeY=size, date1=datemid, date2=date2)    
+    return url_a, url_b
+
 
 #%% loop through the epochs_tab table and use urls to download coadds and relevant files
 
@@ -114,64 +159,109 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
     
 
         
-
-
+    # initialize list of successfully downloaded xml files
+    xml_files = []
     
     if os.path.exists(file_b1) and os.path.getsize(file_b1) > 1024:
         pass # check if the next file exists
-    else:
         
+    else: 
         
         
         # checkpoint
         print(f'row: {row}')
-
-        
         # check in 
         print(file_b1.replace('_b1', ''))
 
-        
+        # read in url and make wget command
         url_b1 = epochs_tab[row]['url_band1']
-        
-        
-        # start the timer
-        start_time = time.time()
         os.system(f'wget -O {file_b1} -t 3 \"{url_b1}\"')
  
         if os.path.exists(file_b1) and os.path.getsize(file_b1) > 1024:
+            xml_files.append(file_b1)
             pass # keep going in this row, download was succesful
         
-        else:
-             continue # move on, unsuccessful download
-    
-    
-    if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
-        continue # move on to next row 
-    else:
+        else: 
+            # epoch download was not successful
         
             
-        
+            # don't give up: try splitting the epoch in half to reduce strain on the servers
+            # now there are two sub_epochs
+            # the new epoch will be epoch + 0.5
+            
+            epoch_a = float(epoch)
+            epoch_b = epoch_a + 0.5
+            
+            file_b1a = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch_a, band=1) 
+            file_b1b = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch_b, band=1) 
+            
+            url_b1a, url_b1b = sub_epoch_urls(row, band=1)
+          
+            # attempt to download the files
+            os.system(f'wget -O {file_b1a} -t 3 \"{url_b1a}\"')
+            os.system(f'wget -O {file_b1b} -t 3 \"{url_b1b}\"')
+            
+            # now check if the new files downloaded successfully
+            if (os.path.exists(file_b1a) and os.path.getsize(file_b1a) > 1024 
+                and os.path.exists(file_b1b) and os.path.getsize(file_b1b) > 1024):
+                xml_files.append(file_b1a)
+                xml_files.append(file_b1b)
+                
+            else:
+                continue # still didn't work, so move on 
+                
 
+    
+    if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
         
+        continue # move on to next row, these files have been downloaded
+    else:
+        
+        # read in url and make wget command
         url_b2 = epochs_tab[row]['url_band2']
-        
-        
-        # start the timer
-        start_time = time.time()
         os.system(f'wget -O {file_b2} -t 3 \"{url_b2}\"')
  
         if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
+            xml_files.append(file_b2)
             pass # keep going in this row, download was succesful
         
-        else:
-             continue # move on, unsuccessful download
+        else: 
+            # epoch download was not successful
+
+            
+            # don't give up: try splitting the epoch in half to reduce strain on the servers
+            # now there are two sub_epochs
+            # the new epoch will be epoch + 0.5
+            
+            epoch_a = float(epoch)
+            epoch_b = epoch_a + 0.5
+            
+            file_b2a = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch_a, band=2) 
+            file_b2b = '{name}_size{size}_ep{epoch}_b{band}.xml'.format(name=name, size=size, epoch=epoch_b, band=2) 
+            
+            url_b2a, url_b2b = sub_epoch_urls(row, band=2)
+          
+            # attempt to download the files
+            os.system(f'wget -O {file_b2a} -t 3 \"{url_b2a}\"')
+            os.system(f'wget -O {file_b2b} -t 3 \"{url_b2b}\"')
+            
+            # now check if the new files downloaded successfully
+            if (os.path.exists(file_b2a) and os.path.getsize(file_b2a) > 1024 
+                and os.path.exists(file_b2b) and os.path.getsize(file_b2b) > 1024):
+                xml_files.append(file_b2a, file_b2b) 
+                
+            else:
+                
+                continue # still didn't work, so move on 
+                
+
     
             
         
         
     # now that the xml is downloaded, get the files downloaded from the xml
         
-    xml_files = [file_b1, file_b2]
+    
     for xml_file in xml_files:
         # checkpoint
         print(f'xml_file: {xml_file}')

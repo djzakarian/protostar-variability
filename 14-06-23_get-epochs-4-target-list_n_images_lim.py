@@ -13,7 +13,9 @@ Created on Wed Jun 14 10:45:23 2023
     Note: if the coadds on command line timeout, we will need to manually 
     download images using the web interface of the coadder tool (https://irsa.ipac.caltech.edu/applications/ICORE/)
     
-    don't worry about n_images
+
+    SPLIT epochs if n_images>100
+    
 @author: dzakaria 
 """
 
@@ -181,11 +183,46 @@ for targets_row in range(len(targets_tab)):
         
         # if time between obs is less than 2 days... the two obs are in the same epoch
         # we do want to count how many images are in each epoch
-        if mjd - prev_mjd <= 15:
+
+        if targets_row >= 7 and n_images >= 100:
+            
+            # add to the counter on number of images
+            n_images+=1
+            
+            # first update the end of the previous epoch 
+            epochs_tab['date_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['date_obs']
+            epochs_tab['mjd_obs2'][epochs_tab_rownum] = all_obs_tab[prev_row]['mjd_obs']
+            epochs_tab['n_images'][epochs_tab_rownum] = n_images
+            
+            # then update the beginning of the next epoch
+            epoch +=1 
+            
+            epochs_tab_rownum += 1
+            epochs_tab.add_row()
+            
+            epochs_tab['date_obs1'][epochs_tab_rownum] = all_obs_tab[row]['date_obs']
+            epochs_tab['mjd_obs1'][epochs_tab_rownum] = all_obs_tab[row]['mjd_obs']
+            epochs_tab['obj_epoch'][epochs_tab_rownum]=epoch
+            epochs_tab['obj_name'][epochs_tab_rownum] = obj_name
+            epochs_tab['ra'][epochs_tab_rownum] = coord.ra
+            epochs_tab['dec'][epochs_tab_rownum] = coord.dec
+            
+            
+          
+            # reset n_images to 0
+            n_images = 0
+            continue 
+        
+        elif mjd - prev_mjd <= 15:
             n_images+=1
             continue
         
-        # if obs are more than 2 days apart... there's a new epoch!
+        
+        # for rows greater than 7 (where my code broke), divide rows with more than 100 images
+        # if obs are more than 2 days apart ... there's a new epoch!
+        
+        
+        
         elif mjd - prev_mjd > 15:
             
             # add to the counter on number of images
@@ -217,13 +254,13 @@ for targets_row in range(len(targets_tab)):
 
 
 #%% save epochs_tab table 
-ascii.write(epochs_tab, '{path}30-06-23_epochs_table.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-ascii.write(epochs_tab, '{path}30-06-23_epochs_table.csv'.format(path=directory), format='csv', overwrite=True)   
+ascii.write(epochs_tab, '{path}29-06-23_epochs_table.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+ascii.write(epochs_tab, '{path}29-06-23_epochs_table.csv'.format(path=directory), format='csv', overwrite=True)   
 
 
 #%% read in tables
 
-epochs_tab=QTable.read('{path}30-06-23_epochs_table.ecsv'.format(path=directory))
+epochs_tab=QTable.read('{path}29-06-23_epochs_table.ecsv'.format(path=directory))
 
 #%% clean table
 
@@ -292,8 +329,8 @@ for row in reversed(range(len(epochs_tab))):
     
 #%% save files
     
-    ascii.write(epochs_tab, '{path}30-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-    ascii.write(epochs_tab, '{path}30-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
+    ascii.write(epochs_tab, '{path}29-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}29-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
 
     
     
