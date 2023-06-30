@@ -10,7 +10,7 @@ GOALS: Putting everything together:
     
 INSTRUCTIONS: 
     This file needs to be run on command line:
-        1. cd into the directory where all of the xml files are housed (IMPORTANT)
+        1. cd into the directory where all of the xml files are housed (coadd directory) (IMPORTANT)
         2. conda activate astroconda
         3. python {this python code path}
 
@@ -25,6 +25,7 @@ from astropy.table import QTable, Column
 from datetime import datetime
 import time
 import numpy as np
+import psutil
 
 
 #%% define directory and establish date (for naming the log)
@@ -39,7 +40,7 @@ date = current_datetime.strftime('%Y-%m-%d_%H:%M:%S') # update this so the log i
 
 size ='0_0667'
 
-epochs_tab=QTable.read('{path}27-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
+epochs_tab=QTable.read('{path}29-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
 
 
 #%% make directories for each object
@@ -92,6 +93,8 @@ for obj in obj_names:
 
 relevant_tags=['resultHtml', 'framesused', 'images', 'fits', 'jpg', 'fits', 'jpg', 'fits', 'jpg', 'fits', 'jpg']
 
+
+
 #%% loop through the epochs_tab table and use urls to download coadds and relevant files
 
 for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't working
@@ -112,84 +115,63 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
 
         
 
-    
-    # if the xml file exists, don't redo it
-    # and if it takes more than five attempts to download, pass that file
-    
-    xml_files = [] # initialize xml_files (records which downloads were sucessful)
+
     
     if os.path.exists(file_b1) and os.path.getsize(file_b1) > 1024:
-        pass
+        pass # check if the next file exists
     else:
+        
+        
         
         # checkpoint
         print(f'row: {row}')
-                 
-        # try downloading the file 5 times before moving on to the next row
-        max_attempts = 5
-        attempt_count = 0
-        download_sucess_1 = False
-    
-        while attempt_count < max_attempts:
-            attempt_count+=1
-            
-            try: 
-            
-                # check in 
-                print(file_b1.replace('_b1', ''))
+
         
-                
-                url_b1 = epochs_tab[row]['url_band1']
-                
-                os.system('wget -O {file} \"{url}\"'.format(file=file_b1, url=url_b1))
-                download_sucess_1 = True
-                xml_files.append(file_b1)
-                break # leave the while loop once file is downloaded
-                
-            except Exception as e:
-                print(f'Download attempt {attempt_count} failed: {str(e)}')
-                if attempt_count == max_attempts:
-                    print('Max download attempts reached. Moving on')
-            
-    
-    
+        # check in 
+        print(file_b1.replace('_b1', ''))
+
+        
+        url_b1 = epochs_tab[row]['url_band1']
+        
+        
+        # start the timer
+        start_time = time.time()
+        os.system(f'wget -O {file_b1} -t 3 \"{url_b1}\"')
+ 
+        if os.path.exists(file_b1) and os.path.getsize(file_b1) > 1024:
+            pass # keep going in this row, download was succesful
+        
+        else:
+             continue # move on, unsuccessful download
     
     
     if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
-        continue
+        continue # move on to next row 
     else:
         
-                         
-        # try downloading the file 5 times before moving on to the next row
-        max_attempts = 5
-        attempt_count = 0
-        download_sucess_2 = False
-    
-        while attempt_count < max_attempts:
-            attempt_count+=1
             
-            try: 
-            
-                url_b2 = epochs_tab[row]['url_band2']
-                os.system('wget -O {file} \"{url}\"'.format(file=file_b2, url=url_b2))
-                download_sucess_2 = True
-                xml_files.append(file_b2)
-                break # leave the while loop once file is downloaded
-                
-            except Exception as e:
-                print(f'Download attempt {attempt_count} failed: {str(e)}')
-                if attempt_count == max_attempts:
-                    print('Max download attempts reached. Moving on to next row')
         
 
+        
+        url_b2 = epochs_tab[row]['url_band2']
+        
+        
+        # start the timer
+        start_time = time.time()
+        os.system(f'wget -O {file_b2} -t 3 \"{url_b2}\"')
+ 
+        if os.path.exists(file_b2) and os.path.getsize(file_b2) > 1024:
+            pass # keep going in this row, download was succesful
+        
+        else:
+             continue # move on, unsuccessful download
     
-    if not download_sucess_1 and not download_sucess_2:
-        continue # move on to next row
-
+            
+        
         
     # now that the xml is downloaded, get the files downloaded from the xml
         
-    
+    xml_files = [file_b1, file_b2]
     for xml_file in xml_files:
         # checkpoint
         print(f'xml_file: {xml_file}')
