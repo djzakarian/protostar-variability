@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<result status="ok">
+  <description>
+     <ra>   12.351250000</ra>
+     <dec>   50.743330000</dec>
+     <band>1</band>
+     <sizeX>0.0667</sizeX>
+     <sizeY>0.0667</sizeY>
+     <rot></rot>
+     <pix></pix>
+     <qframe></qframe>
+     <moon></moon>
+     <saa></saa>
+     <date1>02Jan2019 22:31:31</date1>
+     <date2>04Jan2019 07:30:14</date2>
+     <sccoad>area</sccoad>
+     <prodtype>coadd</prodtype>
+  </description>
+  <summary>
+     <ngood>
+       1
+     </ngood>
+     <resultHtml>
+       https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/result.html
+     </resultHtml>
+     <framesused>
+       https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_query_used.tbl
+     </framesused>
+  </summary>
+  <images>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-int.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-int.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-unc.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-unc.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-cov.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-cov.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-std.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_0sfk8u_8633/ICORE/00_49_24.300__50_44_36.000.v0001/results/ICORE_0001_W1_mosaic-std.jpg
+ </jpg>
+  </images>
+</result>
+

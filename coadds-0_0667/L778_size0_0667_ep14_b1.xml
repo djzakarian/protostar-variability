@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<result status="ok">
+  <description>
+     <ra>  291.631500000</ra>
+     <dec>   23.980280000</dec>
+     <band>1</band>
+     <sizeX>0.0667</sizeX>
+     <sizeY>0.0667</sizeY>
+     <rot></rot>
+     <pix></pix>
+     <qframe></qframe>
+     <moon></moon>
+     <saa></saa>
+     <date1>29Sep2020 23:25:25</date1>
+     <date2>01Oct2020 11:31:20</date2>
+     <sccoad>area</sccoad>
+     <prodtype>coadd</prodtype>
+  </description>
+  <summary>
+     <ngood>
+       1
+     </ngood>
+     <resultHtml>
+       https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/result.html
+     </resultHtml>
+     <framesused>
+       https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_query_used.tbl
+     </framesused>
+  </summary>
+  <images>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-int.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-int.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-unc.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-unc.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-cov.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-cov.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-std.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_cVZFA2_17504/ICORE/19_26_31.560__23_58_49.000.v0001/results/ICORE_0001_W1_mosaic-std.jpg
+ </jpg>
+  </images>
+</result>
+

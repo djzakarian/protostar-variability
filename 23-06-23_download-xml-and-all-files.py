@@ -248,7 +248,8 @@ for row in range(0, len(epochs_tab)): #note: come back to row 129 bc it wasn't w
             # now check if the new files downloaded successfully
             if (os.path.exists(file_b2a) and os.path.getsize(file_b2a) > 1024 
                 and os.path.exists(file_b2b) and os.path.getsize(file_b2b) > 1024):
-                xml_files.append(file_b2a, file_b2b) 
+                xml_files.append(file_b2a) 
+                xml_files.append(file_b2b) 
                 
             else:
                 

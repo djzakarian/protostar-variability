@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<result status="ok">
+  <description>
+     <ra>  146.693580000</ra>
+     <dec>  -51.268610000</dec>
+     <band>2</band>
+     <sizeX>0.0667</sizeX>
+     <sizeY>0.0667</sizeY>
+     <rot></rot>
+     <pix></pix>
+     <qframe></qframe>
+     <moon></moon>
+     <saa></saa>
+     <date1>11Jun2015 09:02:37</date1>
+     <date2>13Jun2015 06:42:40</date2>
+     <sccoad>area</sccoad>
+     <prodtype>coadd</prodtype>
+  </description>
+  <summary>
+     <ngood>
+       1
+     </ngood>
+     <resultHtml>
+       https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/result.html
+     </resultHtml>
+     <framesused>
+       https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_query_used.tbl
+     </framesused>
+  </summary>
+  <images>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-int.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-int.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-unc.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-unc.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-cov.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-cov.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-std.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_dcRsq9_24339/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W2_mosaic-std.jpg
+ </jpg>
+  </images>
+</result>
+

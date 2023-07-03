@@ -1,0 +1,36 @@
+\fixlen = T
+\RowsRetrieved = 833
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1       67.933329999999998       18.141390000000001    02157a        7a                      123                        1                       10       21.295999999999999       24887.961887240399                   23.491         1266960396.01999 2010-02-23 21:26:36.020           02157a123-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02158a        8a                      147                        1                       10       21.620999999999999       30609.003317356099       32.543999999999997       1266966117.0610199 2010-02-23 23:01:57.061           02158a147-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02161a        1a                      122                        1                       10       22.975999999999999       36319.040569484197       46.417000000000002           1266971827.099 2010-02-24 00:37:07.099           02161a122-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02163a        3a                       88                        1                       10       23.315000000000001       2077.6418932080301       62.578000000000003       1266977548.1360099 2010-02-24 02:12:28.136           02163a088-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02165a        5a                      123                        1                       10       24.521999999999998       7798.6792249679602       82.135999999999996       1266983269.1730101 2010-02-24 03:47:49.173           02165a123-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02169a        9a                      123                        1                       10       26.239999999999998          19229.753808856                  124.727       1266994700.2479999 2010-02-24 06:58:20.248           02169a123-w1-int-1b.fits 
+                        1       67.933329999999998       18.141390000000001    02173a        3a                      123                        1                       10       27.969000000000001       30660.832491040201       93.102000000000004         1267006131.32601 2010-02-24 10:08:51.326           02173a123-w1-int-1b.fits 

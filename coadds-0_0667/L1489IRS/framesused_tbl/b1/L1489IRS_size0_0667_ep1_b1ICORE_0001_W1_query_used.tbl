@@ -1,0 +1,38 @@
+\fixlen = T
+\RowsRetrieved = 713
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1       61.178539999999998       26.315639999999998    46294a        4a                      161                        1                       10                  149.262                   999999                  103.971         1392889704.11501 2014-02-20 09:48:24.115           46294a161-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46302a        2a                      161                        1                       10                  152.209                   999999       49.332999999999998       1392912466.8770001 2014-02-20 16:07:46.877           46302a161-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46305a        5a                      136                        1                        5                  153.405                   999999       40.307000000000002       1392918154.9070201 2014-02-20 17:42:34.907           46305a136-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46306a        6a                      161                        1                       10       153.59899999999999                   999999       31.745999999999999       1392923853.9379799 2014-02-20 19:17:33.938           46306a161-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46309a        9a                      137                        1                       10       154.79300000000001                   999999       31.891999999999999       1392929541.9719901 2014-02-20 20:52:21.972           46309a137-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46310a        0a                      161                        1                       10       155.13200000000001                   999999                   35.942       1392935230.0020101 2014-02-20 22:27:10.002           46310a161-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46314a        4a                      161                        1                        5                  156.495                   999999                   60.741           1392946617.063 2014-02-21 01:36:57.063           46314a161-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46317a        7a                      137                        1                       10       157.68199999999999                   999999       76.680999999999997         1392952305.09302 2014-02-21 03:11:45.093           46317a137-w1-int-1b.fits 
+                        1       61.178539999999998       26.315639999999998    46321a        1a                      137                        1                       10                  159.214                   999999                  115.732         1392963681.15398 2014-02-21 06:21:21.154           46321a137-w1-int-1b.fits 

@@ -1,0 +1,38 @@
+\fixlen = T
+\RowsRetrieved = 741
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1                 247.0925      -24.608609999999999    63066a        6a                      145                        1                       10                   27.561                   999999       44.490000000000002       1440510052.9000001 2015-08-25 13:40:52.897           63066a145-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63070a        0a                      144                        1                        5       29.222999999999999                   999999       2.7330000000000001            1440521384.98 2015-08-25 16:49:44.980           63070a144-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63081a        1a                      121                        1                       10       33.668999999999997                   999999       8.4060000000000006       1440549726.1900001 2015-08-26 00:42:06.191           63081a121-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63082a        2a                      144                        1                       10       34.088999999999999                   999999                   29.224            1440555392.23 2015-08-26 02:16:32.232           63082a144-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63085a        5a                       53                        1                       10       35.368000000000002                   999999                    49.57            1440561058.27 2015-08-26 03:50:58.274           63085a053-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63086a        6a                      144                        1                       10       35.789000000000001                   999999       69.221000000000004       1440566724.3099999 2015-08-26 05:25:24.311           63086a144-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63089a        9a                      120                        1                       10       37.070999999999998                   999999       86.689999999999998       1440572390.3499999 2015-08-26 06:59:50.352           63089a120-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63093a        3a                      121                        1                       10       38.640999999999998                   999999       88.959999999999994       1440583733.4300001 2015-08-26 10:08:53.435           63093a121-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    63097a        7a                      120                        1                       10       40.363999999999997                   999999       49.509999999999998            1440595065.52 2015-08-26 13:17:45.518           63097a120-w1-int-1b.fits 

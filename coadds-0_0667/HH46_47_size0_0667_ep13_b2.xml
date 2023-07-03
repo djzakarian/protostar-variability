@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<result status="ok">
+  <description>
+     <ra>  126.431670000</ra>
+     <dec>  -51.010000000</dec>
+     <band>2</band>
+     <sizeX>0.0667</sizeX>
+     <sizeY>0.0667</sizeY>
+     <rot></rot>
+     <pix></pix>
+     <qframe></qframe>
+     <moon></moon>
+     <saa></saa>
+     <date1>05May2020 16:34:09</date1>
+     <date2>07May2020 23:29:59</date2>
+     <sccoad>area</sccoad>
+     <prodtype>coadd</prodtype>
+  </description>
+  <summary>
+     <ngood>
+       1
+     </ngood>
+     <resultHtml>
+       https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/result.html
+     </resultHtml>
+     <framesused>
+       https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_query_used.tbl
+     </framesused>
+  </summary>
+  <images>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-int.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-int.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-unc.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-unc.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-cov.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-cov.jpg
+ </jpg>
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-std.fits
+ </fits>
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uCRcLe_21096/ICORE/08_25_43.600_-51_00_36.000.v0001/results/ICORE_0001_W2_mosaic-std.jpg
+ </jpg>
+  </images>
+</result>
+

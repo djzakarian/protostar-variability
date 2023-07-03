@@ -1,0 +1,37 @@
+\fixlen = T
+\RowsRetrieved = 741
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1                 247.0925      -24.608609999999999    79925b        5b                      147                        2                       10       108.68899999999999                   999999                   72.872            1488238578.71 2017-02-27 23:36:18.710           79925b147-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79929b        9b                      148                        2                       10                  110.339                   999999       31.989999999999998       1488249899.8099999 2017-02-28 02:44:59.809           79929b148-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79944a        4a                      123                        2                       10                  116.617                   999999       20.702000000000002       1488289507.1500001 2017-02-28 13:45:07.150           79944a123-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79945b        5b                      147                        2                       10                   117.03                   999999       41.179000000000002             1488295162.2 2017-02-28 15:19:22.197           79945b147-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79948a        8a                      122                        2                       10       118.31999999999999                   999999       61.290999999999997            1488300817.25 2017-02-28 16:53:37.249           79948a122-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79952a        2a                      123                        2                       10       119.96899999999999                   999999       94.293999999999997       1488312138.3399999 2017-02-28 20:02:18.344           79952a123-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79956a        6a                      122                        2                       10                  121.678                   999999       78.290000000000006            1488323448.45 2017-02-28 23:10:48.447           79956a122-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    79956a        6a                      123                        2                       10                  121.614                   999999       77.837000000000003            1488323459.45 2017-02-28 23:10:59.447           79956a123-w2-int-1b.fits 

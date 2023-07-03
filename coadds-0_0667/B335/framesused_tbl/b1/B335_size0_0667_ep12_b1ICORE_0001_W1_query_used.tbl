@@ -1,0 +1,38 @@
+\fixlen = T
+\RowsRetrieved = 809
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1       294.25349999999997       7.5692399999999997    16126r        6r                       93                        1                        5       49.057825757151797                   999999       57.292651999999997         1587180010.92101 2020-04-18 03:20:10.921           16126r093-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16134r        4r                       93                        1                        5       51.278760879705104                   999999       18.810953999999999         1587202609.06498 2020-04-18 09:36:49.065           16134r093-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16134r        4r                       94                        1                        5       50.877459762341097                   999999                18.038332         1587202620.06899 2020-04-18 09:37:00.069           16134r094-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16138r        8r                       93                        1                       10       52.015232944588298                   999999       24.424637000000001       1587213919.1129899 2020-04-18 12:45:19.113           16138r093-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16140r        0r                       68                        1                        5       53.143829978494097                   999999       37.283478000000002       1587219563.1340001 2020-04-18 14:19:23.134           16140r068-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16144r        4r                       68                        1                        5       54.287864784149598                   999999       70.869639000000006       1587230862.1819899 2020-04-18 17:27:42.182           16144r068-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16144r        4r                       69                        1                        5       53.921545373306401                   999999       70.703778999999997       1587230873.1820099 2020-04-18 17:27:53.182           16144r069-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16152r        2r                       69                        1                        5         56.2481808048231                   999999               101.577789         1587253471.27299 2020-04-18 23:44:31.273           16152r069-w1-int-1b.fits 
+                        1       294.25349999999997       7.5692399999999997    16160r        0r                       68                        1                        5       58.593703821860601                   999999                38.344037       1587276069.3640201 2020-04-19 06:01:09.364           16160r068-w1-int-1b.fits 

@@ -64,7 +64,7 @@ for file in file_list:
     
     
     
-    im=ax.imshow(scaled_datadata, cmap='gray',origin='lower', norm=norm)
+    im=ax.imshow(scaled_data, cmap='gray',origin='lower', norm=norm)
 
 
     
@@ -113,6 +113,8 @@ for file in file_list:
     
     
     im=ax.imshow(scaled_data, cmap='gray',origin='lower', norm=norm)
+    
+
     
     fig.canvas.draw()
     image = Image.frombytes('RGB', fig.canvas.get_width_height(), fig.canvas.tostring_rgb())

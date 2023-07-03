@@ -1,0 +1,38 @@
+\fixlen = T
+\RowsRetrieved = 731
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1       254.33207999999999      -16.156939999999999    68961b        1b                      132                        1                       10       48.042000000000002                   999999                  106.889            1457209361.25 2016-03-05 20:22:41.248           68961b132-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68961b        1b                      133                        1                       10       48.039000000000001                   999999                  106.249            1457209372.25 2016-03-05 20:22:52.252           68961b133-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68965b        5b                      133                        1                       10       49.731999999999999                   999999       73.524000000000001       1457220693.3399999 2016-03-05 23:31:33.344           68965b133-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68969b        9b                      132                        1                       10       51.433999999999997                   999999       31.809999999999999       1457232014.4300001 2016-03-06 02:40:14.431           68969b132-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68972a        2a                      108                        1                       10       52.722999999999999                   999999                   13.224            1457237680.48 2016-03-06 04:14:40.477           68972a108-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68973b        3b                      133                        1                       10       53.140000000000001                   999999       4.9980000000000002            1457243346.52 2016-03-06 05:49:06.519           68973b133-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68982a        2a                       51                        1                       10       56.578000000000003                   999999       6.5170000000000003       1457265999.6900001 2016-03-06 12:06:39.695           68982a051-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68984a        4a                      108                        1                       10       57.878999999999998                   999999       25.853999999999999            1457271654.74 2016-03-06 13:40:54.736           68984a108-w1-int-1b.fits 
+                        1       254.33207999999999      -16.156939999999999    68988a        8a                      108                        1                        5       59.612000000000002                   999999       67.969999999999999       1457282986.8299999 2016-03-06 16:49:46.828           68988a108-w1-int-1b.fits 

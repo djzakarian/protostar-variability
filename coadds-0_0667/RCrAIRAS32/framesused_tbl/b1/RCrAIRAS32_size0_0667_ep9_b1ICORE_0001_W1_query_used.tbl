@@ -1,0 +1,38 @@
+\fixlen = T
+\RowsRetrieved = 667
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1                  285.745      -37.126440000000002    97083a        3a                       32                        1                       10       79.131263053163906                   999999       74.467927000000003       1536754383.5220001 2018-09-12 12:13:03.522           97083a032-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97087a        7a                      116                        1                       10       77.486667332010498                   999999       37.058916000000004       1536765737.5700099 2018-09-12 15:22:17.570           97087a116-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97091a        1a                      116                        1                       10       75.876231094463805                   999999       3.6249530000000001         1536777047.60901 2018-09-12 18:30:47.609           97091a116-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97101a        1a                       32                        1                        5       71.615268761617799                   999999       14.684354000000001       1536805267.7580099 2018-09-13 02:21:07.758           97101a032-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97103a        3a                       32                        1                       10       71.239756112719107                   999999       33.196286000000001       1536810922.7750199 2018-09-13 03:55:22.775           97103a032-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97105a        5a                       92                        1                       10         69.9981480974579                   999999       53.092421000000002       1536816621.8009901 2018-09-13 05:30:21.801           97105a092-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97109a        9a                       92                        1                       10       68.414310600445802                   999999                84.719172         1536827931.83601 2018-09-13 08:38:51.836           97109a092-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97113a        3a                       91                        1                        5       66.988632224369596                   999999       79.984898000000001       1536839230.8800099 2018-09-13 11:47:10.880           97113a091-w1-int-1b.fits 
+                        1                  285.745      -37.126440000000002    97117a        7a                       91                        1                       10       65.423535358271494                   999999       42.569592999999998       1536850541.1970201 2018-09-13 14:55:41.197           97117a091-w1-int-1b.fits 

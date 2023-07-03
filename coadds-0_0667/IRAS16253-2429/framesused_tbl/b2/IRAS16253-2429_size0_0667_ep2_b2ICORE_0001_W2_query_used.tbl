@@ -1,0 +1,39 @@
+\fixlen = T
+\RowsRetrieved = 741
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1                 247.0925      -24.608609999999999    52046a        6a                      145                        2                       10       60.768999999999998                   999999       6.3799999999999999       1409242289.5220201 2014-08-28 16:11:29.522           52046a145-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52058a        8a                      145                        2                       10       56.393999999999998                   999999       25.917999999999999       1409276384.7509999 2014-08-29 01:39:44.751           52058a145-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52061a        1a                       57                        2                       10       55.235999999999997                   999999       46.145000000000003       1409282061.7909801 2014-08-29 03:14:21.791           52061a057-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52061a        1a                       58                        2                       10       55.213999999999999                   999999       46.521999999999998       1409282072.7909999 2014-08-29 03:14:32.791           52061a058-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52063a        3a                       58                        2                       10       54.932000000000002                   999999                    66.25       1409287749.8269999 2014-08-29 04:49:09.827           52063a058-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52065a        5a                      121                        2                       10                    53.75                   999999       84.855000000000004         1409293437.86201 2014-08-29 06:23:57.862           52065a121-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52066a        6a                      144                        2                       10       53.469000000000001                   999999       96.793000000000006       1409299114.8940201 2014-08-29 07:58:34.894           52066a144-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52069a        9a                      121                        2                       10       52.283000000000001                   999999       91.777000000000001       1409304802.9330101 2014-08-29 09:33:22.933           52069a121-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52073a        3a                      121                        2                       10                   50.814                   999999       52.481999999999999       1409316168.0090001 2014-08-29 12:42:48.009           52073a121-w2-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    52077a        7a                      121                        2                       10       49.343000000000004                   999999                   10.637         1409327533.07599 2014-08-29 15:52:13.076           52077a121-w2-int-1b.fits 

@@ -1,0 +1,35 @@
+\fixlen = T
+\RowsRetrieved = 741
+\QUERY_STATUS = 'OK'
+\ in_row_id
+\ in_ra
+\ in_dec
+\ scan_id
+\ ___ scan ID
+\ scangrp
+\ ___ scan group ID
+\ frame_num
+\ ___ frame number in scan
+\ band
+\ ___ WISE band number
+\ qual_frame
+\ ___ quality score value for frame
+\ moon_sep
+\ ___ distance from frame center to moon
+\ dtanneal
+\ ___ time since last anneal
+\ saa_sep
+\ ___ distance from frame center to SAA boundary
+\ unixt
+\ date_obs
+\ ___ date and time of mid-point of frame observation, UTC
+|               in_row_id|                   in_ra|                  in_dec|  scan_id|  scangrp|               frame_num|                    band|              qual_frame|                moon_sep|                dtanneal|                 saa_sep|                   unixt|               date_obs|               fname               |
+|                     int|                  double|                  double|     char|     char|                     int|                     int|                     int|                  double|                  double|                  double|                  double|                   char|               char                |
+|                        |                        |                        |         |         |                        |                        |                        |                        |                        |                        |                        |                       |                                   |
+|                    null|                    null|                    null|     null|     null|                    null|                    null|                    null|                    null|                    null|                    null|                    null|                   null|               null                |
+                        1                 247.0925      -24.608609999999999    19595r        5r                       52                        1                       10            135.149936986                   999999       62.437868999999999       1596980249.3300099 2020-08-09 13:37:29.330           19595r052-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    19599r        9r                      134                        1                       10         136.525397936285                   999999                21.325733       1596991548.3530099 2020-08-09 16:45:48.353           19599r134-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    19613r        3r                       64                        1                       10       141.84301074163599                   999999                  30.8004       1597031100.5039999 2020-08-10 03:45:00.504           19613r064-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    19615r        5r                      135                        1                       10       142.16091360842199                   999999       51.209026000000001       1597036755.5160201 2020-08-10 05:19:15.516           19615r135-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    19617r        7r                      110                        1                        5       143.21778647201899                   999999       70.625639000000007           1597042399.527 2020-08-10 06:53:19.527           19617r110-w1-int-1b.fits 
+                        1                 247.0925      -24.608609999999999    19621r        1r                      110                        1                       10         144.591941046849                   999999       98.047042000000005       1597053698.5570099 2020-08-10 10:01:38.557           19621r110-w1-int-1b.fits 
