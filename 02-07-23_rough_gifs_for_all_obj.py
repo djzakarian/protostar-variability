@@ -62,9 +62,9 @@ def get_background_aperture(data, wcs, pixel_scale, radius):
     
     return best_wcs_position, aperture_radius
     
-#%% make_image
+#%% make_image_user_input
 
-def make_image(data, aperture, cmap = 'gray', plot_aperture = False,
+def make_image_user_input(data, aperture, cmap = 'gray', plot_aperture = False,
                first_file = True, lower_percentile=0, upper_percentile=99):
     
     fig, ax = plt.subplots()
@@ -189,7 +189,7 @@ obj_names = ['B335','BHR7_IRAS08124-3422','BHR71','CB17','CB230','CB244','CB6',
               'L1251C','L1448IRS2','L1448IRS3','L1448-mm','L1489IRS','L1521F',
               'L1527_IRAS04368+2557','L1551IRS5','L1551NE','L1616MMS1A','L1634',
               'L483','L723_IRAS19156+1906','L778','RCrAIRAS32','Serpens1','SerpensMMS3']
-# obj_names = ['L1527_IRAS04368+2557']
+obj_names = ['L1527_IRAS04368+2557']
 
 bands = ['b1', 'b2']
 
@@ -270,8 +270,8 @@ for name in obj_names:
                 
                 print(total_ap_counts)
                 
-                image, lower_percentile, upper_percentile = make_image(data=data, aperture=aperture,
-                                          cmap=cmap, plot_aperture=False,
+                image, lower_percentile, upper_percentile = make_image_user_input(data=data, aperture=aperture,
+                                          cmap=cmap, plot_aperture=True,
                                          first_file=first_file, lower_percentile=lower_percentile,
                                          upper_percentile=upper_percentile)
                 frames.append(image)
