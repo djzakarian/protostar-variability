@@ -24,6 +24,7 @@ from astropy.wcs import WCS
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from PIL import Image
+from photutils.aperture import aperture_photometry, CircularAperture
 # Show plots in the notebook
 # %matplotlib inline
 
@@ -265,10 +266,10 @@ for name in obj_names:
             # Subtract the median background from the entire image
             data -= total_ap_counts
         
-            make_image_user_input(data=data, aperture=aperture,
+            image, lower_percentile, upper_percentile = make_image_user_input(data=data, aperture=aperture,
                                       cmap='gray', plot_aperture=True,
-                                      lower_percentile=lower_percentile,
-                                     upper_percentile=upper_percentile)
+                                      lower_percentile=0,
+                                     upper_percentile=99.5)
             
             
 
@@ -296,8 +297,14 @@ for name in obj_names:
             # Set up the figure with subplots
             fig, ax1 = plt.subplots(1, 1, figsize=(8, 8))
             
+            
+            lower_value = np.percentile(data, lower_percentile)
+            upper_value = np.percentile(data, upper_percentile)
+            norm = Normalize(lower_value, upper_value)
+            
+            
             # Plot the data
-            fitsplot = ax1.imshow(np.ma.masked_where(xdf_image.mask, xdf_image_clipped), norm=norm_image)
+            fitsplot = ax1.imshow(np.ma.masked_where(xdf_image.mask, xdf_image), norm=norm)
             ax1.scatter(sources_findpeaks['x_centroid'], sources_findpeaks['y_centroid'], s=10, marker='.', 
                         lw=1, alpha=0.7, color='r')#facecolor='None', edgecolor='r')
             
@@ -317,9 +324,9 @@ for name in obj_names:
             
             # define the apertures
             circular_apertures = []
-            for ap_row in range(len(table)):
+            for ap_row in range(len(sources_findpeaks)):
                 position = (sources_findpeaks['x_centroid'][ap_row], sources_findpeaks['y_centroid'][ap_row])
-                circular_apertures.append(CircularAperture(position, r))
+                circular_apertures.append(CircularAperture(position, aperture_radius))
             
             """ eventually come up with a way to determine radii based on gaussians if it's not terribly difficult
                 also, only make apertures around gaussian sources that aren't saturated"""
@@ -332,7 +339,7 @@ for name in obj_names:
             fig, ax1 = plt.subplots(1, 1, figsize=(8, 8))
             
             # Plot the data
-            fitsplot = ax1.imshow(np.ma.masked_where(xdf_image.mask, xdf_image_clipped), norm=norm_image)
+            fitsplot = ax1.imshow(np.ma.masked_where(xdf_image.mask, xdf_image), norm=norm)
             
             # Plot the apertures
             for aperture in circular_apertures:

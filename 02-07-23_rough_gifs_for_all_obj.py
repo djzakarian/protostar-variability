@@ -251,7 +251,7 @@ for name in obj_names:
                     
                     
                     
-                # convert the pixel position to ra and dec    
+                # convert the pixel position to ra and dec  (NO, IT"S THE OPPOSITE)  
                 best_pixel_position = wcs.world_to_pixel_values(best_wcs_position.ra, best_wcs_position.dec)
                 best_center_x = best_pixel_position[0]
                 best_center_y = best_pixel_position[1]
