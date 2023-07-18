@@ -50,7 +50,7 @@ targets_tab.rename_column('\ufeffobj_name', 'obj_name')
 targets_tab[2]['ra'] = '18 17 29.8'
 targets_tab[2]['dec'] = '-4 39 36.4'
 
-# %%  # Format table (assign units and make SkyCoord object column)
+# %%  # Format table (assign units and make SkyCoord object column - also fix names)
 
 # assign units to columns
 targets_tab['ra'].unit= u.hourangle
@@ -59,6 +59,10 @@ targets_tab['dec'].unit= u.deg
 # make skycoord object column
 targets_tab['coord'] = SkyCoord(targets_tab['ra'], targets_tab['dec'], frame='icrs', unit=(u.hourangle, u.deg))
 
+# remove slashes and spaces
+for i in range(len(targets_tab)):
+    targets_tab['obj_name'][i] = targets_tab['obj_name'][i].replace('/','_')
+    targets_tab['obj_name'][i] = targets_tab['obj_name'][i].replace(' ', '')
 
 
 # %% # query_IRSA function 
@@ -148,7 +152,7 @@ for targets_row in range(len(targets_tab)):
 
     epochs_tab['obj_epoch'][epochs_tab_rownum ]=epoch
     epochs_tab['obj_name'][epochs_tab_rownum ] = obj_name
-    epochs_tab['ra'][epochs_tab_rownum ] = coord.ra
+    epochs_tab['ra'][epochs_tab_rownum ] = coord.ra 
     epochs_tab['dec'][epochs_tab_rownum ] = coord.dec
     
     # initialize n_images counter 

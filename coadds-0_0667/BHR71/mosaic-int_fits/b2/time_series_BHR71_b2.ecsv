@@ -1,0 +1,1590 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: time, datatype: float64}
+# - name: aperture:0
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.48294158082425}
+#   - {'dec[deg]': -65.18119268697247}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: &id001 !astropy.units.Unit {unit: pix}
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:1
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.43471553748597}
+#   - {'dec[deg]': -65.18093532126687}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:2
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38503195075432}
+#   - {'dec[deg]': -65.18095726900758}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:3
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3679338852456}
+#   - {'dec[deg]': -65.18079571856431}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:4
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41145186523622}
+#   - {'dec[deg]': -65.18007083195162}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:5
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.39056031861784}
+#   - {'dec[deg]': -65.18017973058237}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:6
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.42361611769346}
+#   - {'dec[deg]': -65.17987714227922}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:7
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3434857605735}
+#   - {'dec[deg]': -65.17874102303564}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:8
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38379806518913}
+#   - {'dec[deg]': -65.17862716069818}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:9
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.35506746476057}
+#   - {'dec[deg]': -65.17851840779151}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:10
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.435128124848}
+#   - {'dec[deg]': -65.1782529972248}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:11
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37543391327588}
+#   - {'dec[deg]': -65.1777944343873}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:12
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.36231622469242}
+#   - {'dec[deg]': -65.1766344400531}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:13
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.44967809869098}
+#   - {'dec[deg]': -65.17595078566931}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:14
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34963001615242}
+#   - {'dec[deg]': -65.1758938083886}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:15
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34466157352833}
+#   - {'dec[deg]': -65.17595261591183}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:16
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4716246904555}
+#   - {'dec[deg]': -65.17540420044377}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:17
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.36983715967042}
+#   - {'dec[deg]': -65.17558284206297}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:18
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.39386026015012}
+#   - {'dec[deg]': -65.17519501810136}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:19
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.45333461115436}
+#   - {'dec[deg]': -65.17419583308067}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:20
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.33126245832852}
+#   - {'dec[deg]': -65.17404400941061}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:21
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3643036271385}
+#   - {'dec[deg]': -65.17400006374538}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:22
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40704822578806}
+#   - {'dec[deg]': -65.17305609752665}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:23
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37739268916613}
+#   - {'dec[deg]': -65.17276291535809}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:24
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46502638945572}
+#   - {'dec[deg]': -65.17165778045931}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:25
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4129011901528}
+#   - {'dec[deg]': -65.17165329519538}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:26
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3760222210865}
+#   - {'dec[deg]': -65.17150197432893}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:27
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4553836377272}
+#   - {'dec[deg]': -65.17118278916315}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:28
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4390345898812}
+#   - {'dec[deg]': -65.17128093515025}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:29
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37508738343388}
+#   - {'dec[deg]': -65.16988822619118}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:30
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.33059261068374}
+#   - {'dec[deg]': -65.16920902325954}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:31
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.44845654213188}
+#   - {'dec[deg]': -65.16819145568915}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:32
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4395552689782}
+#   - {'dec[deg]': -65.16828638488947}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:33
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4085839905695}
+#   - {'dec[deg]': -65.16830344914486}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:34
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.45667760607813}
+#   - {'dec[deg]': -65.16784220385055}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:35
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3590530172376}
+#   - {'dec[deg]': -65.16805571264608}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:36
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38372074611553}
+#   - {'dec[deg]': -65.16782240160997}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:37
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41766575836232}
+#   - {'dec[deg]': -65.1674228693508}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:38
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41658792374196}
+#   - {'dec[deg]': -65.16693332972021}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:39
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4059210616407}
+#   - {'dec[deg]': -65.1665224585177}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:40
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37948302588003}
+#   - {'dec[deg]': -65.16521009071072}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:41
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40236426426375}
+#   - {'dec[deg]': -65.16382590421601}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:42
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.39007661714004}
+#   - {'dec[deg]': -65.16403289665648}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:43
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.35602819360966}
+#   - {'dec[deg]': -65.16404177632364}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:44
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4708349284026}
+#   - {'dec[deg]': -65.1628707104317}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:45
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34463672095643}
+#   - {'dec[deg]': -65.16261309678592}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:46
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41166684974016}
+#   - {'dec[deg]': -65.16082845491994}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:47
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37128607635466}
+#   - {'dec[deg]': -65.15982599352536}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:48
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40155703313636}
+#   - {'dec[deg]': -65.15913679866075}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:49
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4716598169665}
+#   - {'dec[deg]': -65.15899226429843}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:50
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.39617732175415}
+#   - {'dec[deg]': -65.15909975612715}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:51
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34887977608935}
+#   - {'dec[deg]': -65.15900570195862}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:52
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.32670202903748}
+#   - {'dec[deg]': -65.15875627993775}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:53
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.33560086293934}
+#   - {'dec[deg]': -65.15740795852214}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:54
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4645037351332}
+#   - {'dec[deg]': -65.15581039447325}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:55
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3675177344368}
+#   - {'dec[deg]': -65.15533238893038}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:56
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3492558725185}
+#   - {'dec[deg]': -65.15415206409908}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:57
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.45267171942464}
+#   - {'dec[deg]': -65.15251377858208}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:58
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.35644697343622}
+#   - {'dec[deg]': -65.15246188868493}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:59
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.32815012616757}
+#   - {'dec[deg]': -65.15233149656702}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:60
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.47202362362933}
+#   - {'dec[deg]': -65.1496452449547}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:61
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.44160165465203}
+#   - {'dec[deg]': -65.14954261698632}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:62
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4283278552066}
+#   - {'dec[deg]': -65.14918797082608}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:63
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.42340164256152}
+#   - {'dec[deg]': -65.149399955443}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:64
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34126444667282}
+#   - {'dec[deg]': -65.14842435907764}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:65
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40228748064897}
+#   - {'dec[deg]': -65.14822307727077}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:66
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.36458193619697}
+#   - {'dec[deg]': -65.1471887431659}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:67
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.39090075187806}
+#   - {'dec[deg]': -65.14563312658073}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:68
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3426418551614}
+#   - {'dec[deg]': -65.14544233087447}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:69
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4291605944523}
+#   - {'dec[deg]': -65.14500338028789}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:70
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46239364813815}
+#   - {'dec[deg]': -65.14444295320858}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:71
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.44939440821133}
+#   - {'dec[deg]': -65.14268208788356}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:72
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41536985834279}
+#   - {'dec[deg]': -65.14250919744967}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:73
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46613770438972}
+#   - {'dec[deg]': -65.14132888899248}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:74
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4196006113424}
+#   - {'dec[deg]': -65.1399307563036}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:75
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34455207613757}
+#   - {'dec[deg]': -65.13816458587549}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:76
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40946513101946}
+#   - {'dec[deg]': -65.13798328624934}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:77
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.42703238815125}
+#   - {'dec[deg]': -65.13791982424095}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:78
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38228589321173}
+#   - {'dec[deg]': -65.13723607148529}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:79
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.48149417404082}
+#   - {'dec[deg]': -65.1370926163038}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:80
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46503267289248}
+#   - {'dec[deg]': -65.13676934812257}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:81
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.36311650713102}
+#   - {'dec[deg]': -65.13533989569856}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:82
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.47701399406594}
+#   - {'dec[deg]': -65.13480400745453}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:83
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.36677593640601}
+#   - {'dec[deg]': -65.13429190232377}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:84
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.32614220395124}
+#   - {'dec[deg]': -65.1334103881754}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:85
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.33103667304053}
+#   - {'dec[deg]': -65.13246995191246}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:86
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4321276743131}
+#   - {'dec[deg]': -65.13101363406858}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:87
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.41888667809673}
+#   - {'dec[deg]': -65.13045276019699}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:88
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3383333434759}
+#   - {'dec[deg]': -65.12946442357236}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:89
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4665835012331}
+#   - {'dec[deg]': -65.12902890114415}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:90
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4795635534752}
+#   - {'dec[deg]': -65.12826513005093}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:91
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4780961925951}
+#   - {'dec[deg]': -65.127613130166}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:92
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46640967299862}
+#   - {'dec[deg]': -65.12675482643661}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:93
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.40014455187756}
+#   - {'dec[deg]': -65.12615744031609}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:94
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4524217186857}
+#   - {'dec[deg]': -65.12560472254157}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:95
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4076422684616}
+#   - {'dec[deg]': -65.12582660657634}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:96
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3951287862702}
+#   - {'dec[deg]': -65.1255746309293}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:97
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.46482151661024}
+#   - {'dec[deg]': -65.1240063137967}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:98
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.33707313463051}
+#   - {'dec[deg]': -65.12402803624131}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:99
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3566447907125}
+#   - {'dec[deg]': -65.12348460808832}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:100
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.47606980493495}
+#   - {'dec[deg]': -65.12216182911352}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:101
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.43441768394604}
+#   - {'dec[deg]': -65.1212235422616}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:102
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.42905458805376}
+#   - {'dec[deg]': -65.12037312083629}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:103
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.37009706838154}
+#   - {'dec[deg]': -65.12056196470034}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:104
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34589992623447}
+#   - {'dec[deg]': -65.119872904825}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:105
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38949828679748}
+#   - {'dec[deg]': -65.11980838989157}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:106
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.35103704857545}
+#   - {'dec[deg]': -65.1185254479583}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:107
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.4503365395542}
+#   - {'dec[deg]': -65.11823246916597}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:108
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.3777713220544}
+#   - {'dec[deg]': -65.11806801623545}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:109
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.34156068834335}
+#   - {'dec[deg]': -65.11737777502927}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:110
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 180.38281800885903}
+#   - {'dec[deg]': -65.11565877101464}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# meta: !!omap
+# - {point_source_selection_parameters: 'fwhm=5.5, threshold=5'}
+# - __serialized_columns__:
+#     time:
+#       __class__: astropy.time.core.Time
+#       format: mjd
+#       in_subfmt: '*'
+#       out_subfmt: '*'
+#       precision: 3
+#       scale: utc
+#       value: !astropy.table.SerializedColumn {name: time}
+# schema: astropy-2.0
+time aperture:0 aperture:1 aperture:2 aperture:3 aperture:4 aperture:5 aperture:6 aperture:7 aperture:8 aperture:9 aperture:10 aperture:11 aperture:12 aperture:13 aperture:14 aperture:15 aperture:16 aperture:17 aperture:18 aperture:19 aperture:20 aperture:21 aperture:22 aperture:23 aperture:24 aperture:25 aperture:26 aperture:27 aperture:28 aperture:29 aperture:30 aperture:31 aperture:32 aperture:33 aperture:34 aperture:35 aperture:36 aperture:37 aperture:38 aperture:39 aperture:40 aperture:41 aperture:42 aperture:43 aperture:44 aperture:45 aperture:46 aperture:47 aperture:48 aperture:49 aperture:50 aperture:51 aperture:52 aperture:53 aperture:54 aperture:55 aperture:56 aperture:57 aperture:58 aperture:59 aperture:60 aperture:61 aperture:62 aperture:63 aperture:64 aperture:65 aperture:66 aperture:67 aperture:68 aperture:69 aperture:70 aperture:71 aperture:72 aperture:73 aperture:74 aperture:75 aperture:76 aperture:77 aperture:78 aperture:79 aperture:80 aperture:81 aperture:82 aperture:83 aperture:84 aperture:85 aperture:86 aperture:87 aperture:88 aperture:89 aperture:90 aperture:91 aperture:92 aperture:93 aperture:94 aperture:95 aperture:96 aperture:97 aperture:98 aperture:99 aperture:100 aperture:101 aperture:102 aperture:103 aperture:104 aperture:105 aperture:106 aperture:107 aperture:108 aperture:109 aperture:110
+59246.41178295 882.6835681986157 29.680941496472173 686.9135938164369 -97.26499029998594 239.711515244421 92.93706549178114 303.1210704482812 294.9829149913468 1477.9546319667008 -140.20497569862079 144.59722048901025 -296.753216344376 92.67179748745929 432.2719824680326 549.0355080835579 548.3182180772415 828.6963170183802 600.5107186460992 -301.83338671664126 -17.68178924580377 15.753668042170368 115.93264053294388 1411.1049852097835 -847.2842172170916 -128.97886137889725 556.2948484661506 -1545.7419261161763 30.311541835139025 373.15003453000185 -2250.686434388629 61.86823445762256 33.89658491428955 81.11095297030133 257.1850959985909 70.20135597193102 11.232339033595892 8326.135109531937 618.0801996525507 528.870424486614 -331.8579360894337 1970.476756103948 -1356.2623556464941 -2459.832700084992 -18.98142288947281 -217.6056882371812 66.98166690053094 3021.963345981139 1783.552577761769 4579.147611929126 1512.0761127434728 1573.7943423791498 29.124553027807664 59.10905141654909 14.597598498893447 -31.238071674688854 10559.759486481973 42.24080513943852 -1616.9628605635926 -903.8647696007135 973.1027784903174 1322.3914971492736 19210.99561169612 2060.6922435465503 8361.035224695152 546.9022133827957 34927.45207363739 845.0728249206528 399.20484522423976 1328.9718993716658 2394.8274557028794 178.75655490835092 174.36701940432567 1994.7861633750197 136.76218501799235 -11.348675143800051 271.8465635016556 -359.5804401452781 52.430850015446225 1759.624687307812 283.7665035237552 20.71574318848741 470.441270689742 57.36251228864732 501.88289219769064 167.96805594995382 189.2035616654903 747.2860154967033 0.46475561057582127 54.46790287127178 88.60617290413134 287.38187162253746 257.98971495063876 -79.87923994335421 2678.8522836121538 5223.947825936125 -464.18245665172765 2379.667144062286 -345.3886768426076 -64.66663444027826 5244.6917715788595 80.51868526957776 2238.911813848829 867.2281289993768 -94.8076213120907 454.01852327273616 5.469811163744339 763.413097447102 49.13541065825406 456.05900004241346 1811.0586668409564 190.55790593505566
+56690.962487695 899.7221916195157 41.783273911256344 711.9623237670994 -103.00837874398812 238.84636123154223 105.37982315825872 310.729080671119 280.8349216730152 1533.5073938383812 -161.99619871001138 142.02045845333814 -284.9502853193615 82.1251599166535 452.55129861435034 574.3270252314805 570.6468130709958 841.3457988319362 610.0059531374994 -304.5412573482503 -3.9022602473091865 27.31537456902597 111.62172983935702 1391.1443816897263 -799.4732249314958 -137.06575558775734 576.237301129936 -1522.2045223812886 32.84509628292443 363.07627978075016 -2285.922542222518 56.00267345257397 32.68968832302022 81.88708379503794 302.79349648286484 80.74716650150377 21.66122729984093 8382.7505626133 602.9745624472897 510.5147225361907 -351.85162346540574 1979.111297950572 -1417.484543626813 -2538.159775125275 -24.001885355129474 -230.07353103631124 68.43863599274755 3071.9067664147315 1727.060380742429 4826.41900351052 1509.039516531396 1547.516996680582 7.335533939632398 68.23118659340183 32.513065283938275 -2.9479472443289296 10697.834449877046 52.85751807670442 -1708.642968200148 -900.7076820008219 988.1912291582992 1361.709301892691 19857.47236081346 1870.3195240263194 7906.777430733954 566.9580064143436 34800.24401468281 836.706969565802 -821.6499827759135 1358.3992521276728 2555.4253861581246 189.793988719353 172.02375817302712 1962.4610563524916 148.16654599367365 -0.4568476025852988 308.2007178278415 -271.0428037502586 44.158956375622694 2027.1999433052733 305.6848305504332 16.63933038418996 480.8133530824315 64.30058983286193 511.44164794640136 178.99119694447637 195.63450196471612 714.7639974093751 -7.981046682279981 77.77515171670096 95.83365076213227 287.9819273907393 261.2765276661607 -88.50467180403695 2844.2592383356177 5278.164285229339 -377.40368424802546 2387.5685924056265 -349.11297773283445 -59.34130391584342 5110.202270265083 108.72746174963281 2280.3997786493774 861.7551149330086 -168.80568996319596 443.1299737208442 -46.23946483896634 801.7923224751798 67.483704963481 516.6391897240219 1891.9936762517675 246.7177074009466
+57229.02327613 822.629803150431 39.47684763255694 722.4850360244914 -114.0278704828209 254.81652413356926 124.90097150136359 305.6819413514636 316.0899273305475 1515.7439813112373 -159.01982533077415 144.2199698261902 -283.2077964038305 85.1650616101154 424.16558256908485 554.2190860784885 550.7813226640029 852.0680691195506 629.4350310130834 -309.505150929225 11.342643051694466 26.772391281619825 121.00531226072684 1389.8025959390798 -850.9953415150596 -140.94050604665665 566.9586360101914 -1536.5961916703868 30.49095614923658 360.27162199308685 -2221.983074766729 59.40418181288836 30.483568110725116 85.32221408424135 307.79226547815756 88.86185766311945 17.082564370418496 8428.760033413293 613.9948531893723 535.3255029044903 -364.40036183531447 1750.9961831157002 -1517.7199521743808 -2413.9666112093337 -21.804381675985255 -250.75833929745613 65.65737313414085 3012.653553382921 1728.9218627927844 4886.138572121473 1533.662774337496 1597.2463980073185 20.08119051082349 73.33623892033492 22.694858713208106 -22.97404034422857 10676.542315493793 56.26251804001373 -1658.4061637477173 -890.2540372887628 989.055727933517 1340.496484489912 19507.259038222564 1872.7244888979212 7785.655891757215 522.6069785838179 32484.098434986947 860.136251767556 -48.951989643354864 1384.9467665916432 2675.2026716577484 181.7711734256165 164.99086034620927 1991.3854261205006 145.6613151840294 8.055387879979094 295.47157077245504 -308.15243483193876 30.172850496271025 1935.0033326071584 313.23609612255404 22.394896873399844 477.70941537063675 61.373964387700255 508.2434925997464 180.5417781495513 183.3406333636486 731.3900817443806 -7.655369443075415 70.12827324745984 86.14995801940535 298.64660253537033 267.59199452895916 -113.81349603481851 2818.1887975615655 5294.525300284967 -397.12910658966484 2410.0916915852576 -405.62948478545985 -48.343219060858075 5064.431379746621 98.6758991779832 2245.2472278915448 830.3688993963676 -132.43718836296705 507.07361802831736 13.775023833394584 799.730626719555 57.147423494380504 478.6122472366076 1874.786610575594 192.30484427542564
+58310.060916765 824.9140525530338 35.69039918123764 708.1116395139165 -107.91176033532321 241.3632427956819 98.8444399028923 314.579940622691 295.08595732362664 1478.2585797453867 -166.5139435870263 146.64730700172285 -256.97030535440604 77.1909725858539 397.15675927440674 561.8192355504596 549.4951579549257 854.6298892320607 609.6715275262918 -283.97304513169394 25.589823801956243 13.15617197872664 88.11090602715814 1366.8028698443818 -858.1779461548167 -151.45585872191174 536.0640227802031 -1537.4701894996642 29.85612805671667 374.4050493749247 -2175.098599531042 63.45222087787867 40.48654777177367 81.73650811475895 322.2576530476838 74.95292906431129 17.372414157024515 8294.064898149529 611.2670681015418 533.6942118127874 -357.77940432852984 1817.5135696715365 -1485.4119019490577 -2358.6612154985346 -15.27716441721708 -262.31370467731006 60.758167773810484 2996.9094198514135 1792.2801129775912 4648.537641786019 1509.6956203321895 1615.1199876492187 16.11988795668327 75.08997997813238 4.597901485224085 -26.574245306199487 10497.04040051679 46.593925398330754 -1627.4632442850725 -903.523992107821 950.1142986330174 1304.8947431030806 19223.081101029904 1844.4345648836384 7931.45613805367 547.0996373204324 34446.587594830395 831.5807534351812 -284.2008744980376 1313.872770882456 2593.412629282494 167.38983031822642 155.09833382908667 1948.9593617647097 154.6804180287328 -22.96830220851018 291.5647764014245 -303.9718663336387 56.74320590016262 1801.0116010996037 312.20496950514297 -2.503056609887068 472.5778338742863 51.65677311896262 497.00186406636044 166.8734179015391 166.317105927515 726.909005539672 -11.043219608998584 66.09365071784885 74.74208279644989 278.49966567827107 241.4930539393195 -97.0240085871537 2714.6157303862237 5248.014701120513 -422.5944367388215 2365.0531990857844 -401.8540990139068 -43.250004044957144 5236.028250664064 88.33519617086863 2241.2216045817163 846.6634443254275 -127.4680403092222 474.5419466690105 22.816813873535807 749.9005354863582 46.08842671889393 487.63136247040796 1807.60225462224 167.45132324594505
+56870.53020348 829.4501035595479 35.022690317356364 722.7084065769544 -100.76790001483718 261.4443341338338 115.75424177669993 300.8287231409738 290.5706508743093 1521.0779288690833 -157.97401271574046 134.7276066339689 -305.5487290858044 96.12262579560411 424.4985949939771 548.7082307088037 541.0279094117171 857.5104333360403 631.5031581505189 -305.7007908590468 21.203249630296483 21.29229534650795 128.14725326923525 1412.3522755644353 -852.0405211571796 -137.25825282313485 560.5230264098795 -1551.842930268621 35.44507609418537 348.5655246906373 -2252.7951530344367 56.46020658794251 23.33015348303715 100.44139493107369 296.71804970987455 76.15709581317596 16.56924684824869 8389.273335464544 608.7019104933197 528.4566914973518 -361.44779711907086 1808.9581899541165 -1519.6583590000087 -2427.688476709166 -8.771140506204645 -242.86340540110774 51.47196477469247 3002.3825764763933 1727.8044316923456 4896.033379606386 1524.2486317202397 1605.9524059949094 -1.6164111389102374 74.69881030334676 25.721501968980192 -35.54737852256994 10812.783504449115 59.8344656951664 -1672.001738495761 -922.2528243072084 1004.6284949615136 1344.856125098544 19509.97191524644 1780.755235500791 7670.056840496327 551.6588893471127 33899.38135775699 872.2408709500153 -756.9724463002804 1372.4920887766355 2735.492268088794 182.76666012152796 150.64889954583086 1973.993477937473 155.76403735336714 -9.886816718307045 294.18640750735165 -280.8208057648776 48.43588760919573 1936.8776889084652 309.8397157638276 11.76751539091228 487.63119784650394 47.404936376550836 506.90924142361223 178.1241581964562 187.22767873424343 721.0085190077817 -4.665010717068441 73.34912479960607 101.53460644328428 278.46944562770307 238.1508667151653 -116.62148033059668 2800.279415627415 5289.555926189079 -382.02546171790596 2401.3803520154174 -397.85441492007965 -53.75641953606996 5163.965607114064 103.15655090042259 2251.2026306377147 823.9504066772926 -129.85223909009812 493.31950703896416 6.784342730077697 796.5307381434052 45.736935668476036 480.5780800511858 1870.3778061386408 174.21559523166292
+59409.281650389996 817.0614302143471 34.60994836464542 685.3270611037208 -121.97920922342641 249.97590352894545 96.12685087094292 310.9238453814005 321.9513325428044 1480.0091392328923 -147.12368587396787 157.32284396193916 -277.5598077372906 75.72173303513506 388.495733626022 541.8435406325912 530.830207241044 819.4185820227092 622.0289215408837 -319.95438898487396 20.185247010910416 23.127463594087928 110.46477190191547 1369.2750358218236 -836.4144871711815 -148.65773613595266 527.4493630373457 -1500.3526497481048 37.94880937184729 373.2482590611785 -2106.873684928708 59.72002552089413 45.27007879569669 102.53949712424779 312.8567506925888 103.55415888872687 14.81983244965594 8098.194425801519 557.144858911394 488.5510942441033 -380.31493309435587 1719.9645876516188 -1443.5749627213738 -2335.5999185356304 -3.959971883507521 -237.37068803162657 50.6758502913559 2994.304256120416 1693.2401135409978 4428.773042868039 1484.932958182194 1573.4167380818208 2.346711086283875 75.13453419351048 28.733665972133224 -43.33776223400383 10390.948031471398 44.04178131728105 -1556.4415645854351 -905.1450662066046 965.2965216470488 1275.3910470903304 18796.735504864242 1839.7359095582651 8010.493322345392 535.9975412428298 33136.43844788701 804.1393838050582 -582.9561605019962 1310.0619076974735 2555.8259459708006 172.23694001562356 145.99164376396888 1984.7773880652862 172.52079017952337 8.525556784316791 309.8736775357658 -362.97575438549416 69.36918517607407 1759.4742903852293 298.81690571319837 23.085298030627442 476.40380126904563 65.15562279329444 466.791506219291 186.4987283251211 199.1503576356876 752.8669440302567 11.70721815574322 72.76655079329204 72.08731822192317 313.23003660203244 276.5672271706907 -105.08566221048451 2601.6215277111555 5167.903064845161 -447.399335393279 2359.6976909661057 -417.98932340833085 -53.44686955169044 4891.93735803102 98.97085838298896 2199.137954383618 823.0805960051592 -142.5040153297278 462.2294942526041 -39.879768130624484 786.1548300615009 64.75895735189243 503.29230491752384 1815.6047422578777 188.30901143798212
+58152.03734791 879.5051140703027 34.57662153238377 705.7184781711678 -100.82069435158499 249.53881830262614 85.30349792375421 295.51882543360847 296.61747694590906 1527.0052292260277 -170.9743395982568 150.56663335563604 -312.26383742095265 89.97130724213667 433.8090730141529 547.1388723316833 567.2734845675269 846.2191405812896 624.118188958551 -300.8875105011765 18.899127163042607 23.645736923690777 109.72307660954607 1399.3229568239885 -824.9258662710138 -148.48934752646954 559.7496107418633 -1530.5301666087892 37.089558184826984 359.64618321988496 -2254.2305792613524 63.491447851406946 18.472031147781507 91.03359473852893 275.464744094548 83.15273234361415 24.310793315877504 8330.32778368609 609.6752288414909 520.9218172899234 -326.003425237652 1974.4697633220633 -1425.9081143513813 -2495.4448010118053 -18.558414901634535 -256.419369109503 54.52553135116375 3032.346381146161 1735.9768743426275 4705.496194642932 1506.5781522661955 1545.7396099864654 9.691842844757232 72.33380758866018 23.34474623455037 -39.22943981573644 10513.986009165732 46.62534542078578 -1636.3086935642973 -869.7742943389427 997.8218782627398 1326.199288589693 19385.645432676018 1944.0351867168888 8073.869279084622 534.3587398526136 34929.718603756104 846.5482986014869 97.71908277709736 1337.1397285204716 2421.8955294604566 196.56725792946114 167.27132125130547 1961.0533372635164 135.11256043661697 2.1386206445046128 277.09218949477815 -283.44065694292567 69.40897253761517 1858.7475504581253 288.7699096393247 10.432769116752539 504.3986456251731 47.39714451328216 514.1741861704955 176.62437216180746 193.3186621615468 712.1581529547932 -2.403332663188678 66.66136485357067 89.78208403311669 269.0270840735156 240.6006037551368 -94.0381531118934 2768.1675340574584 5244.930785245375 -403.1036820006483 2350.965234306176 -362.97045079718225 -66.5433967094998 4964.475919631659 94.49078581645574 2258.3326514245864 897.3287152374322 -123.78393459206876 447.897947771899 -23.498775165746906 843.1843923452614 58.465099461793926 496.32194798208826 1856.7974734847091 218.02158699178727
+59610.95882041 922.9816663310295 52.671615703443905 684.9684368916683 -86.82474219362314 250.5046965633915 81.42777750878378 279.5642512054591 265.6532199450758 1487.7100785513665 -171.49998807106635 159.14146268428186 -276.8864262096407 101.30329442254435 442.11939110942717 528.0662956444521 538.6293993347598 846.2830624144514 582.9288551757504 -286.11123861286535 -7.50812457820399 25.90995014361684 125.22222750290601 1396.6867582606192 -837.5926739636552 -136.32875173047128 584.8974343659856 -1528.7715457149234 69.7988294701671 359.3806671525529 -2240.0510347999407 38.622641095885434 7.056850611401984 94.28853473074963 305.4269494959085 92.07372827829016 13.511835870287612 8307.313636695959 580.3948277990935 503.17295673650074 -332.4682988783211 2038.8927707038229 -1377.2454618462266 -2466.2411842511915 -20.03608152954152 -200.2916488387699 63.68475612805214 2994.9600231651516 1769.2654307761622 4494.113803554019 1507.3680112292595 1519.6760420695764 11.885874139704129 66.68270553251146 27.096862457045304 -24.89236925904845 10585.682633294266 25.948645844160836 -1643.3038863105246 -924.8627582812148 952.1397835559752 1361.9947312265688 19119.643944879157 2017.708179885447 8338.193666284335 560.1828088624877 31247.66099554988 833.0143938548446 389.2569760359356 1352.3128130302414 2287.4509367883825 174.5681245915173 176.3320631379182 1982.6662086083065 138.5727160409475 -15.501880301066763 286.77401942465616 -341.00795988996606 49.746280916373706 1805.8232240156772 291.8042267225039 2.1513374747752607 502.2701353235388 59.69421421833364 501.54343556063645 145.97613747551136 159.57458295115842 726.9158266585928 -12.106053559790752 57.97745378912755 86.44771476345244 277.57838408772903 255.75461887681354 -94.07026365419131 2657.040272812241 5273.375465709028 -456.6500080143029 2353.86110493429 -340.8381968508876 -74.56475201611761 5158.037031026735 104.13422587491901 2197.9648198587206 880.9014128801307 -123.92748652345284 417.84870163288497 -21.33365772341881 754.7324287661825 48.01019041936971 488.9954328291213 1890.1069435656811 202.9071924929151
+57053.224786065 902.7772020373284 35.64853239358658 693.6987978982945 -92.7852624849061 238.5771195147574 85.99699791244404 306.79616451710876 291.2211770212927 1517.4062510088058 -150.04042571630256 146.73578634906553 -297.28890283298307 72.59877745547493 457.3195924816688 545.7026498052518 546.9658200090071 854.6798712845045 613.5188400735278 -287.28731040131265 -11.211833798551083 28.6044718456969 110.71527220086898 1392.8162128315835 -820.4112456411501 -136.31296651037763 572.6313643929777 -1540.4223910780927 30.39464079505271 365.45552565270657 -2293.9894470018817 54.5398829877508 46.44491515955025 82.70391583131988 291.39395868737756 92.0006906935472 19.303627045045076 8429.999885759884 606.9957421087306 521.191065703465 -331.72555220793015 1962.7949119497525 -1428.3756179528277 -2500.2617632737224 -26.871234764460397 -224.33807340737536 61.70995782888295 3007.4731470256756 1783.4512626529545 4828.7841783310105 1543.1621666753947 1538.953502017785 15.921681479367024 85.04328819414849 6.120415477306651 -13.384140740998646 10582.530425194427 50.86521377581293 -1691.2792426503906 -910.348785323894 968.2181082757103 1330.1038105823602 19510.714541256624 1895.405485064874 7788.988445188953 547.8013199284155 31864.841297191026 849.9766931586078 321.51368069933415 1370.827871837572 2439.4535911338717 195.33484649004868 158.92123393670718 1942.7416177625003 156.9967801556935 -8.540425901291883 287.1636049360641 -228.85047557032385 53.4645149090434 1956.7718637247417 297.527002821696 -5.995613096608395 484.20736313469155 66.44071398949848 516.4233197254496 175.75702319519152 175.4916529765311 701.1350510161207 2.0657392447227494 68.51261120870936 77.53706691636413 275.7616086325872 248.99236519442317 -83.93949808438626 2815.888231431052 5260.511092437859 -385.4886663638299 2375.2874060091663 -355.89079269954226 -70.89691998153431 5118.649188335663 103.59791664274681 2262.064752268836 870.6436341266771 -141.9121451900278 433.98692007225657 -36.96856528551871 766.6846111093528 58.016399814604625 497.88576944134337 1886.0791634708216 210.6065860090219
+57589.262329805 822.6115076908853 45.92518768587922 731.2815825306324 -117.62718593218707 270.41620006604217 129.53336957699003 312.3586023760271 313.16663716774576 1489.432737651079 -145.23345991703107 154.82003730813543 -276.0283316005964 87.09182205469051 400.5128384678428 547.5129844450571 543.1324984666315 839.4254091303108 604.3440561623848 -304.8560947056321 23.321250315955268 32.732370435470315 100.97720998279365 1362.6745701109862 -849.5631107508436 -159.12514473571332 565.9073914408971 -1558.4746300077165 48.406013666089535 376.63929104300405 -2240.4589225780937 51.53534155422121 34.03227110261167 112.79715309268607 311.93936189651254 97.99055610116594 12.22500645500299 8452.626447967254 601.7146877700778 514.2908918280436 -344.195281430744 1809.1598346757996 -1525.0622566014183 -2449.634115327507 -23.799224345548822 -270.0132480213515 73.46817911143727 3010.408362941892 1715.6466096623158 4755.978952232817 1608.1990580170987 1559.8092453570075 9.593418734412367 67.0342298401835 21.095505109609064 -46.79823035289394 10534.72987479144 65.0188656479452 -1625.5400467331363 -869.5676219939563 991.578283587301 1315.179161117094 19400.37937413182 1840.4519906624705 7817.892275609706 532.9886085357194 34204.78093160675 847.8935047203846 -1687.2618840994655 1359.328301296962 2691.480446097574 188.2167694568731 152.77289020169053 2032.2684746466066 158.62866977391644 -10.118017486754297 282.0263963097899 -320.7617406544575 69.27701687733344 1920.4270055838933 310.49472565595795 26.634821196858695 498.24764668254045 36.511035263272944 515.3952131749948 188.76967668950613 194.26056826228105 733.207651287778 17.390150734813915 88.51066517788082 71.59232475900365 308.7989188090858 275.98213543413885 -107.83703704745386 2768.866424924907 5220.7939661509445 -404.9689405389271 2411.505912968515 -392.6344655216668 -48.2705185889083 5115.6449998126955 96.67517759258119 2237.573630816626 828.5898777494389 -174.4208711153188 524.0177679074247 -68.10511297691596 802.9774450203531 61.64364058751275 527.0833114668709 1864.0867623254107 206.3031887288999
+58675.672803990004 832.1450180177706 37.902234920171196 682.7471499569701 -116.19888707634118 252.8963871986971 114.76057561499869 275.759939665303 272.1010944890481 1472.506840416252 -116.34640252647515 147.98773408179198 -268.8537204275669 79.95381690349654 402.7377596162546 522.0627634729392 531.9490925018607 840.5573254341795 619.700991756765 -308.58515240059035 16.19298457591259 21.0231065397007 104.71226873298892 1349.7804734682388 -829.6254013296657 -146.46403081650138 520.0558070876818 -1489.4014860492389 39.31516288435782 350.14568052794306 -2137.0941825534906 44.82300639604192 52.90815587023204 85.57003752417643 322.6262111521644 81.54527987959509 10.979197355967827 8132.211127758879 574.4506349666781 503.28577000491373 -361.89869252108497 1818.6304298653686 -1457.448442787063 -2368.7075938279386 -8.569035167050231 -248.90913676592857 55.99582456631747 2986.7349747779976 1707.8927769198635 4614.254276346612 1489.3665530055875 1577.1229277341972 -1.8016419307112983 62.86477428609368 11.721605857631914 -11.907702218065822 10455.674908022385 43.32687209659906 -1653.9274290019623 -924.2897848947272 946.7926465465364 1276.177201727342 18943.435233680822 1936.188287741455 8094.060111494296 521.9099380329252 34599.94361192861 841.681101979569 -1.7456401394329077 1309.0243878121958 2482.349077985993 176.0526121503527 132.94644686619617 1922.8737451722222 169.47204815518546 9.058423118517908 266.7584215087597 -334.0203124874349 45.77729694926671 1782.2036219180623 302.5732742941269 11.398876655413162 474.4239195402565 84.76331341869995 487.8598668254057 179.37431502648957 173.00358321481937 732.9706231227085 -9.015864957032022 89.69841351653216 79.12717581431451 288.90532887608384 250.81742401026895 -112.59803023231098 2667.775412025864 5146.911770537618 -442.8956906852827 2332.6930954133823 -376.5277488275781 -57.667114134597185 5094.521715904251 98.80076045698372 2191.653464808322 803.8483850106024 -162.25516676280455 459.8535643472469 -30.021226329024785 786.4627483031284 38.54728948378539 515.014779551849 1815.3264874450126 188.57805008169203
+58879.751507365 893.4536511458293 38.500377378502094 681.1900023069329 -88.00001318125899 236.36242038006404 94.81201734797918 299.61748554320394 289.21906017946617 1482.0809227375332 -147.40120240841716 135.75849419511334 -274.2538479608561 62.355019270996934 425.5035478490737 537.9493416361868 518.1597619473575 849.0467596914223 586.9411427695011 -291.69483069398314 -5.667673088827485 22.06132375713365 117.63519668014808 1369.5905380322852 -833.8740306211412 -140.75174833976942 559.9957034748811 -1528.496870672412 21.990879470362245 343.7703843191342 -2239.9070450309237 56.32723682407884 44.97045286751231 92.40739070685439 315.0061449036127 77.6303420397454 26.98410328600245 8277.097517631682 570.522071884 488.514291254211 -347.4496734553652 1946.0539304430592 -1430.787260188261 -2477.581651468984 -5.578361826189237 -188.43788546730272 65.81011194025996 3027.7751757547167 1759.4544596068722 4648.971978256303 1472.0275728801907 1597.1033242387643 -6.631076657648663 56.970807640158036 10.610585732981022 -23.035255421765555 10556.378350887386 43.99358342349878 -1656.6491909078504 -886.1477023498095 978.0529949237508 1322.8577086926512 19232.60873186093 2010.956677256634 8297.049814248592 563.3696104871358 35074.307766925485 819.9271216355104 -312.49519766935555 1335.9948997331444 2337.716014872944 178.58925064099245 172.71201151500702 1942.286119531199 138.69683548953185 -33.38411394802563 257.3039816202272 -321.840587961284 59.630277190146955 1819.5630303152857 289.6595185694013 5.064737753981916 450.96610251716027 55.48060593974806 497.37873721741767 150.46265437998707 158.11311133627603 707.3713317523271 3.8399510181509697 52.8520328245001 80.03714953150143 270.93270245589673 250.26250483793157 -96.56647860837356 2744.973381183009 5240.407613709807 -442.3500615479692 2362.091698114964 -358.7630601081745 -55.23107353634998 5096.137422763249 84.610856691609 2232.445237698951 839.3030669003194 -116.12769798961494 431.7055827113951 13.840436668006078 784.2290571843491 37.352207302647116 458.92198559615395 1810.22145059313 184.02060357661395
+57784.258145855 886.2903446837639 18.409281618655598 671.3026639724942 -89.1518378100576 247.37852367740393 97.40557611411049 292.29727378601035 292.05361611724004 1482.6975455865677 -157.14952019535 151.87762649086744 -301.4689495268375 72.13331494880816 443.13788762012024 566.7054398147295 574.713213034961 868.2177802083395 622.7608132856643 -281.8206356255123 8.67540913190851 25.434577686800942 126.96695914071768 1401.7928785876913 -826.6583507392081 -149.8860860796231 537.2460496383394 -1529.477324439045 34.30858673596134 352.390408971028 -2248.4950283688295 52.074960744393806 29.89930344658228 93.51874834689437 275.69005847415474 95.51592736699453 23.263954814623823 8342.782727878284 609.7980932956416 520.5692411198145 -332.33533374347803 1951.4679565220522 -1418.4558159582682 -2467.786746869727 -13.620580041581462 -220.08092989807824 73.63856933245656 2987.745679848137 1749.9934795637791 4748.175647236029 1523.5516524762686 1482.1158024619285 18.046884465226327 68.07617946662626 8.433801719925683 -36.47479069901408 10669.03469988666 33.1194300688789 -1667.9041182341243 -924.3418394136254 967.5513761131651 1310.482652782738 19434.83468125947 1977.9700621079119 8112.4262430429735 542.3483649374139 32786.49842245413 849.7444119234515 -1190.2357573147638 1346.6226419998388 2387.5306696587136 195.35172815349603 159.5788604254773 1986.2795398333376 159.01102608284435 -16.741207684562255 270.9556816837771 -287.4576710879487 62.65537391985083 1884.509099217357 287.7904061052418 14.948817752759453 477.3994177430098 68.8741930405695 511.9970475781187 180.96366880353196 185.602623624553 690.8226915970625 3.3735443578796094 61.080431813766445 92.6176213012902 280.75667776902384 246.36935926674482 -68.9615522418008 2791.9836527684183 5263.799633632163 -399.43850635744593 2406.9167294618132 -368.6226030086046 -60.332356126330154 5220.615800618483 85.05996783127149 2249.920503941259 873.3055772748642 -115.93923788466446 425.49511181650837 17.16680658476264 754.594164309018 34.91269811688109 437.58602807408005 1842.074236659967 179.00201322461527
+55226.489036754996 887.5126989046349 47.10687908812312 731.5979898843909 -83.07173166167453 247.19204539150022 117.31556811017902 314.29805531233137 306.9759689642194 1590.66012371284 -161.44298203354117 182.63444149257643 -301.75308594194564 57.308851091632505 459.2268940108153 579.9701148159722 569.5800749240867 859.2464745079907 607.211450070896 -303.8536388983449 -1.7158861473066622 34.13761975977751 119.87735419120776 1397.532666586445 -783.4099597580604 -139.64446438935383 597.1394384254513 -1557.850127958523 39.943799953927424 377.30652781003226 -2398.9629116223605 63.64355301848507 13.932408252923608 100.54044589644738 286.430436543131 97.97452536676181 16.8442017717952 8594.353384642456 593.5411797819559 495.3376257659527 -314.50984300955497 1931.2005925789167 -1468.57218243605 -2623.7251151227406 -14.564506833720415 -255.5036608165153 74.39567839759161 3144.1136339345003 1748.6157650300843 4935.190716126783 1573.4902263956587 1598.0887127851602 -5.246447781188849 77.100078420916 31.778521879204405 -21.770531659750873 10791.453161103736 53.3908432903315 -1795.8259028101377 -808.1325630862788 1034.5767418156715 1350.8635126905235 20135.76119885961 2391.696231819652 8264.431646704335 562.0467750650628 33770.33685639979 873.3535721995347 -1309.9560976549637 1408.8224778520005 2646.0650703102947 171.71871576161604 171.6295305561526 2037.9955330662406 157.5207469471249 4.541551526369517 308.6132040363266 -259.6278709337814 64.93624088494443 2057.9520065167867 280.20449856960147 17.95613522355005 531.4474510743266 54.70576836646455 547.4123154971968 198.71053265177034 215.62637729188106 787.9322277179181 12.874952746739666 80.63958978431947 99.11647479302007 271.27369157789497 239.24991068433434 -98.39175648698239 2879.2725061896263 5440.21872199599 -288.48628358023825 2334.1046598139274 -372.53723985825104 -44.39117507582304 5539.9978023029325 116.6548545495379 2329.1228634761387 866.3428610486774 -186.15820456803874 461.0367604763443 -28.20022186170968 847.1101318630863 44.44406433346742 514.4379049056436 1940.6661134594058 232.72806961793185
+58515.450503964996 898.4097864860283 45.631475518781485 694.328242202384 -108.63731885955085 241.99483045502583 85.13754090100326 298.08645795951924 302.7435021352597 1504.0592856737542 -155.53209224428332 136.982389139441 -309.3215151864989 93.21192118343953 418.81484883909997 546.7517782935761 556.4144677017916 819.0846437591288 606.35157701217 -305.7060177257686 6.2750485179981865 36.900512377529026 135.9613956419358 1398.0798781225822 -808.9931867397122 -138.7246356351964 541.4142689108494 -1518.8243914315342 9.807527633187675 392.91622837128557 -2231.1008801258554 46.649531247475664 31.817345214207535 95.33302770464266 290.37596906959743 70.29210269473167 10.608168930546988 8395.601135833393 600.2072684645905 510.55501001715174 -319.13467480768645 1909.505389719169 -1445.7354621890156 -2485.360869524751 -18.27916811021298 -214.52934458732582 60.02494814878324 3041.7581367815756 1759.9806272389424 4644.165495284466 1479.5893547090366 1514.3786017321631 10.539560964496602 55.14433441400189 45.73214478278521 -17.857055864870063 10553.271322399833 63.305244322661395 -1674.5533635168931 -879.830167788339 978.5110576091507 1326.4740704347046 19480.789322764627 2033.8756976634818 8275.046987733847 542.68368747245 36678.91035789423 846.9228067993962 -106.36552145900623 1338.131466605084 2321.511319078403 185.03028766056565 163.32844004655536 1966.3712021361748 137.06218060681147 -1.5120716414071467 292.24096268969726 -308.57611102490705 82.90247495242721 1869.6152435723807 292.28072604891315 21.17841913576089 484.4975784611983 56.17701450023159 531.178486135042 164.51224874456975 167.8967784419774 693.2224010051857 9.944428601527164 83.55464646930942 89.48247898016021 283.9709193353601 257.4355273263466 -90.80887712636513 2748.2204256836962 5247.758391697271 -426.18391593992374 2347.485723367794 -348.2824323612555 -54.02897949425959 5120.081288129647 98.46017786175197 2233.2612713028084 857.3571676491074 -158.5766700719227 430.9815752852229 -35.493486760726796 827.2092157167388 52.82364826317642 506.10095773338065 1866.8174737839968 224.74070563284874
+57418.479889225 887.9584418813073 48.20589801908403 707.3630785072453 -98.14947703909425 265.29291100154296 109.25750799415869 295.62190404275145 286.20014286910805 1506.6732155541067 -141.88708189457935 160.29103058320283 -302.72477909490175 75.54745745804274 438.8039630681466 544.0355386271766 551.9463825604872 844.6940394614575 608.3223163558275 -297.261736847286 1.5051592124085573 19.316424603006553 107.87742738470646 1413.8763419380655 -823.5070199408417 -146.45259534800357 561.0652199787205 -1507.106164898104 23.626261283496007 360.16068437444414 -2246.2648664098197 52.37024042834802 43.39687963200734 88.49235014184723 292.11697190902623 69.72648971711942 29.641544590967342 8346.431174474506 628.4124298116625 540.6001214987623 -329.90724398405837 1953.9724808536907 -1446.9794008725635 -2488.6934291817065 -15.687023183180017 -233.2410101910273 55.88750320076154 3017.5376614708057 1772.6896868567474 4899.650769268993 1517.2223538653304 1560.4521157835052 9.603788927875257 66.71190531914898 27.950205926522614 -23.58962517228241 10693.408145003557 54.754456860687014 -1677.6721305631406 -867.5377371631325 997.0577927502023 1322.9595501419765 19479.03160689634 1901.351404397185 7939.487007956709 551.441914694449 32236.621646759424 867.7488740423764 939.2457586767478 1386.3999170298516 2513.9531233622965 190.5076303441212 172.91823862513445 1996.0172827006681 153.73457489452832 10.892660268856389 279.96092913259713 -308.37945920793413 45.94906187256004 1868.5665745434603 289.6940766742689 12.056019422466406 488.8461041946183 62.511211972986786 526.1964395824475 168.08230145508503 181.8967399526792 715.5633114155039 6.528238031672373 69.47184887961353 89.88993193386636 287.3799135722055 260.40869410396874 -89.74621208007227 2800.8545657630293 5268.176177839342 -395.7300209557626 2411.071547426328 -355.34524030915884 -56.612366649923054 5299.553959908605 97.46237597505935 2299.8906150256157 886.930490086554 -122.29370912539997 443.8533084697847 9.203781543495097 783.2651931068576 45.0094912224924 453.99068476689314 1844.5806865771865 188.9906750099188
+55406.576450990004 864.7430919721098 45.87145947991587 729.5658253231684 -83.44648934687822 258.9549350020011 134.7435739970909 307.5864619554767 303.6231168228112 1576.1681333893816 -158.68631428917735 159.31618218748557 -290.2912915663801 63.60496998685392 451.62545642239604 571.5946278834989 546.0068601244756 853.422119992337 636.9028521997075 -301.22511839563094 24.137135860300475 39.03847008933804 145.81633284982 1361.55020331167 -833.0688614513363 -150.9501029334558 568.4358451294443 -1563.910374853837 43.84385958112699 356.1357940409005 -2292.748107069615 55.42402226809112 7.332932906788727 88.25580147176186 300.78582205320686 81.03361012847654 22.23738241272173 8589.148219040917 613.2115810017897 522.6339127668632 -345.1671164138577 1891.8868447970262 -1579.8474354062682 -2527.6019501236715 -10.923842001825477 -277.6761348828044 63.48704343338247 3150.5900100773815 1796.2641722170083 5007.228702987903 1548.6223841744954 1732.1226996653404 10.013237405593443 84.00033188160428 31.09881838166281 -26.602180910482957 10869.88848604269 52.04845875193985 -1706.321701680806 -930.7281096500765 1019.8606647567166 1350.9520381336251 20113.19058555408 2012.794893279341 8240.441783695194 548.8237711228162 32515.014993101726 874.3501151270427 -1001.0750314336501 1418.0799032588193 2823.1644791587673 178.69931641477757 124.6866787019438 2075.2986739777334 157.9927791819834 1.0300674325052341 288.9915232173895 -339.1584429612476 54.326458511301865 1983.774679818139 286.3743455079159 -6.806015627093828 511.16141744340786 56.72152420287535 520.4398824233174 194.5461372547813 200.31328082225608 759.3303755149992 9.948939084767119 84.39301793347637 98.19994284367965 284.35952279905854 252.81283578418243 -104.65073813526448 2850.7952497245055 5422.745802482448 -283.38376400841105 2351.0259510493042 -411.7699003004215 -54.140882071612424 5199.069926284795 95.83095006387316 2296.032506254502 842.3250685986582 -138.7940864826623 469.52345744310514 -17.937767505000807 823.9558905065076 42.00140653164935 491.17913725906124 1887.4158164134165 194.05817469609826
+57949.79925989 834.1102324992245 37.600364426067955 709.352422875814 -89.68089459093974 247.0673043154729 115.04036414645242 323.813245883537 303.3250865156439 1500.289078386623 -136.25611561327327 145.18414719598343 -272.4355933481949 81.09671910669152 414.57389381915084 523.3850001483172 506.93180521082996 837.768748020014 610.6793177343294 -299.5705874347775 47.19734009868398 24.871364780287543 118.74982888348367 1378.3413259630095 -878.5122614796252 -127.49651176958514 554.6762263943112 -1541.6411549610605 40.556857066594915 366.1204517372011 -2178.576155431917 55.84534777820164 39.153797297217466 117.3089355630593 349.00706438367797 79.67317867704989 19.1000729744705 8334.951566632113 587.1560838969482 503.12948666350144 -361.5118087211699 1751.2476534609714 -1507.561889855652 -2415.539121488658 -25.825318274939 -236.33309536253847 58.83320139235771 3016.94515477187 1734.2518130902622 4702.035027788286 1525.2352526503535 1572.8247882819005 -8.108504355502319 79.08551541271046 11.103278437990753 -28.800859013527997 10546.442121961081 47.2006230368835 -1632.704278182795 -876.5299235773244 974.8619779704378 1326.854228314108 19229.437772056113 1921.4636133849958 7923.12462900375 533.6100038575777 33024.996593426324 842.3884186435896 482.77768090803784 1359.2854845274449 2629.750900816767 167.98141515737905 140.2342077955439 1959.23768065688 156.40110683938073 -6.4771322534736555 299.3762403071594 -329.8650941648839 57.55519295640087 1835.9826960525727 311.9760674579071 24.518762592555618 507.4173286072877 72.82489335338472 490.8657972224257 190.84505815569347 196.1628734960797 776.2125159796047 -14.892107231176823 63.17289878972058 101.10595921735955 290.7749517993092 258.1882211317915 -108.73693287033052 2713.045823824721 5267.202454927779 -417.2765403398687 2381.455349173011 -418.7989725650838 -54.24121196924182 5185.306320161958 103.3713896322205 2244.4356308146976 829.5076521283504 -135.27925711626364 493.63519373375107 -12.167735354884485 786.3554893750916 48.455262583294584 494.59413972116073 1855.236295064058 191.50994428525706
+59041.42532095 842.5326161619653 52.19387456738997 683.1269518636491 -98.42252613524545 245.8505373947042 99.22518232495821 291.9342296337396 283.25733493428936 1471.3957534777103 -140.07466915739843 148.67693088425327 -296.4925178883632 78.47756312852351 399.5778803478213 556.062179703031 536.0649207749956 821.3155279408397 620.8647470314345 -291.67173781764245 18.200594958383363 37.24988356597524 125.87573957676688 1319.2587247458405 -844.7700065867111 -150.4846963578371 559.6201464553836 -1516.2384623479838 44.67341039140567 379.41569407321055 -2147.517173025362 47.26333915874907 4.056249878249361 70.32249770892392 326.98818669398906 70.82212418084117 7.137074422785609 8107.966193212607 560.4433471298424 477.4161865060428 -355.3567408877809 1728.3333741264587 -1411.9835150618644 -2323.884841732529 2.919335914595976 -240.89633132725913 55.153408979047 2916.3389766891364 1693.5329661071046 4527.047216061181 1476.3043443081103 1592.5082839938132 6.962990514957596 60.848551720739266 32.34933141703456 -62.436914619864865 10445.546238397088 52.12730187469268 -1560.5366638243745 -914.4880410097743 972.7903935194134 1285.0750559095231 18778.94239624234 1939.862958958271 8052.981970481629 528.7729387007521 31419.320244387953 817.6510734694889 -489.46360671063576 1328.9130095327298 2464.1342098150235 167.4453059247033 123.71465794754815 1961.4197229919628 124.26153111203143 20.350713661263626 271.39341936086646 -352.39303877678117 57.68815568019207 1737.2018975316873 308.8957178308192 16.502499211194532 477.7918513941653 70.57801820080374 465.9614328992414 180.69516751744823 186.87418722081208 719.779314026271 -16.02692292069321 57.74717488936702 104.1517712992065 284.4913180964831 245.20579890857482 -82.97009113769542 2633.498470991224 5175.299645851427 -441.4810823472484 2302.047360757961 -389.1436122237387 -28.811044089914844 4930.833948752886 102.07866095279202 2176.905142997771 823.328701104622 -137.3385470441637 457.8327515970615 -33.215422238610245 819.7962572434828 59.75665363416687 508.0734884005363 1800.725597282152 199.90774514708244
