@@ -1,0 +1,92 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: time, datatype: float64}
+# - name: aperture:0
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 68.87214993985255}
+#   - {'dec[deg]': 24.128741616699656}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: &id001 !astropy.units.Unit {unit: pix}
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:1
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 68.87862517377425}
+#   - {'dec[deg]': 24.13284818144259}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:2
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 68.91437248359529}
+#   - {'dec[deg]': 24.135365974263248}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# - name: aperture:3
+#   datatype: float64
+#   meta: !!omap
+#   - {'ra[deg]': 68.89754027956663}
+#   - {'dec[deg]': 24.13878731200382}
+#   - aperture_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 8.249999800231205
+#   - annulus_inner_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 11.999999709427206
+#   - annulus_outer_rad[pix]: !astropy.units.Quantity
+#       unit: *id001
+#       value: 17.99999956414081
+# meta: !!omap
+# - {description: this table provides the calibrated magnitudes for each aperture}
+# - {point_source_selection_parameters: 'fwhm=5.5, threshold=5'}
+# - __serialized_columns__:
+#     time:
+#       __class__: astropy.time.core.Time
+#       format: mjd
+#       in_subfmt: '*'
+#       out_subfmt: '*'
+#       precision: 3
+#       scale: utc
+#       value: !astropy.table.SerializedColumn {name: time}
+# schema: astropy-2.0
+time aperture:0 aperture:1 aperture:2 aperture:3
+59618.4605656 13.615760714327681 14.509244152801879 14.521217780160454 9.955902419981095
+57269.08176924 13.614754950020513 14.47448281002188 14.56442084539194 9.939007586415151
+57076.303413335 13.645263543436775 14.521687113815274 14.568530494430483 9.912282487005
+58364.546715925 13.611399596502936 14.512808079492862 14.643957664721567 10.034049611435814
+59461.510807169994 13.636976516316482 14.460695139749722 14.712823212292538 10.060926209065444
+57434.301058555 13.62001493708131 14.518623903405322 14.565141083403653 9.992875754477067
+56905.831092555 13.608273430593707 14.460099955723111 14.537288513742999 10.02546467695593
+58524.665715675 13.6137364774465 14.547901104120657 14.555390956837568 9.915835251288803
+58157.06760511 13.63975033013916 14.59061036288787 14.552729747387096 9.837349900130857
+58730.075005815 13.613226793598463 14.392741249482695 14.531921770638514 9.964066277989147
+56714.698080974995 13.643200777615997 14.498861809125279 14.62252647939527 10.070509328586331
+57634.639635035 13.63509617071617 14.446976978156497 14.62022192402593 9.949157388338934
+59252.514969020005 13.620385763822366 14.474716348109768 14.609704606954294 10.0138255102572
+58888.40744024 13.628673243564988 14.493541563693073 14.612553645677126 9.949050304218828
+55251.192269335006 13.62493203971057 14.529364160011719 14.5209894969501 9.891326790262955
+57998.878299765 13.620776298301898 14.517179994551945 14.697260708747319 9.955998110219532
+57799.998903515 13.605047391012013 14.558610866296194 14.5475066310302 9.938107897691795
+59097.968039 13.625761051997223 14.50500318567659 14.557284458047322 9.850792700888427

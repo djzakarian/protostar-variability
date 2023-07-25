@@ -1,0 +1,11 @@
+--2023-07-21 17:13:24--  https://irsa.ipac.caltech.edu/cgi-bin/ICORE/nph-icore?locstr=20:35:46.450%20+67:53:04.200&band=1&sizeX=0.0667&sizeY=0.0667&date1=15Jul2014%2003:49:41&date2=18Jul2014%2014:43:01&mode=PI
+Resolving irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)... 134.4.54.110
+Connecting to irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)|134.4.54.110|:443... connected.
+HTTP request sent, awaiting response... 200 ‘wget-log’
+Length: unspecified
+Saving to: ‘L1152_size0_0667_ep3.0_b1.xml’
+
+     0K ..                                                      187M=0s
+
+2023-07-21 17:16:43 (187 MB/s) - ‘L1152_size0_0667_ep3.0_b1.xml’ saved [2088]
+

@@ -2,7 +2,7 @@
 <result status="ok">
   <description>
      <ra>  146.693580000</ra>
-     <dec>  -51.268610000</dec>
+     <dec>  -51.102500000</dec>
      <band>1</band>
      <sizeX>0.0667</sizeX>
      <sizeY>0.0667</sizeY>
@@ -11,7 +11,7 @@
      <qframe></qframe>
      <moon></moon>
      <saa></saa>
-     <date1>19Dec2021 17:49:57</date1>
+     <date1>19Dec2021 08:25:21</date1>
      <date2>27Dec2021 03:02:06</date2>
      <sccoad>area</sccoad>
      <prodtype>coadd</prodtype>
@@ -21,28 +21,28 @@
        1
      </ngood>
      <resultHtml>
-       https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/result.html
+       https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/result.html
      </resultHtml>
      <framesused>
-       https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_query_used.tbl
+       https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_query_used.tbl
      </framesused>
   </summary>
   <images>
-        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-int.fits
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-int.fits
  </fits>
-        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-int.jpg
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-int.jpg
  </jpg>
-        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-unc.fits
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-unc.fits
  </fits>
-        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-unc.jpg
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-unc.jpg
  </jpg>
-        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-cov.fits
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-cov.fits
  </fits>
-        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-cov.jpg
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-cov.jpg
  </jpg>
-        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-std.fits
+        <fits> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-std.fits
  </fits>
-        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_VdiC2x_27673/ICORE/09_46_46.460_-51_16_07.000.v0001/results/ICORE_0001_W1_mosaic-std.jpg
+        <jpg> https://irsa.ipac.caltech.edu:443/work/TMP_uG0zSI_4373/ICORE/09_46_46.460_-51_06_09.000.v0001/results/ICORE_0001_W1_mosaic-std.jpg
  </jpg>
   </images>
 </result>

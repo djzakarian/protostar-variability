@@ -48,6 +48,9 @@ targets_tab.rename_column('\ufeffobj_name', 'obj_name')
 targets_tab[2]['ra'] = '18 17 29.8'
 targets_tab[2]['dec'] = '-4 39 36.4'
 
+# IRAS 09449
+targets_tab[32]['dec'] = '-51 06 09.0'
+
 # %%  # Format table (assign units and make SkyCoord object column)
 
 # assign units to columns
@@ -179,13 +182,13 @@ for targets_row in range(len(targets_tab)):
             
             
         
-        # if time between obs is less than 2 days... the two obs are in the same epoch
+        # if time between obs is less than 15 days... the two obs are in the same epoch
         # we do want to count how many images are in each epoch
         if mjd - prev_mjd <= 15:
             n_images+=1
             continue
         
-        # if obs are more than 2 days apart... there's a new epoch!
+        # if obs are more than 15 days apart... there's a new epoch!
         elif mjd - prev_mjd > 15:
             
             # add to the counter on number of images
@@ -217,13 +220,13 @@ for targets_row in range(len(targets_tab)):
 
 
 #%% save epochs_tab table 
-ascii.write(epochs_tab, '{path}30-06-23_epochs_table.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-ascii.write(epochs_tab, '{path}30-06-23_epochs_table.csv'.format(path=directory), format='csv', overwrite=True)   
+ascii.write(epochs_tab, '{path}21-07-23_epochs_table.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+ascii.write(epochs_tab, '{path}21-07-23_epochs_table.csv'.format(path=directory), format='csv', overwrite=True)   
 
 
 #%% read in tables
 
-epochs_tab=QTable.read('{path}30-06-23_epochs_table.ecsv'.format(path=directory))
+epochs_tab=QTable.read('{path}21-07-23_epochs_table.ecsv'.format(path=directory))
 
 #%% clean table
 
@@ -292,8 +295,8 @@ for row in reversed(range(len(epochs_tab))):
     
 #%% save files
     
-    ascii.write(epochs_tab, '{path}30-06-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
-    ascii.write(epochs_tab, '{path}30-06-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
+    ascii.write(epochs_tab, '{path}21-07-23_epochs_table_url_size0_0667.ecsv'.format(path=directory), format='ecsv', overwrite=True)
+    ascii.write(epochs_tab, '{path}21-07-23_epochs_table_url_size0_0667.csv'.format(path=directory), format='csv', overwrite=True)   
 
     
     

@@ -40,7 +40,7 @@ coadd_directory ='/users/dzakaria/DATA/dzfiles/coadds-0_0667/'
 
 size ='0_0667'
 
-epochs_tab=QTable.read('{path}30-06-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
+epochs_tab=QTable.read('{path}21-07-23_epochs_table_url_size{size}.csv'.format(path=directory, size=size))
 
 
 #%% make directories for each object

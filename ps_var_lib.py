@@ -15,7 +15,8 @@ import time
 import math
 import numpy as np
 from astropy.io import fits, ascii
-from photutils.aperture import aperture_photometry, CircularAperture, CircularAnnulus, SkyCircularAperture, SkyCircularAnnulus
+from photutils.aperture import ( aperture_photometry, CircularAperture, CircularAnnulus, 
+                                EllipticalAperture, SkyCircularAperture, SkyCircularAnnulus)
 from astropy import units as u
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
@@ -295,7 +296,7 @@ def process_images_background2d(fits_file_path, mask, plot_backgroun=True, plot_
         
 #%% process images bgrnd ap
 
-def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'magma'):
+def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'turbo'):
     """
     1) loop through fits files in directory
     2) read in important info (data, header etc)
@@ -394,28 +395,28 @@ def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = '
        
         
         """
-        Now, display an image with the background aperture plotted
+        Now, display an image with the background aperture plotted if make_gif=True
         """
-        
-        if first_file == True:
-            frame, lower_percentile, upper_percentile = \
-                make_image_user_input(data=data, aperture=aperture,
-                                      cmap=cmap, plot_aperture=True,
-                                      first_file=True) 
+        if make_gif == True:
+            if first_file == True:
+                frame, lower_percentile, upper_percentile = \
+                    make_image_user_input(data=data, aperture=aperture,
+                                          cmap=cmap, plot_aperture=True,
+                                          first_file=True) 
+                
+                
+            else: 
+                frame, lower_percentile, upper_percentile = \
+                    make_image_user_input(data=data, aperture=aperture,
+                                          cmap=cmap, plot_aperture=True,
+                                          lower_percentile = lower_percentile, 
+                                          upper_percentile = upper_percentile, 
+                                          first_file = False) 
+    
             
             
-        else: 
-            frame, lower_percentile, upper_percentile = \
-                make_image_user_input(data=data, aperture=aperture,
-                                      cmap=cmap, plot_aperture=True,
-                                      lower_percentile = lower_percentile, 
-                                      upper_percentile = upper_percentile, 
-                                      first_file = False) 
-
-        
-        
-        frames.append(frame)
-            
+            frames.append(frame)
+                
         # save the background_subtracted images as *_processed.fits 
         # new_file_name = image_file.replace('.fits', '_processed.fits')
         processed_fits = CCDData(data, unit=unit, meta=header)
@@ -427,6 +428,88 @@ def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = '
         
         first_file = False
     
+    if make_gif == True:
+        frames[0].save(f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_{cmap}.gif', save_all = True, append_images=frames[1:], duration=500, loop=0)
+    
+#%% make gif
+def make_gif(fits_dir, make_gif=False, cmap = 'turbo'):
+    """
+    1) loop through fits files in directory
+    2) read in important info (data, header etc)
+    3) for the first file in directory, use get_background_aperture to find the 
+        darkest circle of radius 0.5 arcsec - this region will be used to calculate
+        background for all fits files in this directory
+    4) change the value of infinite, nan, and negative pixel values to 0
+    5) display image with aperture
+    6) if make_gif = True, make a gif of the images plotted at the scale defined previously
+    
+    """
+    
+    
+    # read in obj name and band
+    split_path = fits_dir.split('/')
+    name = split_path[6]
+    band = split_path[8]
+    
+    # go through directory and get a path for each fits file 
+    # don't work with the processed fits images (ending in _processed.fits), 
+    # just the original files ending in mosaic-int.fits
+    
+    file_list = [file for file in os.listdir(fits_dir) if file.endswith('_processed.fits')]
+    file_list_paths = []
+    for file in file_list:
+        file_list_paths.append(f'{fits_dir}/{file}')
+        
+
+    
+    frames=[] # for gif
+        
+    # loop through and process files
+    first_file = True # only define background aperture once, then change to False
+    for image_file in file_list_paths:
+        
+        # open fits file
+        hdul = fits.open(image_file)
+        data = hdul[0].data
+        header = hdul[0].header
+        wcs = WCS(header)
+        median_counts = np.median(data) # calculate median counts per pixel of image
+        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+        
+        # define the mask
+        zero_mask = (data == 0)
+        
+        # store image 
+        unit = u.electron/u.s
+        image = CCDData(data, unit=unit, meta=header, mask=zero_mask)
+        
+        
+
+        if first_file == True:
+            frame, lower_percentile, upper_percentile = \
+                make_image_user_input(data=data,
+                                      cmap=cmap, plot_aperture=False,
+                                      first_file=True) 
+            
+            
+        else: 
+            frame, lower_percentile, upper_percentile = \
+                make_image_user_input(data=data, 
+                                      cmap=cmap, plot_aperture=False,
+                                      lower_percentile = lower_percentile, 
+                                      upper_percentile = upper_percentile, 
+                                      first_file = False) 
+
+        
+        
+        frames.append(frame)
+                
+      
+        
+        # hdul.writeto(os.path.join(fits_dir, new_file_name))
+        hdul.close()
+        
+        first_file = False
     
     frames[0].save(f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_{cmap}.gif', save_all = True, append_images=frames[1:], duration=500, loop=0)
     
@@ -570,10 +653,91 @@ def determine_point_source_apertures(file, processed_images_dir, lower_percentil
     
     return wcs_apertures, wcs_annuli
 
+#%% create_elliptical_apertures
+
+def create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis):
+    position = (x, y)
+    a = semi_major_axis
+    b = semi_minor_axis
+    aperture = EllipticalAperture(position, a, b)
+    return aperture
+
+
+
+#%% source apertures
+
+def determine_source_apertures(file, processed_images_dir, lower_percentile = 0,
+                                     upper_percentile = 99.5, fwhm = 5.5, threshold=5,
+                                     aperture_radius = 8.25, inner_radius = 12, outer_radius= 18):
     
+    path= f'{processed_images_dir}/{file}'
+    # fig, ax = plt.subplots()
+    with fits.open(path) as hdul:
+        data = hdul[0].data
+        header = hdul[0].header 
+      
+    wcs = WCS(hdul[0].header)
+    pixel_scale_y = header['CDELT2'] *u.deg
+    
+    # Convert the pixel scale to arcseconds
+    # pixel_scale_x = pixel_scale_x.to(u.arcsec).value
+    pixel_scale = pixel_scale_y.to(u.arcsec).value
+    
+    # store image 
+    unit = u.electron/u.s
+    xdf_image=CCDData(data, unit=unit, meta=header)
+    
+
+    """ CREATING APERTURE(S) """
+    
+    num_apertures = int(input("Number of elliptical apertures to define:"))
+    
+    while True:
+        apertures = []
+        
+        for i in range(num_apertures):
+            print(f"\nDefining Aperture {i+1}:")
+    
+            x = float(input("aperture x coord: "))
+            y = float(input("aperture y coord: "))
+            semi_major_axis = float(input("semi-major axis: "))
+            semi_minor_axis = float(input("semi-minor axis: "))
+            
+            aperture = create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis)
+            apertures.append(aperture)
+            
+            # plot the aperture to visualize it
+            plt.imshow(data, origin='lower', cmap='turbo')
+            aperture.plot(color='red', lw=2)
+            plt.colorbar()
+            plt.show()
+            
+        response = input("\nAre you happy with the apertures? (yes/no): ").lower()
+        if response != 'yes': 
+            break
+        
+        
+    
+    
+
+    # convert the apertures to RA and Dec
+    source_wcs_apertures = []
+    for aperture in apertures:
+
+        xcenter, ycenter = aperture.positions
+        ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
+        center_coord = SkyCoord(ra, dec, unit=(u.deg, u.deg), frame='icrs')
+        source_wcs_aperture =  SkyCircularAperture(center_coord, aperture_radius * u.pixel)
+        source_wcs_apertures.append(source_wcs_aperture)
+        
+       
+        
+    
+    return source_wcs_apertures
+   
 #%% process_images_old
 
-def process_images(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'magma'):
+def process_images(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'turbo'):
     """
     1) loop through fits files in directory
     2) read in important info (data, header etc)
@@ -633,6 +797,7 @@ def time_series_point_source_photometry(processed_image_dir):
     first_file = file_list[0]
     apertures = determine_point_source_apertures(first_file, processed_image_dir)
     
+    
 
     
     # Create an empty table to store the photometry results
@@ -689,7 +854,7 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
     table = Table()
     
     # table_data = {'Time': []}
-    table_data = {} 
+    table.meta['description'] = 'this table provides the calibrated magnitudes for each aperture'
     for row in range(len(wcs_apertures)):
         aperture = wcs_apertures[row]
         annulus = wcs_annuli[row]
@@ -747,6 +912,7 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
         with fits.open(file) as hdul:
             wcs = WCS(hdul[0].header)
             for row in range(len(wcs_apertures)):
+                header = hdul[0].header
                 sky_aperture = wcs_apertures[row]
                 sky_annulus = wcs_annuli[row]
                 aperture_pixels = sky_aperture.to_pixel(wcs)
@@ -757,7 +923,29 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
                 bg_flux = annulus_flux * aperture_pixels.area/annulus_pixels.area
                 flux = aperture_flux - bg_flux
                 
-                table[f'aperture:{row}'][time_row_counter] = flux
+                # now convert to magnitudes 
+                # (https://wise2.ipac.caltech.edu/docs/release/allsky/expsup/sec4_4h.html#WISEPS)
+                
+                # magnitude zero point from header
+                magzp = header['MAGZP']
+                
+                # aperture correction given by WISE
+                # (https://wise2.ipac.caltech.edu/docs/release/allsky/expsup/sec4_4c.html#circ)
+                band = header['BAND']
+                if band == 1:
+                    ac = 0.222
+                elif band == 2:
+                    ac = 0.280
+                
+                # if flux is negative, ignore the log term
+                if flux >= 0:
+                    mag = magzp - 2.5 * np.log10(flux) - ac
+                
+                else:
+                    mag = magzp - ac
+                    
+                    
+                table[f'aperture:{row}'][time_row_counter] = mag
                 
                 
                 # pixel_aperture = CircularAperture(aperture_pixels.positions, aperture_pixels.r)
@@ -932,10 +1120,85 @@ def subtract_coadd(processed_images_dir):
         hdul.close()
         coadd_hdul.close()
         
+
+#%% divid_coadd
+def divide_coadd(processed_images_dir):
+    
+    # save the coadded file
+    split_path = processed_images_dir.split('/')
+    name = split_path[6]
+    band = split_path[8]
+
+    image_file = f'{processed_images_dir}/coadd_{name}_{band}.fits'
+    
+    coadd_hdul = fits.open(image_file)
+    coadd_data = coadd_hdul[0].data
+    coadd_header = coadd_hdul[0].header
+    coadd_wcs = WCS(coadd_header)
+    median_counts = np.median(coadd_data) # calculate median counts per pixel of image
+    stdev_counts = np.std(coadd_data)  # calculate standard deviation of the counts per pixel
+    
+    # print(median_counts)
+
+    
+    """ loop through the processed files and subtract the avg from the epoch image """
+    
+    # count the number of files
+    file_counter = 0
+    
+    file_list = [file for file in os.listdir(processed_images_dir) if file.endswith('processed.fits')]
+    file_list_paths = []
+    for file in file_list:
+        file_list_paths.append(f'{processed_images_dir}/{file}')
+        file_counter += 1
+            
+   
+    for image_file in file_list_paths:
+        
+        # open fits file
+        hdul = fits.open(image_file)
+        data = hdul[0].data
+        header = hdul[0].header
+        wcs = WCS(header)
+        median_counts = np.median(data) # calculate median counts per pixel of image
+        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+
+        scale_ratio = 1 / (file_counter)
+        
+       
+        sub_data = data / (coadd_data * ( scale_ratio ))
+        
+        # print(f'coadd_data: {coadd_data}')
+        # print(f'\ndata: {data}')
+        # print(f'\nsub_data: {sub_data}')
+        
+        # create a new fits hdu object with the coadded data and header
+        sub_hdu = fits.PrimaryHDU(data=sub_data, header=header)
+        
+        # new file name 
+        sub_file_name =  image_file.replace('_processed.fits', '_processed_divided.fits')
+        
+        # save the coadded file
+        sub_hdu.writeto(f'{sub_file_name}', overwrite=True)
+            
+        # make_image_user_input(sub_data) # view a plot of the image 
+    
+    
+        hdul.close()
+        coadd_hdul.close()
+        
 #%% pipeline
       
-def pipeline(file_dir, epochs_tab_path , process_files = True, point_source_fwhm = 5.5, 
-             point_source_threshold = 5, compstar_ylim = 5000, wcs_apertures=[], wcs_annuli = []):
+def pipeline(file_dir, epochs_tab_path , process_files = True, comp_star_phot = True, combine = True,
+             subtract = True, divide = True, point_source_fwhm = 5.5, point_source_threshold = 5, 
+             compstar_ylim = 5000, wcs_apertures=[], wcs_annuli = []):
+    
+    
+    """ file directory is the directory where the fits files for a given object + pipeline are stored.
+        epochs_tab_path is the path where the epochs table information is stored.
+        process_files, comp_star_phot, combine, subtract, and divide all correspond to parts of the pipeline.
+        Set these to 'False' if they have already been done for a target."""
+    
 
     # get info from file directory
     split_path = file_dir.split('/')
@@ -943,53 +1206,67 @@ def pipeline(file_dir, epochs_tab_path , process_files = True, point_source_fwhm
     band = split_path[8]
     
     
-    """ subtract the background from the images (if they haven't already been processed) """
+   
     if process_files == True:
+        """ subtract the background from the images (if they haven't already been processed) """
         # and save the new fits files with the suffix _processed.fits 
-        process_images_bgrnd_ap(file_dir, mask_sigma_coeff = 5, cmap = 'turbo', make_gif=True)
+        process_images_bgrnd_ap(file_dir, mask_sigma_coeff = 5, cmap = 'turbo', make_gif=False)
       
-    """ use the first fits file to determine apertures for the comp stars
-        it may choose some bad apertures but they can be ignored.
-        also, the apertures are found for b1 and used for both bands"""   
-    
-    if band == 'b1':
-        file_list = [file for file in os.listdir(file_dir) if file.endswith('_processed.fits') and 'ep0' in file]
-        file_list_paths = []
-        for file in file_list:
-            file_list_paths.append(f'{file_dir}/{file}')
+   
+    if comp_star_phot == True:
+        
+        """ use the first fits file to determine apertures for the comp stars
+            it may choose some bad apertures but they can be ignored.
+            also, the apertures are found for b1 and used for both bands"""   
+        
+        
+        if band == 'b1':
+            file_list = [file for file in os.listdir(file_dir) if file.endswith('_processed.fits') and 'ep0' in file]
+            file_list_paths = []
+            for file in file_list:
+                file_list_paths.append(f'{file_dir}/{file}')
+                
+            wcs_apertures, wcs_annuli = determine_point_source_apertures(file_list[0], file_dir, fwhm = point_source_fwhm, threshold = point_source_threshold)
+        # if band = b2, then the apertures and annuli are read into the function after being previously found
+        
+        """ make a time series table using all of the apertures found previously - 
+            the aperture and annulus info are saved in the metadata of the table """
             
-        wcs_apertures, wcs_annuli = determine_point_source_apertures(file_list[0], file_dir, fwhm = point_source_fwhm, threshold = point_source_threshold)
-    # if band = b2, then the apertures and annuli are read into the function after being previously found
-    
-    """ make a time series table using all of the apertures found previously - 
-        the aperture and annulus info are saved in the metadata of the table """
+        ts_tab= time_series_tab(file_dir, epochs_tab_path, wcs_apertures, wcs_annuli)
+        # update metadata for the table with the fwhm and threshold used
+        ts_tab.meta['point_source_selection_parameters'] = f'fwhm={point_source_fwhm}, threshold={point_source_threshold}'
+        # save the file in the directory
+        ts_tab.write(f'{file_dir}/time_series_{name}_{band}.ecsv', format='ascii.ecsv', overwrite=True)
+        ts_tab.write(f'{file_dir}/time_series_{name}_{band}.csv', format='ascii.csv', overwrite=True)
         
-    ts_tab= time_series_tab(file_dir, epochs_tab_path, wcs_apertures, wcs_annuli)
-    # update metadata for the table with the fwhm and threshold used
-    ts_tab.meta['point_source_selection_parameters'] = f'fwhm={point_source_fwhm}, threshold={point_source_threshold}'
-    # save the file in the directory
-    ts_tab.write(f'{file_dir}/time_series_{name}_{band}.ecsv', format='ascii.ecsv', overwrite=True)
-    ts_tab.write(f'{file_dir}/time_series_{name}_{band}.csv', format='ascii.csv', overwrite=True)
+        """ plot the lightcurves of the compstars """
+        plot_compstars(ts_tab, ylim = compstar_ylim)
     
-    """ plot the lightcurves of the compstars """
-    plot_compstars(ts_tab, ylim = compstar_ylim)
+    if combine == True:
+        """ combine all of the images into an average image """
+        combine_images(file_dir)
     
-    """ combine all of the images into an average image """
-    combine_images(file_dir)
+    if subtract == True:
+        """ scale and subtract coadd from each image - 
+            each image will be saved with the suffix _subtracted
+            (so complete suffix will be _processed_subtracted.fits )"""
+            
+        subtract_coadd(file_dir)
     
-    """ scale and subtract coadd from each image - 
-        each image will be saved with the suffix _subtracted
-        (so complete suffix will be _processed_subtracted.fits )"""
-        
-    subtract_coadd(file_dir)
+    if divide == True:
+        """ scale and divide coadd from each image -
+            each image will be saved with the suffix _divided """
+        divide_coadd(file_dir)
     
     return wcs_apertures, wcs_annuli
     
 #%% run_pipeline
 def run_pipeline(coadd_directory, obj_names, bands, epochs_tab_path) :
-    
+    processed_names = []
 
     for name in obj_names:
+        if name in processed_names:
+            continue
         for band in bands:
             print(name)
             
@@ -1001,15 +1278,31 @@ def run_pipeline(coadd_directory, obj_names, bands, epochs_tab_path) :
             else:
                 pipeline(file_dir, epochs_tab_path = epochs_tab_path, wcs_apertures = wcs_apertures, wcs_annuli = wcs_annuli)
                 
-                # after successfully completed, remove the object name from list of files and save to coadd directory
-                obj_names.remove(name)
-                obj_names_col = Column(obj_names, name='obj_names')
-                obj_names_tab = Table([obj_names_col])
-                obj_names_tab.write(f'{coadd_directory}obj_names.csv', format='csv', overwrite=True)
-            
-            
+                # after successfully completed, add to list of processed names
+                processed_names.append(name)
+                
         
-    
 
-    
-    
+        obj_names_col = Column(processed_names, name='obj_names')
+        obj_names_tab = Table([obj_names_col])
+        obj_names_tab.write(f'{coadd_directory}processed_obj_names.csv', format='csv', overwrite=True)
+                
+                
+#%% get all gifs 
+def get_all_gifs(coadd_directory, obj_names, bands, epochs_tab_path):  
+           
+    for name in obj_names:
+        for band in bands:
+            print(name)
+            
+            file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
+            # read in obj name and band
+            split_path = file_dir.split('/')
+            name = split_path[6]
+            band = split_path[8]
+            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_turbo.gif'):
+                print('gif_exists')
+            else:
+
+                make_gif(file_dir)
+                
