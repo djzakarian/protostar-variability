@@ -11,12 +11,11 @@ GOAL:
 #%% imports
 
 import os
-import time
 import math
 import numpy as np
-from astropy.io import fits, ascii
+from astropy.io import fits
 from photutils.aperture import ( aperture_photometry, CircularAperture, CircularAnnulus, 
-                                EllipticalAperture, SkyCircularAperture, SkyCircularAnnulus)
+                                EllipticalAperture, SkyCircularAperture, SkyCircularAnnulus, SkyEllipticalAperture)
 from astropy import units as u
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
@@ -28,14 +27,10 @@ from astropy.nddata import CCDData
 from photutils import DAOStarFinder, Background2D, MedianBackground
 from astropy.stats import sigma_clipped_stats
 from astropy.coordinates import SkyCoord
-from photutils import find_peaks
-from photutils.centroids import centroid_2dg
 from astropy.table import Table, QTable, Column, MaskedColumn
 from  astropy.timeseries import TimeSeries
 import re
 from astropy.time import Time
-from astropy.visualization import hist
-from astropy.stats import mad_std
 
     
 #%% pixel_to_radec
@@ -66,18 +61,22 @@ def norm(data, lower_percentile=20, upper_percentile=99.5):
 
 #%% make_image_user_input
 
-def make_image_user_input(data, aperture = None, cmap = 'gray', plot_aperture = False,
-               first_file = True, lower_percentile=0, upper_percentile=99):
+def make_image_user_input(data, apertures = [], cmap = 'turbo', plot_apertures = False,
+               first_file = True, lower_value=0, upper_value=3, show_date=False, date='', 
+               show_axes=False, add_scale=False,sqrt=True, scale_values=False):
     
+
     fig, ax = plt.subplots()
     
-    
-    scaled_data = np.sqrt(data)
-    # scaled_data=data
+    if sqrt==True:
+        scaled_data = np.sqrt(data)
+    else:
+        scaled_data = data
+
     
     fig.clear()
-    ax = fig.add_subplot(111)
-    ax.axis('off')
+    # ax = fig.add_subplot(111)
+    # ax.axis('off')
     
     
 
@@ -86,24 +85,47 @@ def make_image_user_input(data, aperture = None, cmap = 'gray', plot_aperture = 
         
         while True:
             try:
-                lower_percentile = float(input("Enter the lower percentile (0-100): "))
-                upper_percentile = float(input("Enter the upper percentile (0-100): "))
-                lower_value = np.percentile(scaled_data, lower_percentile)
-                upper_value = np.percentile(scaled_data, upper_percentile)
-                norm = Normalize(lower_value, upper_value)
+                
+                if scale_values==False:
+                    lower_percentile = float(input("Enter the lower percentile (0-100): "))
+                    upper_percentile = float(input("Enter the upper percentile (0-100): "))
+                    lower_value = np.percentile(scaled_data, lower_percentile)
+                    upper_value = np.percentile(scaled_data, upper_percentile)
+                    norm = Normalize(lower_value, upper_value)
         
+                else:
+                    lower_value = float(input("Enter the lower value: "))
+                    upper_value = float(input("Enter the upper value: "))
+                    norm = Normalize(lower_value, upper_value)
+                    
+
                 fig.clear()
                 ax = fig.add_subplot(111)
-                ax.axis('off')
+                
+                if show_axes==False:
+                    ax.axis('off')
         
                 im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
         
-                if plot_aperture==True:
-                    aperture.plot(color='red', lw=1.5, alpha=0.7)
+                if plot_apertures==True:
+                    for i, aperture in enumerate(apertures):
+                        # aperture.plot(color='red', lw=1.5, alpha=1)
+                        x, y = aperture.positions
+                        ax.text(x, y, str(i), color='red', fontsize=9, 
+                                ha='center', va='center', bbox=dict(facecolor='white', alpha=0.4))
+                        # ax.text(x, y, str(i), color='red', fontsize=12, 
+                        #         ha='center', va='center')
         
-                ax.set_xlim(0, data.shape[1])
-                ax.set_ylim(0, data.shape[0])
-        
+                # ax.set_xlim(0, data.shape[1])
+                # ax.set_ylim(0, data.shape[0])
+                
+                ax.set_aspect('equal')
+                
+                # add the date in white font on the to left corner if show_date = True
+                if show_date == True:
+                    ax.text(0.02, 0.98, date, transform=ax.transAxes,
+                            color='white', fontsize=12, ha='left', va='top', bbox=dict(facecolor='black', alpha=0.7))
+                
                 canvas = FigureCanvasTkAgg(fig, master=tk.Tk())
                 canvas.draw()
                 canvas.get_tk_widget().pack()
@@ -118,27 +140,44 @@ def make_image_user_input(data, aperture = None, cmap = 'gray', plot_aperture = 
                 choice = input("Are you happy with the scaling? (yes/no): ")
                 if choice.lower() == "yes":
                     break
-            except:
+            except Exception as e:
+                print(e)
                 pass
     else:
         
        
-        lower_value = np.percentile(scaled_data, lower_percentile)
-        upper_value = np.percentile(scaled_data, upper_percentile)
+        # lower_value = np.percentile(scaled_data, lower_percentile)
+        # upper_value = np.percentile(scaled_data, upper_percentile)
         norm = Normalize(lower_value, upper_value)
 
         fig.clear()
         ax = fig.add_subplot(111)
-        ax.axis('off')
+        # ax.axis('off')
+        
+        if show_axes==False:
+            ax.axis('off')
 
         im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
 
-        if plot_aperture==True:
-            aperture.plot(color='red', lw=1.5, alpha=0.7)
-
-        ax.set_xlim(0, data.shape[1])
-        ax.set_ylim(0, data.shape[0])
-
+        if plot_apertures==True:
+            for i, aperture in enumerate(apertures):
+                # aperture.plot(color='red', lw=1.5, alpha=1)
+                x, y = aperture.positions
+                ax.text(x, y, str(i), color='red', fontsize=9, 
+                        ha='center', va='center', bbox=dict(facecolor='white', alpha=0.4))
+                # ax.text(x, y, str(i), color='red', fontsize=12, 
+                #         ha='center', va='center')
+            
+        # ax.set_xlim(0, data.shape[1])
+        # ax.set_ylim(0, data.shape[0])
+        ax.set_aspect('equal')
+        
+        # add the date in white font on the to left corner if show_date = True
+        if show_date == True:
+            ax.text(0.02, 0.98, date, transform=ax.transAxes,
+                    color='white', fontsize=12, ha='left', va='top', bbox=dict(facecolor='black', alpha=0.7))
+            
+            
         canvas = FigureCanvasTkAgg(fig, master=tk.Tk())
         canvas.draw()
         canvas.get_tk_widget().pack()
@@ -150,7 +189,9 @@ def make_image_user_input(data, aperture = None, cmap = 'gray', plot_aperture = 
         plt.imshow(image)
         plt.show()
     
-    return image, lower_percentile, upper_percentile
+    return image, lower_value, upper_value
+
+
 
 
 #%% get_background_aperture
@@ -399,18 +440,18 @@ def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = '
         """
         if make_gif == True:
             if first_file == True:
-                frame, lower_percentile, upper_percentile = \
+                frame, lower_value, upper_value = \
                     make_image_user_input(data=data, aperture=aperture,
-                                          cmap=cmap, plot_aperture=True,
+                                          cmap=cmap, plot_apertures=True,
                                           first_file=True) 
                 
                 
             else: 
-                frame, lower_percentile, upper_percentile = \
+                frame, lower_value, upper_value = \
                     make_image_user_input(data=data, aperture=aperture,
-                                          cmap=cmap, plot_aperture=True,
-                                          lower_percentile = lower_percentile, 
-                                          upper_percentile = upper_percentile, 
+                                          cmap=cmap, plot_apertures=True,
+                                          lower_value = lower_value, 
+                                          upper_value = upper_value, 
                                           first_file = False) 
     
             
@@ -432,7 +473,7 @@ def process_images_bgrnd_ap(fits_dir, mask_sigma_coeff, make_gif=False, cmap = '
         frames[0].save(f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_{cmap}.gif', save_all = True, append_images=frames[1:], duration=500, loop=0)
     
 #%% make gif
-def make_gif(fits_dir, make_gif=False, cmap = 'turbo'):
+def make_gif(fits_dir,cmap = 'turbo', epochs_tab_path='', endswith='_processed.fits', do_sqrt=False, scale_values=False):
     """
     1) loop through fits files in directory
     2) read in important info (data, header etc)
@@ -451,22 +492,28 @@ def make_gif(fits_dir, make_gif=False, cmap = 'turbo'):
     name = split_path[6]
     band = split_path[8]
     
+    # open epochs_tab
+    epochs_tab=QTable.read(epochs_tab_path)
+    
+    
     # go through directory and get a path for each fits file 
     # don't work with the processed fits images (ending in _processed.fits), 
     # just the original files ending in mosaic-int.fits
     
-    file_list = [file for file in os.listdir(fits_dir) if file.endswith('_processed.fits')]
+    file_list = [file for file in os.listdir(fits_dir) if file.endswith(endswith)]
     file_list_paths = []
     for file in file_list:
         file_list_paths.append(f'{fits_dir}/{file}')
         
+    sorted_file_list_paths = sorted(file_list_paths)
 
-    
+
     frames=[] # for gif
         
     # loop through and process files
     first_file = True # only define background aperture once, then change to False
-    for image_file in file_list_paths:
+    
+    for image_file in sorted_file_list_paths:
         
         # open fits file
         hdul = fits.open(image_file)
@@ -476,29 +523,55 @@ def make_gif(fits_dir, make_gif=False, cmap = 'turbo'):
         median_counts = np.median(data) # calculate median counts per pixel of image
         stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
         
-        # define the mask
-        zero_mask = (data == 0)
+        # # define the mask
+        # zero_mask = (data == 0)
         
         # store image 
         unit = u.electron/u.s
-        image = CCDData(data, unit=unit, meta=header, mask=zero_mask)
+        image = CCDData(data, unit=unit, meta=header)
         
+        # use epochs_tab to find the middle date of the observation
+        
+        # find the epoch in the filename
+        pattern = 'size0_0667_ep(\d+)'  
+        match = re.search(pattern, image_file)
+        
+        obj_epoch = math.floor(float(match.group(1)))
+        
+        
+        # use name and epoch to find the epochs_tab entry 
+        # this will tell us the date range, 
+        # which can be used to find the middle of the observation window
+        epochs_tab_row = epochs_tab[(epochs_tab['obj_name']==name) & (epochs_tab['obj_epoch']==obj_epoch)]
+        mjd_obs1, mjd_obs2 = epochs_tab_row['mjd_obs1'], epochs_tab_row['mjd_obs2']
+        
+        
+        
+        # calculate the middle date of observation 
+        obs_date = (mjd_obs1[0] + mjd_obs2[0]) / 2   
+        
+        # obs_date=obs_date.value
+        
+        
+        obs_date = round(obs_date, 2)
         
 
         if first_file == True:
-            frame, lower_percentile, upper_percentile = \
+            frame, lower_value, upper_value = \
                 make_image_user_input(data=data,
-                                      cmap=cmap, plot_aperture=False,
-                                      first_file=True) 
+                                      cmap=cmap, plot_apertures=False,
+                                      first_file=True, show_date=True, date=obs_date, 
+                                      show_axes=False, add_scale=True, sqrt=do_sqrt, scale_values=scale_values) 
             
             
         else: 
-            frame, lower_percentile, upper_percentile = \
+            frame, lower_value, upper_value = \
                 make_image_user_input(data=data, 
-                                      cmap=cmap, plot_aperture=False,
-                                      lower_percentile = lower_percentile, 
-                                      upper_percentile = upper_percentile, 
-                                      first_file = False) 
+                                      cmap=cmap, plot_apertures=False,
+                                      lower_value = lower_value, 
+                                      upper_value = upper_value, 
+                                      first_file = False, show_date=True, date=obs_date, 
+                                      show_axes=False, add_scale=True, sqrt=do_sqrt, scale_values=scale_values) 
 
         
         
@@ -511,15 +584,16 @@ def make_gif(fits_dir, make_gif=False, cmap = 'turbo'):
         
         first_file = False
     
-    frames[0].save(f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_{cmap}.gif', save_all = True, append_images=frames[1:], duration=500, loop=0)
+    endswith_base = endswith.replace('.fits', '')
+    frames[0].save(f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_{cmap}_{endswith_base}.gif', save_all = True, append_images=frames[1:], duration=500, loop=0)
     
 
     
 
 
 #%% determine_point_source_apertures
-def determine_point_source_apertures(file, processed_images_dir, lower_percentile = 0,
-                                     upper_percentile = 99.5, fwhm = 5.5, threshold=5,
+def determine_point_source_apertures(file, processed_images_dir, lower_value = 0,
+                                     upper_value = 3, fwhm = 5.5, threshold=5,
                                      aperture_radius = 8.25, inner_radius = 12, outer_radius= 18):
     
     """ all radii in arcsec """
@@ -550,21 +624,35 @@ def determine_point_source_apertures(file, processed_images_dir, lower_percentil
     # find peaks
     star_finder = DAOStarFinder(threshold, fwhm)
     stars_found = star_finder(xdf_image.data)
+    
+    # while True:
+    #     if len(stars_found) > 25:
+    #         fwhm += 1
+    #         star_finder = DAOStarFinder(threshold, fwhm)
+    #         stars_found = star_finder(xdf_image.data)
+            
+    #     elif len(stars_found) < 10:
+    #         fwhm -= 1
+    #         star_finder = DAOStarFinder(threshold, fwhm)
+    #         stars_found = star_finder(xdf_image.data)
+    #         break
+    #     else:
+    #         break
 
     # plot the centroids of each of the sources
     
     # Set up the figure with subplots
     fig, ax1 = plt.subplots(1, 1, figsize=(8, 8))
     
-    lower_value = np.percentile(data, lower_percentile)
-    upper_value = np.percentile(data, upper_percentile)
+    # lower_value = np.percentile(data, lower_percentile)
+    # upper_value = np.percentile(data, upper_percentile)
     norm = Normalize(lower_value, upper_value)
     
     # Plot the stars found and apertures
     x = stars_found['xcentroid']
     y = stars_found['ycentroid']      
 
-    fitsplot = ax1.imshow(xdf_image, cmap='gray', norm=norm)
+    fitsplot = ax1.imshow(xdf_image, cmap='turbo', norm=norm)
     ax1.scatter(x,y, marker='.', facecolor='r', edgecolor='r', s=20)
 
     # convert the radii to pixel values
@@ -655,22 +743,21 @@ def determine_point_source_apertures(file, processed_images_dir, lower_percentil
 
 #%% create_elliptical_apertures
 
-def create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis):
+def create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis, theta):
     position = (x, y)
     a = semi_major_axis
     b = semi_minor_axis
-    aperture = EllipticalAperture(position, a, b)
+    aperture = EllipticalAperture(position, a, b, theta)
     return aperture
 
 
 
-#%% source apertures
+#%% determine target apertures
 
-def determine_source_apertures(file, processed_images_dir, lower_percentile = 0,
-                                     upper_percentile = 99.5, fwhm = 5.5, threshold=5,
+def determine_target_apertures(combined_image_file, processed_images_dir, fwhm = 5.5, threshold=5,
                                      aperture_radius = 8.25, inner_radius = 12, outer_radius= 18):
     
-    path= f'{processed_images_dir}/{file}'
+    path= f'{processed_images_dir}/{combined_image_file}'
     # fig, ax = plt.subplots()
     with fits.open(path) as hdul:
         data = hdul[0].data
@@ -690,50 +777,70 @@ def determine_source_apertures(file, processed_images_dir, lower_percentile = 0,
 
     """ CREATING APERTURE(S) """
     
-    num_apertures = int(input("Number of elliptical apertures to define:"))
+    image, lower_value, upper_value = make_image_user_input(data)
     
+    apertures = []
     while True:
-        apertures = []
-        
-        for i in range(num_apertures):
-            print(f"\nDefining Aperture {i+1}:")
+                
+        try:
+            print(f"\nDefining Aperture:")
     
             x = float(input("aperture x coord: "))
             y = float(input("aperture y coord: "))
             semi_major_axis = float(input("semi-major axis: "))
             semi_minor_axis = float(input("semi-minor axis: "))
+            theta = float(input("angle (deg): "))
+            theta = theta * math.pi/180
+            aperture = create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis, theta)
             
-            aperture = create_elliptical_aperture(x, y, semi_major_axis, semi_minor_axis)
-            apertures.append(aperture)
-            
+            test_aperture =[aperture]
+            for ap in apertures:
+                test_aperture.append(ap)
+    
             # plot the aperture to visualize it
-            plt.imshow(data, origin='lower', cmap='turbo')
-            aperture.plot(color='red', lw=2)
-            plt.colorbar()
-            plt.show()
+            image, lower, upper = make_image_user_input(data, apertures = test_aperture, 
+                                  plot_apertures=True, upper_value=upper_value,
+                                  lower_value = lower_value, first_file=False)
             
-        response = input("\nAre you happy with the apertures? (yes/no): ").lower()
-        if response != 'yes': 
-            break
+            response = input("\nAre you happy with this aperture? (yes/no): ").lower()
+            if response == 'yes':
+                apertures.append(aperture)
+            
         
+            response = input("\nAre you done adding apertures?: ").lower()
+            if response == 'yes': 
+                
+                exit_loop = True
+                # image file name
+                image_file = combined_image_file.replace('coadd', 'target_ap')
+                image_file = image_file.replace('.fits', '.jpg')
+                image.save(f'{processed_images_dir}/{image_file}')
+                break
+        
+        
+        except Exception as e:
+            print(e)
+            continue         
         
     
     
 
     # convert the apertures to RA and Dec
-    source_wcs_apertures = []
+    target_wcs_apertures = []
     for aperture in apertures:
-
+        a = aperture.a
+        b = aperture.b
+        theta = aperture.theta
         xcenter, ycenter = aperture.positions
         ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
         center_coord = SkyCoord(ra, dec, unit=(u.deg, u.deg), frame='icrs')
-        source_wcs_aperture =  SkyCircularAperture(center_coord, aperture_radius * u.pixel)
-        source_wcs_apertures.append(source_wcs_aperture)
+        target_wcs_aperture =  SkyEllipticalAperture(center_coord, a * u.pixel, b*u.pixel, theta*u.rad)
+        target_wcs_apertures.append(target_wcs_aperture)
         
        
-        
+
     
-    return source_wcs_apertures
+    return target_wcs_apertures
    
 #%% process_images_old
 
@@ -787,7 +894,7 @@ def process_images(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'turbo'):
         unit = u.electron/u.s
         image = CCDData(data, unit=unit, meta=header, mask=zero_mask)
         
-#%% time series data
+#%% time series data old
 
 def time_series_point_source_photometry(processed_image_dir):
     # list of fits files to go through
@@ -836,7 +943,8 @@ def time_series_point_source_photometry(processed_image_dir):
 
 #%% time series tab
 
-def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_annuli):
+def time_series_tab(processed_images_dir, epochs_tab_path, 
+                    wcs_apertures, wcs_annuli, target_wcs_apertures):
     
     """
     make a time series table for a given directory of fits files of a target
@@ -855,6 +963,29 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
     
     # table_data = {'Time': []}
     table.meta['description'] = 'this table provides the calibrated magnitudes for each aperture'
+    
+    for row in range(len(target_wcs_apertures)):
+        
+        
+        aperture = target_wcs_apertures[row]
+        
+
+        ra = aperture.positions.ra.deg
+        dec = aperture.positions.dec.deg
+        ap_a = aperture.a
+        ap_b = aperture.b
+        ap_theta = aperture.theta
+        
+        new_column  = MaskedColumn(name=f'TARGET aperture:{row}', dtype=float)
+        table.add_column(new_column)
+        
+        table[f'TARGET aperture:{row}'].meta['ra[deg]'] = ra
+        table[f'TARGET aperture:{row}'].meta['dec[deg]'] = dec
+        table[f'TARGET aperture:{row}'].meta['semi-major_axis[pix]'] = ap_a
+        table[f'TARGET aperture:{row}'].meta['semi-minor_axis[pix]'] = ap_b
+        table[f'TARGET aperture:{row}'].meta['theta[rad]'] = ap_theta
+        
+         
     for row in range(len(wcs_apertures)):
         aperture = wcs_apertures[row]
         annulus = wcs_annuli[row]
@@ -864,14 +995,15 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
         an_inner_r = annulus.r_in
         an_outer_r = annulus.r_out
         
-        new_column  = MaskedColumn(name=f'aperture:{row}', dtype=float)
+        new_column  = MaskedColumn(name=f'aperture:{row + len(target_wcs_apertures)}', dtype=float)
         table.add_column(new_column)
         
-        table[f'aperture:{row}'].meta['ra[deg]'] = ra
-        table[f'aperture:{row}'].meta['dec[deg]'] = dec
-        table[f'aperture:{row}'].meta['aperture_rad[pix]'] = ap_rad
-        table[f'aperture:{row}'].meta['annulus_inner_rad[pix]'] = an_inner_r
-        table[f'aperture:{row}'].meta['annulus_outer_rad[pix]'] = an_outer_r
+        table[f'aperture:{row + len(target_wcs_apertures)}'].meta['ra[deg]'] = ra
+        table[f'aperture:{row + len(target_wcs_apertures)}'].meta['dec[deg]'] = dec
+        table[f'aperture:{row + len(target_wcs_apertures)}'].meta['aperture_rad[pix]'] = ap_rad
+        table[f'aperture:{row + len(target_wcs_apertures)}'].meta['annulus_inner_rad[pix]'] = an_inner_r
+        table[f'aperture:{row + len(target_wcs_apertures)}'].meta['annulus_outer_rad[pix]'] = an_outer_r
+     
         
        
     
@@ -880,9 +1012,19 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
     for file in file_list:
         file_list_paths.append(f'{processed_images_dir}/{file}')
         
+    sorted_file_list_paths = sorted(file_list_paths)
+    
     time_row_counter = 0
     
-    for file in file_list_paths:
+    for file in sorted_file_list_paths:
+        
+        """ 
+        file: original, processed image file path
+        sub_file: associated image path after coadd subtraction
+        div_file: associated image path after coadd subtraction
+        """
+        sub_file = file.replace('_processed.fits', '_processed_subtracted.fits')
+        div_file = file.replace('_processed.fits', '_processed_divided.fits')
         
         table.add_row()
         
@@ -911,13 +1053,50 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
     
         with fits.open(file) as hdul:
             wcs = WCS(hdul[0].header)
+            data = hdul[0].data
+            
+            # loop through the targets
+            for row in range(len(target_wcs_apertures)):
+                header = hdul[0].header
+                sky_aperture = target_wcs_apertures[row]
+                aperture_pixels = sky_aperture.to_pixel(wcs)
+                phot_table = aperture_photometry(hdul[0].data, [sky_aperture], wcs=wcs)
+                flux = phot_table['aperture_sum_0']
+                
+
+                # now convert to magnitudes 
+                # (https://wise2.ipac.caltech.edu/docs/release/allsky/expsup/sec4_4h.html#WISEPS)
+                
+                # magnitude zero point from header
+                magzp = header['MAGZP']
+                
+                # aperture correction given by WISE
+                # (https://wise2.ipac.caltech.edu/docs/release/allsky/expsup/sec4_4c.html#circ)
+                band = header['BAND']
+                if band == 1:
+                    ac = 0.222
+                elif band == 2:
+                    ac = 0.280
+                
+                # if flux is negative, ignore the log term
+                if flux >= 0:
+                    mag = magzp - 2.5 * np.log10(flux)
+                
+                else:
+                    mag = magzp
+                    
+                    
+                table[f'TARGET aperture:{row}'][time_row_counter] = mag
+                
+            
+            # loop through the comp stars
             for row in range(len(wcs_apertures)):
                 header = hdul[0].header
                 sky_aperture = wcs_apertures[row]
                 sky_annulus = wcs_annuli[row]
                 aperture_pixels = sky_aperture.to_pixel(wcs)
                 annulus_pixels = sky_annulus.to_pixel(wcs)
-                phot_table = aperture_photometry(hdul[0].data, [sky_aperture, sky_annulus], wcs=wcs)
+                phot_table = aperture_photometry(data, [sky_aperture, sky_annulus], wcs=wcs)
                 aperture_flux = phot_table['aperture_sum_0']
                 annulus_flux = phot_table['aperture_sum_1']
                 bg_flux = annulus_flux * aperture_pixels.area/annulus_pixels.area
@@ -945,7 +1124,7 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
                     mag = magzp - ac
                     
                     
-                table[f'aperture:{row}'][time_row_counter] = mag
+                table[f'aperture:{row + len(target_wcs_apertures)}'][time_row_counter] = mag
                 
                 
                 # pixel_aperture = CircularAperture(aperture_pixels.positions, aperture_pixels.r)
@@ -953,7 +1132,8 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
 
                 # table[f'aperture:{row}']
                 #     table_data[f'({aperture.positions.ra.deg}, {aperture.positions.dec.deg})'].append(aperture_sum)
-                  
+                 
+
         time_row_counter += 1
         
     time = np.concatenate(time_list)
@@ -967,22 +1147,234 @@ def time_series_tab(processed_images_dir, epochs_tab_path, wcs_apertures, wcs_an
     
     return TimeSeries(table, time=time)
 
-#%% plot compstars
+            
+            
+#%% plot lightcurve
 
-def plot_compstars(time_series_tab, style='seaborn-dark', ylim = 20000):
+def plot_lightcurve(time_series_tab, obj_name, band,endswith, 
+                    style='seaborn-muted', y_lower=0, y_upper=15, 
+                    just_target=False, show_plot=False):
     
     plt.style.use(style)
     x=np.array(time_series_tab['time'].value)
     labels=[]
+    
+    band=band.replace('b','W')
+    # determine title of the plot
+    if just_target==False:
+        title_name = f'{obj_name} {band}'
+    elif endswith == '_processed.fits':
+        title_name = f'{obj_name} {band}' 
+        
+        
     for column in time_series_tab.colnames:
-        if column != 'time':
-            y = np.array(time_series_tab[column])
-            plt.scatter(x,y, s = 10)
-            plt.ylim(0, ylim)
-            labels.append(column)
+        
+        if just_target == True:
+            
+            if column != 'time' and 'TARGET' in column:
+                y = np.array(time_series_tab[column])
+                plt.scatter(x,y, marker='o',s = 15)
+                plt.ylim(y_lower, y_upper)
+                labels.append(column)
+                plt.xlabel('mjd date')
+                plt.ylabel('magnitude')
+                plt.title(title_name)
+        else: # plot compstars   
 
-    plt.legend(labels, loc='upper left', ncol=3)
-    plt.show()
+            if column != 'time':
+                
+                # if the metadata has been updated
+                try:
+                    if 'TARGET' in column:
+                        y = np.array(time_series_tab[column])
+                        plt.scatter(x,y, marker='o', s = 15)
+                        plt.ylim(y_lower, y_upper)
+                        labels.append(column)
+                    elif time_series_tab[column].meta['ignore_aperture']=='False':
+                        y = np.array(time_series_tab[column])
+                        plt.scatter(x,y, marker='D', s = 6)
+                        plt.ylim(y_lower, y_upper)
+                        labels.append(column)
+                        plt.xlabel('mjd date')
+                        plt.ylabel('magnitude')
+                        plt.title(title_name)
+
+                        
+                except Exception as e:
+                    # # checkpoint
+                    # print(f'exception1:{e}')
+                    y = np.array(time_series_tab[column])
+                    plt.scatter(x,y, s = 6)
+                    plt.ylim(y_lower, y_upper)
+                    labels.append(column)
+                    plt.xlabel('mjd date')
+                    plt.ylabel('magnitude')
+                    plt.title(title_name)
+                    
+    plt.legend(labels, loc='upper left', ncol=3, fontsize='small')
+    
+    if show_plot==True:
+        plt.show()
+    else:
+        return plt
+    
+   
+    
+    
+    
+
+#%% make light curve
+def make_light_curve(fits_dir,cmap = 'gray', endswith='_processed.fits', 
+                     do_sqrt=False, scale_values=False, just_target=False, 
+                     style='seaborn-muted', lower_value=0, upper_value=3):
+    """
+    1) open the time series table
+    2) display the coadd image with apertures plotted
+    3) choose which apertures to keep
+    4) choose y min and maxes for plots
+    5) save plot
+    
+    """
+    plt.style.use(style)
+    
+    # read in obj name and band
+    split_path = fits_dir.split('/')
+    name = split_path[6]
+    band = split_path[8]
+    
+    time_series_tab_path = f'{fits_dir}/time_series_{name}_{band}.ecsv'
+    
+    endswith_base = endswith.replace('.fits', '')
+    # open time_series_tab
+    time_series_tab=QTable.read(time_series_tab_path)
+    
+    # open the coadd image 
+    image_file = f'{fits_dir}/coadd_{name}_{band}.fits'
+    coadd_hdul = fits.open(image_file)
+    coadd_data = coadd_hdul[0].data
+    coadd_header = coadd_hdul[0].header
+    coadd_wcs = WCS(coadd_header)
+
+    
+    colnames = time_series_tab.colnames
+    colnames.remove('time')
+
+    
+    apertures=[]
+    for ap_name in colnames:
+        if "TARGET" in ap_name:
+            ra = time_series_tab[ap_name].meta['ra[deg]']
+            dec = time_series_tab[ap_name].meta['dec[deg]']
+            a = time_series_tab[ap_name].meta['semi-major_axis[pix]'].value
+            b = time_series_tab[ap_name].meta['semi-minor_axis[pix]'].value
+            theta = time_series_tab[ap_name].meta['theta[rad]'].value
+            
+            aperture_position = coadd_wcs.world_to_pixel_values(ra, dec)
+            # x = aperture_position[0]
+            # y = aperture_position[1]
+
+            aperture = EllipticalAperture(aperture_position, a, b, theta)
+            apertures.append(aperture)
+        else: 
+            ra = time_series_tab[ap_name].meta['ra[deg]']
+            dec = time_series_tab[ap_name].meta['dec[deg]']
+            rad = time_series_tab[ap_name].meta['aperture_rad[pix]'].value
+            aperture_position = coadd_wcs.world_to_pixel_values(ra, dec)
+            aperture = CircularAperture(aperture_position, rad)
+            apertures.append(aperture)
+    
+    l, u = lower_value, upper_value
+    if just_target==False:
+        image, l, u = make_image_user_input(coadd_data, apertures=apertures, plot_apertures=True, cmap=cmap)
+    else:
+        make_image_user_input(coadd_data, first_file=False,
+                              apertures=apertures, plot_apertures=True, 
+                              cmap=cmap, lower_value=l, upper_value=u)
+    
+    while True:
+        try:
+                
+            apertures_to_keep = []
+    
+    
+            y_lower = float(input("Enter the lower y limit: "))
+            y_upper = float(input("Enter the upper y limit: "))
+            plot_lightcurve(time_series_tab, obj_name=name, band=band,endswith=endswith, 
+                            y_lower=y_lower, y_upper=y_upper, style=style, show_plot=True)
+                    
+            if just_target == False:
+                # Ask the user which apertures to remove
+                what_to_keep = input("Enter the indices of the apertures to keep (comma-separated): ")
+                for i in what_to_keep.split(','):
+                    apertures_to_keep.append(int(i))
+                
+                
+                for ap_name in colnames:
+                    ap = ap_name.replace('TARGET aperture:','')
+                    ap = ap.replace('aperture:','')
+                    # print(f'ap:{ap}, aps to keep:{apertures_to_keep}')
+                    if int(ap) in apertures_to_keep:
+                        time_series_tab[ap_name].meta['ignore_aperture']= 'False'
+                        
+                        # checkpoint
+                        # print('checkpoint',time_series_tab[ap_name].meta['ignore_aperture'])
+                    else:
+                        time_series_tab[ap_name].meta['ignore_aperture'] = 'True'
+    
+
+            plot_lightcurve(time_series_tab,obj_name=name, band=band, 
+                            endswith=endswith, y_lower=y_lower, y_upper=y_upper, 
+                            just_target=just_target, show_plot=True)
+            
+            kept_apertures=[]
+            for i, aperture in enumerate(apertures):
+                if i in apertures_to_keep:
+                    kept_apertures.append(aperture)
+                
+            image, l, u = make_image_user_input(coadd_data, apertures=kept_apertures, 
+                                  first_file=False,lower_value=l, upper_value=u, plot_apertures=True, cmap=cmap)
+                    
+                    
+            content = input("Are you content with the plot? (yes/no): ")
+            
+            
+            if content.lower() == "yes":
+                if just_target==True:
+                    
+                   
+                    # remake final image to save it
+                    plot = plot_lightcurve(time_series_tab,obj_name=name, band=band, 
+                                          endswith=endswith, y_lower=y_lower, y_upper=y_upper,
+                                          just_target=just_target, show_plot=False)
+                    
+                    plot_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_lc.png'
+                    plot.savefig(plot_save_path)
+                    
+                    
+                else: # if compstars are also plotted
+                
+                    # remake final image to save it
+                    plot = plot_lightcurve(time_series_tab,obj_name=name, band=band, 
+                                          endswith=endswith, y_lower=y_lower, y_upper=y_upper,
+                                          just_target=just_target, show_plot=False)
+                    
+                
+                    plot_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_and_compstars_lc.png'
+                    ap_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_and_compstars_aps.png'
+                    plt.savefig(plot_save_path)
+                    image.save(ap_save_path, format="PNG")
+                break
+        except Exception as e:
+            # checkpoint
+            print(f'exception2:{e}')
+            pass
+
+    
+    coadd_hdul.close()
+    time_series_tab.write(time_series_tab_path, format='ascii.ecsv', overwrite=True)
+    
+    return l, u
+
 
 #%% combine_images
 
@@ -1191,7 +1583,7 @@ def divide_coadd(processed_images_dir):
       
 def pipeline(file_dir, epochs_tab_path , process_files = True, comp_star_phot = True, combine = True,
              subtract = True, divide = True, point_source_fwhm = 5.5, point_source_threshold = 5, 
-             compstar_ylim = 5000, wcs_apertures=[], wcs_annuli = []):
+             compstar_ylim = 5000, target_wcs_apertures=[], wcs_apertures=[], wcs_annuli = []):
     
     
     """ file directory is the directory where the fits files for a given object + pipeline are stored.
@@ -1225,22 +1617,27 @@ def pipeline(file_dir, epochs_tab_path , process_files = True, comp_star_phot = 
             file_list_paths = []
             for file in file_list:
                 file_list_paths.append(f'{file_dir}/{file}')
-                
+              
+            # combined image path 
+            combined_file_path = f'coadd_{name}_{band}.fits'
+            
+            target_wcs_apertures = determine_target_apertures(combined_file_path, file_dir)
             wcs_apertures, wcs_annuli = determine_point_source_apertures(file_list[0], file_dir, fwhm = point_source_fwhm, threshold = point_source_threshold)
-        # if band = b2, then the apertures and annuli are read into the function after being previously found
+            # if band = b2, then the apertures and annuli are read into the function after being previously found
         
         """ make a time series table using all of the apertures found previously - 
             the aperture and annulus info are saved in the metadata of the table """
-            
-        ts_tab= time_series_tab(file_dir, epochs_tab_path, wcs_apertures, wcs_annuli)
+          
+        
+        ts_tab= time_series_tab(file_dir, epochs_tab_path, wcs_apertures, wcs_annuli, target_wcs_apertures)
         # update metadata for the table with the fwhm and threshold used
         ts_tab.meta['point_source_selection_parameters'] = f'fwhm={point_source_fwhm}, threshold={point_source_threshold}'
         # save the file in the directory
         ts_tab.write(f'{file_dir}/time_series_{name}_{band}.ecsv', format='ascii.ecsv', overwrite=True)
         ts_tab.write(f'{file_dir}/time_series_{name}_{band}.csv', format='ascii.csv', overwrite=True)
         
-        """ plot the lightcurves of the compstars """
-        plot_compstars(ts_tab, ylim = compstar_ylim)
+        # """ plot the lightcurves of the compstars """
+        # plot_lightcurve(ts_tab, y_upper = compstar_ylim)
     
     if combine == True:
         """ combine all of the images into an average image """
@@ -1258,7 +1655,7 @@ def pipeline(file_dir, epochs_tab_path , process_files = True, comp_star_phot = 
             each image will be saved with the suffix _divided """
         divide_coadd(file_dir)
     
-    return wcs_apertures, wcs_annuli
+    return wcs_apertures, wcs_annuli, target_wcs_apertures
     
 #%% run_pipeline
 def run_pipeline(coadd_directory, obj_names, bands, epochs_tab_path) :
@@ -1273,10 +1670,11 @@ def run_pipeline(coadd_directory, obj_names, bands, epochs_tab_path) :
             file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
             
             if band == 'b1':
-                wcs_apertures, wcs_annuli = pipeline(file_dir, epochs_tab_path = epochs_tab_path)
+                wcs_apertures, wcs_annuli, target_wcs_apertures = pipeline(file_dir, epochs_tab_path = epochs_tab_path)
                 
             else:
-                pipeline(file_dir, epochs_tab_path = epochs_tab_path, wcs_apertures = wcs_apertures, wcs_annuli = wcs_annuli)
+                pipeline(file_dir, epochs_tab_path = epochs_tab_path, wcs_apertures = wcs_apertures, 
+                         wcs_annuli = wcs_annuli, target_wcs_apertures = target_wcs_apertures)
                 
                 # after successfully completed, add to list of processed names
                 processed_names.append(name)
@@ -1289,7 +1687,7 @@ def run_pipeline(coadd_directory, obj_names, bands, epochs_tab_path) :
                 
                 
 #%% get all gifs 
-def get_all_gifs(coadd_directory, obj_names, bands, epochs_tab_path):  
+def get_all_gifs(coadd_directory, obj_names, bands, epochs_tab_path, endswith='_processed.fits', do_sqrt=True, cmap='turbo', scale_values=False):  
            
     for name in obj_names:
         for band in bands:
@@ -1300,9 +1698,136 @@ def get_all_gifs(coadd_directory, obj_names, bands, epochs_tab_path):
             split_path = file_dir.split('/')
             name = split_path[6]
             band = split_path[8]
-            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_turbo.gif'):
+            endswith_base=endswith.replace('.fits', '')
+            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/animations/{name}_{band}_turbo_{endswith_base}.gif'):
                 print('gif_exists')
             else:
 
-                make_gif(file_dir)
+                make_gif(file_dir, epochs_tab_path=epochs_tab_path, 
+                         endswith=endswith, do_sqrt=do_sqrt, cmap=cmap, scale_values=scale_values)
                 
+#%% make all plots
+
+def make_all_plots(coadd_directory, obj_names, bands):
+    
+    for name in obj_names:
+        for band in bands:
+            print(name)
+            
+            file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
+            # read in obj name and band
+            split_path = file_dir.split('/')
+            name = split_path[6]
+            band = split_path[8]
+            
+            # make the four light cuves
+            
+            
+            """ 
+            TARGET AND COMPSTARS
+            """
+            
+            endswith = '_processed.fits'
+            endswith_base=endswith.replace('.fits', '')
+            if os.path.exists(f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_and_compstars_lc.png'):
+                print('plot_exists')
+            else:
+                l, u = make_light_curve(file_dir, endswith=endswith, just_target=False)
+            
+            
+            
+            """ 
+            JUST THE TARGET (NO COMP STARS) 
+            """
+            
+            endswith = '_processed.fits'
+            endswith_base=endswith.replace('.fits', '')
+            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_lc.png'):
+                print('plot_exists')
+            else:
+                make_light_curve(file_dir, endswith=endswith, just_target=True, lower_value=l, upper_value=u)
+                
+                
+            """ 
+            SUBTRACTED IMAGES TARGET LC
+            """
+            
+            endswith = '_subtracted.fits'
+            endswith_base=endswith.replace('.fits', '')
+            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_lc.png'):
+                print('plot_exists')
+            else:
+                make_light_curve(file_dir, endswith=endswith, just_target=True, lower_value=l, upper_value=u)
+                
+            
+            """ 
+            DIVIDED IMAGES TARGET LC
+            """
+            
+            endswith = '_subtracted.fits'
+            endswith_base=endswith.replace('.fits', '')
+            if os.path.exists( f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_lc.png'):
+                print('plot_exists')
+            else:
+                make_light_curve(file_dir, endswith=endswith, just_target=True, lower_value=l, upper_value=u)
+                
+                
+#%% fix_ts_tab (with sub and div columns for target phot)
+
+def fix_ts_tab(fits_dir,epochs_tab_path):
+    """
+    1) open the time series table
+    2) display the coadd image with apertures plotted
+    3) choose which apertures to keep
+    4) choose y min and maxes for plots
+    5) save plot
+    
+    """
+  
+    # read in obj name and band
+    split_path = fits_dir.split('/')
+    name = split_path[6]
+    band = split_path[8]
+    
+    time_series_tab_path = f'{fits_dir}/time_series_{name}_{band}.ecsv'
+    
+
+    # open time_series_tab
+    ts_tab=QTable.read(time_series_tab_path)
+    
+    colnames = ts_tab.colnames
+    
+    target_apertures=[]
+    compstar_apertures=[]
+    compstar_annuli=[]
+    for ap_name in colnames:
+        if "TARGET" in ap_name:
+            ra = ts_tab[ap_name].meta['ra[deg]']
+            dec = ts_tab[ap_name].meta['dec[deg]']
+            a = ts_tab[ap_name].meta['semi-major_axis[pix]']
+            b = ts_tab[ap_name].meta['semi-minor_axis[pix]']
+            theta = ts_tab[ap_name].meta['theta[rad]']
+            
+            aperture_position = SkyCoord(ra, dec, unit='deg')
+
+            aperture = SkyEllipticalAperture(aperture_position, a, b, theta)
+            target_apertures.append(aperture)
+        elif 'time' not in ap_name: 
+            ra = ts_tab[ap_name].meta['ra[deg]']
+            dec = ts_tab[ap_name].meta['dec[deg]']
+            rad = ts_tab[ap_name].meta['aperture_rad[pix]']
+            aperture_position = SkyCoord(ra, dec, unit='deg')
+            aperture = SkyCircularAperture(aperture_position, rad)
+            compstar_apertures.append(aperture)
+            
+            
+            r_in= ts_tab[ap_name].meta['annulus_inner_rad[pix]']
+            r_out= ts_tab[ap_name].meta['annulus_outer_rad[pix]']
+            annulus_aperture = SkyCircularAnnulus(aperture_position, r_in=r_in, r_out=r_out)
+            compstar_annuli.append(annulus_aperture)
+            
+    ts_tab_new = time_series_tab(fits_dir, epochs_tab_path, compstar_apertures, compstar_annuli, target_apertures)
+    ts_tab_new.write(f'{fits_dir}/time_series_{name}_{band}.ecsv', format='ascii.ecsv', overwrite=True)
+    ts_tab_new.write(f'{fits_dir}/time_series_{name}_{band}.csv', format='ascii.csv', overwrite=True)          
+    
+              

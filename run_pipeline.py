@@ -42,13 +42,22 @@ processed_obj_names  = processed_obj_names_column.tolist()
 
 # come back  'CB68','DC303.8-14.2','HH111MMS','IRAS03292+3039','IRAS04325+2402','IRAS11072-7727', 
 #           'L1152','L1251B','L1448-mm', 'L1551IRS5', 'L483','L723_IRAS19156+1906','L778','RCrAIRAS32','Serpens1',
-missing = ['IRAS09449-5052']
+missing = ['BHR7_IRAS08124-3422','L1448IRS3', 'L1448-mm','L778']
 
 # obj_names.remove(processed_obj_names)
 
 # run_pipeline(coadd_directory,missing, bands, epochs_tab_path)
 # run_pipeline_compstars_mags(coadd_directory, obj_names, bands, epochs_tab_path)
-get_all_gifs(coadd_directory, missing, bands, epochs_tab_path)
+# get_all_gifs(coadd_directory, missing, bands, epochs_tab_path, endswith='_processed.fits', do_sqrt=False, cmap = 'turbo', scale_values=False)
+# make_all_plots(coadd_directory, ['L1527_IRAS04368+2557'], bands)
+
+#%%
+
+for name in obj_names:
+    for band in bands:
+        print(name)
+        file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
+        fix_ts_tab(file_dir,epochs_tab_path)
  
 
 
@@ -64,13 +73,14 @@ def run_pipeline_compstars_mags(coadd_directory, obj_names, bands, epochs_tab_pa
             file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
             
             if band == 'b1':
-                wcs_apertures, wcs_annuli = pipeline(file_dir, epochs_tab_path = epochs_tab_path,
+                wcs_apertures, wcs_annuli, target_wcs_apertures = pipeline(file_dir, epochs_tab_path = epochs_tab_path,
                                                      process_files = False, comp_star_phot = True,
                                                     combine = False, subtract = False, divide = False)
                 
             else:
                 pipeline(file_dir, epochs_tab_path = epochs_tab_path, wcs_apertures = wcs_apertures, 
-                         wcs_annuli = wcs_annuli, process_files = False, comp_star_phot = True,
+                         wcs_annuli = wcs_annuli, target_wcs_apertures=target_wcs_apertures,
+                         process_files = False, comp_star_phot = True,
                          combine = False, subtract = False, divide = False)
                 
                 # # after successfully completed, remove the object name from list of files and save to coadd directory
@@ -80,5 +90,10 @@ def run_pipeline_compstars_mags(coadd_directory, obj_names, bands, epochs_tab_pa
                 # obj_names_tab.write(f'{coadd_directory}obj_names.csv', format='csv', 
                 
                 
+#%% 
+obj_names = ['B335']
+                
 #%% mag fix pipeline               
-run_pipeline_compstars_mags(coadd_directory, obj_names, bands, epochs_tab_path)
+run_pipeline_compstars_mags(coadd_directory, missing, bands, epochs_tab_path)
+
+#%%
