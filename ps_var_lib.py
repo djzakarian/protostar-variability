@@ -4,7 +4,8 @@
 Created on Thu Jul  6 12:12:02 2023
 
 GOAL: 
-    Maintain the functions for summer project
+    Maintain the functions for summer project aimed to detect the 
+    variability of protostars using WISE/NEOWISE.
 
 @author: dzakaria
 """
@@ -31,41 +32,43 @@ from astropy.table import Table, QTable, Column, MaskedColumn
 from  astropy.timeseries import TimeSeries
 import re
 from astropy.time import Time
-
     
-#%% pixel_to_radec
-
-def pixel_to_radec(x,y, wcs):
-    """ converts pixel coordinates to RA and Dec for a wcs object
-    x , y: (floats), coordinates
-    wcs: (WCS), Astropy WCS object containing the coordinate transformation info
-    
-    returns: tuple with RA and Dec (in deg)
-    """
-    # create a skycoord object with the pixel coordinates and WCS object
-    sky_coord = wcs.pixel_to_world(x,y)
-    # extract ra and dec values from the object
-    ra = sky_coord.ra.deg
-    dec = sky_coord.dec.deg
-    return ra, dec
-
-
-#%% norm
-
-def norm(data, lower_percentile=20, upper_percentile=99.5):
-    data=np.sqrt(data)
-    lower_value = np.percentile(data, lower_percentile)
-    upper_value = np.percentile(data, upper_percentile)
-    norm = Normalize(lower_value, upper_value)
-    return norm()
 
 #%% make_image_user_input
 
 def make_image_user_input(data, apertures = [], cmap = 'turbo', plot_apertures = False,
-               first_file = True, lower_value=0, upper_value=3, show_date=False, date='', 
-               show_axes=False, add_scale=False,sqrt=True, scale_values=False):
+               first_file = True, lower_value=0, upper_value=3, date='', show_date=False,
+               show_axes=False, sqrt=True, scale_values=False):
     
-
+    """
+    ARGS
+    
+        data: fits file data
+            - how to get it:    hdul = fits.open(image_file_path)
+                                data = hdul[0].data
+        apertures: list of apertures to display (only if plot_apertures = True)
+        cmap: string - the matplotlib colormap to use for the image
+        plot_apertures: bool - if True, apertures read in will be plotted
+        first_file: bool - if True, then take user input to determine scaling (percentile or pixel value)   
+        lower_value, upper_value: the pixel values to use to plot image (if first_file = False)
+                                  (if first_file = True, these values are over-written)
+        date: string - the date associated with image
+        show_date: bool - if True, show the date on the top left of the image in a translucent black box
+        show_axes: bool - if False, hide the axes labels (labels the pixel values, not ra/dec)
+        sqrt: bool - if True,, square root the data to scale it better
+        scale_values: bool - if True, take user input of pixel values for scaling
+                             if False, take user input of percentile for scaling
+    
+    DESCRIPTION
+    
+    - Read in the data from a fits file in order to plot it using matplotlib
+    - You can determine the scaling by inputting pixel values or percentiles for normalization
+        - for this project, pix values were in e- /s 
+        
+    - You have the option to plot apertures and to show the date on the top left corner of image
+    """
+    
+    # create figure and axis
     fig, ax = plt.subplots()
     
     if sqrt==True:
@@ -105,7 +108,8 @@ def make_image_user_input(data, apertures = [], cmap = 'turbo', plot_apertures =
                 if show_axes==False:
                     ax.axis('off')
         
-                im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
+                # im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
+                ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
         
                 if plot_apertures==True:
                     for i, aperture in enumerate(apertures):
@@ -157,7 +161,8 @@ def make_image_user_input(data, apertures = [], cmap = 'turbo', plot_apertures =
         if show_axes==False:
             ax.axis('off')
 
-        im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
+        # im = ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
+        ax.imshow(scaled_data, cmap=cmap, origin='lower', norm=norm)
 
         if plot_apertures==True:
             for i, aperture in enumerate(apertures):
@@ -211,11 +216,12 @@ def get_background_aperture(hdul):
     
     # store image 
     unit = u.electron/u.s
-    image=CCDData(data, unit=unit, meta=header, mask=zero_mask)
+    # image=CCDData(data, unit=unit, meta=header, mask=zero_mask)
+    CCDData(data, unit=unit, meta=header, mask=zero_mask)
     
-    # stats
-    median_counts = np.median(data) # calculate median counts per pixel of image
-    stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+    # # stats
+    # median_counts = np.median(data) # calculate median counts per pixel of image
+    # stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
     
     """ DETERMINE SUITABLE BACKGROUND REGION AND SUBTRACT FROM ENTIRE IMAGE """       
     
@@ -285,8 +291,8 @@ def process_images_background2d(fits_file_path, mask, plot_backgroun=True, plot_
     with fits.open(fits_file_path) as hdul:
 
         data = hdul[0].data
-        header = hdul[0].header
-        wcs = WCS(header)
+        # header = hdul[0].header
+        # wcs = WCS(header)
         
         
         if mask== 'mid_third':
@@ -320,7 +326,14 @@ def process_images_background2d(fits_file_path, mask, plot_backgroun=True, plot_
     background_scaled = np.sqrt(background.background)
     sub_image_scaled = np.sqrt(background_subtracted_data)
         
-    norm_val = norm(sub_image_scaled, lower_percentile=20, upper_percentile=99)
+    # norm_val = norm(sub_image_scaled, lower_percentile=20, upper_percentile=99)
+    lower_percentile=20
+    upper_percentile=99
+    data=np.sqrt(sub_image_scaled)
+    lower_value = np.percentile(data, lower_percentile)
+    upper_value = np.percentile(data, upper_percentile)
+    norm_val = Normalize(lower_value, upper_value)
+    
     # plot the background and background subtracted image
     fig, axs = plt.subplots(1,2,figsize=(10,5))
     axs[0].imshow(background_scaled, cmap='turbo', norm=norm_val)
@@ -519,16 +532,17 @@ def make_gif(fits_dir,cmap = 'turbo', epochs_tab_path='', endswith='_processed.f
         hdul = fits.open(image_file)
         data = hdul[0].data
         header = hdul[0].header
-        wcs = WCS(header)
-        median_counts = np.median(data) # calculate median counts per pixel of image
-        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+        # wcs = WCS(header)
+        # median_counts = np.median(data) # calculate median counts per pixel of image
+        # stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
         
         # # define the mask
         # zero_mask = (data == 0)
         
         # store image 
         unit = u.electron/u.s
-        image = CCDData(data, unit=unit, meta=header)
+        # image = CCDData(data, unit=unit, meta=header)
+        CCDData(data, unit=unit, meta=header)
         
         # use epochs_tab to find the middle date of the observation
         
@@ -729,7 +743,15 @@ def determine_point_source_apertures(file, processed_images_dir, lower_value = 0
     for aperture in circular_apertures:
 
         xcenter, ycenter = aperture.positions
-        ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
+        # ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
+        
+        # create a skycoord object with the pixel coordinates and WCS object
+        sky_coord = wcs.pixel_to_world(xcenter,ycenter)
+        # extract ra and dec values from the object
+        ra = sky_coord.ra.deg
+        dec = sky_coord.dec.deg
+       
+       
         center_coord = SkyCoord(ra, dec, unit=(u.deg, u.deg), frame='icrs')
         wcs_aperture =  SkyCircularAperture(center_coord, aperture_radius * u.pixel)
         wcs_apertures.append(wcs_aperture)
@@ -761,18 +783,19 @@ def determine_target_apertures(combined_image_file, processed_images_dir, fwhm =
     # fig, ax = plt.subplots()
     with fits.open(path) as hdul:
         data = hdul[0].data
-        header = hdul[0].header 
+        # header = hdul[0].header 
       
     wcs = WCS(hdul[0].header)
-    pixel_scale_y = header['CDELT2'] *u.deg
+    # pixel_scale_y = header['CDELT2'] *u.deg
     
-    # Convert the pixel scale to arcseconds
-    # pixel_scale_x = pixel_scale_x.to(u.arcsec).value
-    pixel_scale = pixel_scale_y.to(u.arcsec).value
+    # # Convert the pixel scale to arcseconds
+    # # pixel_scale_x = pixel_scale_x.to(u.arcsec).value
+    # pixel_scale = pixel_scale_y.to(u.arcsec).value
     
     # store image 
-    unit = u.electron/u.s
-    xdf_image=CCDData(data, unit=unit, meta=header)
+    # unit = u.electron/u.s
+    # xdf_image=CCDData(data, unit=unit, meta=header)
+    
     
 
     """ CREATING APERTURE(S) """
@@ -783,7 +806,7 @@ def determine_target_apertures(combined_image_file, processed_images_dir, fwhm =
     while True:
                 
         try:
-            print(f"\nDefining Aperture:")
+            print("\nDefining Aperture:")
     
             x = float(input("aperture x coord: "))
             y = float(input("aperture y coord: "))
@@ -810,7 +833,7 @@ def determine_target_apertures(combined_image_file, processed_images_dir, fwhm =
             response = input("\nAre you done adding apertures?: ").lower()
             if response == 'yes': 
                 
-                exit_loop = True
+                # exit_loop = True
                 # image file name
                 image_file = combined_image_file.replace('coadd', 'target_ap')
                 image_file = image_file.replace('.fits', '.jpg')
@@ -832,7 +855,15 @@ def determine_target_apertures(combined_image_file, processed_images_dir, fwhm =
         b = aperture.b
         theta = aperture.theta
         xcenter, ycenter = aperture.positions
-        ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
+        # ra, dec = pixel_to_radec(xcenter, ycenter, wcs)
+
+        
+        # create a skycoord object with the pixel coordinates and WCS object
+        sky_coord = wcs.pixel_to_world(xcenter,ycenter)
+        # extract ra and dec values from the object
+        ra = sky_coord.ra.deg
+        dec = sky_coord.dec.deg
+        
         center_coord = SkyCoord(ra, dec, unit=(u.deg, u.deg), frame='icrs')
         target_wcs_aperture =  SkyEllipticalAperture(center_coord, a * u.pixel, b*u.pixel, theta*u.rad)
         target_wcs_apertures.append(target_wcs_aperture)
@@ -841,105 +872,7 @@ def determine_target_apertures(combined_image_file, processed_images_dir, fwhm =
 
     
     return target_wcs_apertures
-   
-#%% process_images_old
-
-def process_images(fits_dir, mask_sigma_coeff, make_gif=False, cmap = 'turbo'):
-    """
-    1) loop through fits files in directory
-    2) read in important info (data, header etc)
-    3) for the first file in directory, use get_background_aperture to find the 
-        darkest circle of radius 0.5 arcsec - this region will be used to calculate
-        background for all fits files in this directory
-    4) change the value of infinite, nan, and negative pixel values to 0
-    5) display image with aperture
-    6) if make_gif = True, make a gif of the images plotted at the scale defined previously
-    
-    """
-    
-    
-    # read in obj name and band
-    split_path = fits_dir.split('/')
-    name = split_path[6]
-    band = split_path[8]
-    
-    # go through directory and get a path for each fits file 
-    # don't work with the processed fits images (ending in _processed.fits), 
-    # just the original files ending in mosaic-int.fits
-    
-    file_list = [file for file in os.listdir(fits_dir) if file.endswith('int.fits')]
-    file_list_paths = []
-    for file in file_list:
-        file_list_paths.append(f'{fits_dir}/{file}')
         
-        
-    frames=[] # for gif
-        
-    # loop through and process files
-    first_file = True # only define background aperture once, then change to False
-    for image_file in file_list_paths:
-        
-        # open fits file
-        hdul = fits.open(image_file)
-        data = hdul[0].data
-        header = hdul[0].header
-        wcs = WCS(header)
-        median_counts = np.median(data) # calculate median counts per pixel of image
-        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
-        
-        # define the mask
-        zero_mask = (data == 0)
-        
-        # store image 
-        unit = u.electron/u.s
-        image = CCDData(data, unit=unit, meta=header, mask=zero_mask)
-        
-#%% time series data old
-
-def time_series_point_source_photometry(processed_image_dir):
-    # list of fits files to go through
-    file_list = [file for file in os.listdir(processed_image_dir) if file.endswith('processed.fits')]
-    
-    # first determine the apertures from the first image in the directory
-    first_file = file_list[0]
-    apertures = determine_point_source_apertures(first_file, processed_image_dir)
-    
-    
-
-    
-    # Create an empty table to store the photometry results
-    phot_table = Table(names=['File', 'Date', 'Aperture', 'Flux'], dtype=['U50', 'U50', int, float])
-    
-    # Iterate over each FITS file
-    for file in file_list:
-        # Read the FITS file
-        path = os.path.join(processed_image_dir, file)
-        with fits.open(path) as hdul:
-            data = hdul[0].data
-            header = hdul[0].header
-            date = header.get('DATE-OBS', 'Unknown')
-    
-        # Perform aperture photometry using the same set of apertures
-        positions = [(aperture.ra.deg, aperture.dec.deg) for aperture in apertures]
-        aperture_radius = 5  # Adjust as needed
-        apertures = CircularAperture(positions, r=aperture_radius)
-        phot_table_per_file = aperture_photometry(data, apertures)
-    
-        # Extract the flux values
-        fluxes = phot_table_per_file['aperture_sum']
-    
-        # Add the results to the main photometry table
-        for i, flux in enumerate(fluxes):
-            phot_table.add_row([file, date, i, flux])
-    
-    # Save the photometry table to a file
-    output_file = '{processed_image_dir}/photometry_table.fits'
-    phot_table.write(output_file, overwrite=True)
-    
-    # Display the photometry table
-    print(phot_table)
-
-
 
 #%% time series tab
 
@@ -1018,14 +951,7 @@ def time_series_tab(processed_images_dir, epochs_tab_path,
     
     for file in sorted_file_list_paths:
         
-        """ 
-        file: original, processed image file path
-        sub_file: associated image path after coadd subtraction
-        div_file: associated image path after coadd subtraction
-        """
-        sub_file = file.replace('_processed.fits', '_processed_subtracted.fits')
-        div_file = file.replace('_processed.fits', '_processed_divided.fits')
-        
+
         table.add_row()
         
         # find the epoch in the filename
@@ -1148,87 +1074,253 @@ def time_series_tab(processed_images_dir, epochs_tab_path,
     return TimeSeries(table, time=time)
 
             
-            
-#%% plot lightcurve
 
-def plot_lightcurve(time_series_tab, obj_name, band,endswith, 
-                    style='seaborn-muted', y_lower=0, y_upper=15, 
-                    just_target=False, show_plot=False):
     
+
+#%% plot lightcurve 
+
+def plot_lightcurve(ts_tab_b1, ts_tab_b2, obj_name,
+                    style='classic'):
+    
+
+    """ 
+    PREPARE: choose which compstars to keep and determine max range (for y scale)
+    """
+    
+    """
+    BAND1
+    """
+    
+
     plt.style.use(style)
-    x=np.array(time_series_tab['time'].value)
-    labels=[]
+    x = np.array(ts_tab_b1['time'].value)
+    # labels=[]
     
-    band=band.replace('b','W')
-    # determine title of the plot
-    if just_target==False:
-        title_name = f'{obj_name} {band}'
-    elif endswith == '_processed.fits':
-        title_name = f'{obj_name} {band}' 
+    # band='W1'
+
+    colnames = ts_tab_b1.colnames
+    colnames.remove('time')
         
-        
-    for column in time_series_tab.colnames:
-        
-        if just_target == True:
+    # choose which compstars to keep using range and magnitude limit
+
+    low_scatter_compstar_cols_b1 = []
+    compstar_stds=[]
+    
+    
+    for column in colnames:
+        if "TARGET" not in column:
+            y = np.array(ts_tab_b1[column])
+
+            maxy = max(y)
+            miny = min(y)
+            range= maxy-miny
             
-            if column != 'time' and 'TARGET' in column:
-                y = np.array(time_series_tab[column])
-                plt.scatter(x,y, marker='o',s = 15)
-                plt.ylim(y_lower, y_upper)
-                labels.append(column)
-                plt.xlabel('mjd date')
-                plt.ylabel('magnitude')
-                plt.title(title_name)
-        else: # plot compstars   
-
-            if column != 'time':
+            if range < 1.5 and maxy < 17:
+                low_scatter_compstar_cols_b1.append(column)
+                compstar_stds.append(np.std(y))
                 
-                # if the metadata has been updated
-                try:
-                    if 'TARGET' in column:
-                        y = np.array(time_series_tab[column])
-                        plt.scatter(x,y, marker='o', s = 15)
-                        plt.ylim(y_lower, y_upper)
-                        labels.append(column)
-                    elif time_series_tab[column].meta['ignore_aperture']=='False':
-                        y = np.array(time_series_tab[column])
-                        plt.scatter(x,y, marker='D', s = 6)
-                        plt.ylim(y_lower, y_upper)
-                        labels.append(column)
-                        plt.xlabel('mjd date')
-                        plt.ylabel('magnitude')
-                        plt.title(title_name)
-
-                        
-                except Exception as e:
-                    # # checkpoint
-                    # print(f'exception1:{e}')
-                    y = np.array(time_series_tab[column])
-                    plt.scatter(x,y, s = 6)
-                    plt.ylim(y_lower, y_upper)
-                    labels.append(column)
-                    plt.xlabel('mjd date')
-                    plt.ylabel('magnitude')
-                    plt.title(title_name)
-                    
-    plt.legend(labels, loc='upper left', ncol=3, fontsize='small')
+   
+                
+    # now only keep the five compstars with the lowest scatter
+    std_tab = Table()
+    std_tab['column'] = low_scatter_compstar_cols_b1
+    std_tab['std'] = compstar_stds
+    std_tab.sort('std')
     
-    if show_plot==True:
-        plt.show()
-    else:
-        return plt
+    
+    low_scatter_compstar_cols_b1 = std_tab['column'][0:5]
+    if len(low_scatter_compstar_cols_b1) != 5:
+        print(len(low_scatter_compstar_cols_b1))
+        
+        
+    # now determine the scale by comparing the max-min of target and compstars
+    # since the targets aren't normalized, you need the combined max/min of all targets
+    
+    target_max1 = 0
+    target_min1 = 25
+    max_range = 0
+    
+    # use all_target_y to calculate median of all combined target points
+    # this is to center the plot correctly (so all points are in frame)
+    all_target_y1 = []
+    
+    for column in colnames:
+         if "TARGET" in column:
+             y = np.array(ts_tab_b1[column])
+             maxy = max(y)
+             miny = min(y)
+             
+             all_target_y1.append(y)
+             
+         if maxy > target_max1:
+             target_max1 = maxy
+         if miny < target_min1:
+             target_min1 = miny
+            
+    target_range = target_max1 - target_min1
+    if target_range > max_range:
+        max_range = target_range
+
+        
+                 
+          
+    """
+    BAND2
+    """
+
+    colnames = ts_tab_b2.colnames
+    colnames.remove('time')
+        
+    # choose which compstars to keep
     
    
-    
-    
+    low_scatter_compstar_cols_b2 = []
+    compstar_stds=[]
     
 
-#%% make light curve
-def make_light_curve(fits_dir,cmap = 'gray', endswith='_processed.fits', 
-                     do_sqrt=False, scale_values=False, just_target=False, 
-                     style='seaborn-muted', lower_value=0, upper_value=3):
+    
+    for column in colnames:
+        if "TARGET" not in column:
+            y = np.array(ts_tab_b2[column])
+
+            maxy = max(y)
+            miny = min(y)
+            range= maxy-miny
+            
+            if range < 1.5 and maxy < 17:
+                low_scatter_compstar_cols_b2.append(column)
+                compstar_stds.append(np.std(y))
+                
+   
+                
+    # now only keep the five compstars with the lowest scatter
+    std_tab = Table()
+    std_tab['column'] = low_scatter_compstar_cols_b2
+    std_tab['std'] = compstar_stds
+    std_tab.sort('std')
+    
+    
+    low_scatter_compstar_cols_b2 = std_tab['column'][0:5]
+    if len(low_scatter_compstar_cols_b2) != 5:
+        print(len(low_scatter_compstar_cols_b2))
+                
+            
+    # now determine the y axis scale 
+    
+    # max_range was initialized for b1... we want the max from both bands combined
+    # so all plots are on the same scale
+    
+    target_max2=0
+    target_min2=25
+    
+    # use all_target_y to calculate median of all combined target points
+    # this is to center the plot correctly (so all points are in frame)
+    all_target_y2 = []
+    
+    for column in colnames:
+         if "TARGET" in column:
+             y = np.array(ts_tab_b2[column])
+             all_target_y2.append(y)
+             maxy = max(y)
+             miny = min(y)
+             
+         if maxy > target_max2:
+             target_max2 = maxy
+         if miny < target_min2:
+             target_min2 = miny
+            
+    target_range = target_max2 - target_min2
+    if target_range > max_range:
+        max_range = target_range
+  
+     
+    
+    # now, calculate the ylims so plots will range from
+    # median/center +/- ( range/2 + 0.5)
+    ylim_val = max_range/2 + 0.7
+    
+    # median ys wil allow us to center the target plots
+    med_y_b1 = np.median(all_target_y1)
+    med_y_b2 = np.median(all_target_y2)
+
+    
     """
-    1) open the time series table
+    MAKE PLOTS
+    """    
+
+    
+    # make the figure
+    fig, axs = plt.subplots(2, 2, sharex='col')
+    
+    target_legend_labels = []
+    
+    for column in colnames:
+        # plot the target aps in the top panel of plot 
+        if 'TARGET' in column:
+            y1 = np.array(ts_tab_b1[column])
+            # med1 = np.median(y1)
+            target_legend_labels.append(column.replace('TARGET aperture:', 'Target Aperture '))
+            axs[0,0].plot(x, y1, marker='o', linestyle='', markersize=5)
+            
+            
+            
+            y2 = np.array(ts_tab_b2[column])
+            # med2 = np.median(y2)
+            axs[0,1].plot(x, y2, marker='o', linestyle='', markersize=5)
+            
+        
+    for column in low_scatter_compstar_cols_b1:
+            
+        # calculate median of the column
+        med_mag1 = np.median(ts_tab_b1[column])
+        norm_mag1 = ts_tab_b1[column] - med_mag1
+        y1 = norm_mag1
+        axs[1,0].plot(x, y1, marker='o', linestyle='', alpha=0.7, markersize=3)
+        axs[1,0].set_ylim(-ylim_val, ylim_val)
+        
+    for column in low_scatter_compstar_cols_b2:
+            
+        # calculate median of the column
+        med_mag2 = np.median(ts_tab_b2[column])
+        norm_mag2 = ts_tab_b2[column] - med_mag2
+        y2 = norm_mag2
+        axs[1,1].plot(x, y2, marker='o', linestyle='', alpha=0.7, markersize=3)
+        axs[1,1].set_ylim(-ylim_val, ylim_val)
+        
+        
+    axs[0,0].set_ylim(med_y_b1 - ylim_val, med_y_b1 + ylim_val)
+    axs[0,1].set_ylim(med_y_b2 - ylim_val, med_y_b2 + ylim_val)
+    
+    axs[0,0].set_title("W1")   
+    axs[0,1].set_title("W2")   
+    axs[1,0].set_title("Comparison Stars (Normalized)").set_position([0.5,1.02])
+    axs[1,1].set_title("Comparison Stars (Normalized)").set_position([0.5,1.02])  
+    axs[1,0].set_xlabel('Time (mjd)')
+    axs[1,1].set_xlabel('Time (mjd)')
+    axs[0,0].set_ylabel('Target Magnitude')
+    axs[1,0].set_ylabel('Normalized Magnitude')
+    if len(target_legend_labels) > 1:
+        axs[0,1].legend(target_legend_labels, loc='center left', title='Target Apertures', bbox_to_anchor=(1,0.75), fontsize=10)
+    plt.suptitle(obj_name, fontsize=23, y=0.98)    
+    axs[0,0].tick_params(axis='x', top=False)
+    axs[0,1].tick_params(axis='x', top=False)
+    axs[1,1].tick_params(axis='x', top=False)
+    axs[1,0].tick_params(axis='x', top=False)
+    
+    fig.set_facecolor('#d4dff1')
+    
+    return plt
+
+    plt.show
+    
+
+
+#%% make light curve
+def make_light_curve(fits_dir_b1,cmap = 'gray', endswith='_processed.fits', 
+                     do_sqrt=False, scale_values=False, just_target=False, 
+                     style='classic', lower_value=0, upper_value=3):
+    """
+    1) open the time series tables
     2) display the coadd image with apertures plotted
     3) choose which apertures to keep
     4) choose y min and maxes for plots
@@ -1238,142 +1330,31 @@ def make_light_curve(fits_dir,cmap = 'gray', endswith='_processed.fits',
     plt.style.use(style)
     
     # read in obj name and band
-    split_path = fits_dir.split('/')
+    split_path = fits_dir_b1.split('/')
     name = split_path[6]
     band = split_path[8]
     
-    time_series_tab_path = f'{fits_dir}/time_series_{name}_{band}.ecsv'
     
-    endswith_base = endswith.replace('.fits', '')
-    # open time_series_tab
-    time_series_tab=QTable.read(time_series_tab_path)
+    plot_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_lightcurve.png'
     
-    # open the coadd image 
-    image_file = f'{fits_dir}/coadd_{name}_{band}.fits'
-    coadd_hdul = fits.open(image_file)
-    coadd_data = coadd_hdul[0].data
-    coadd_header = coadd_hdul[0].header
-    coadd_wcs = WCS(coadd_header)
+    fits_dir_b2 = fits_dir_b1.replace('b1', 'b2')
+    
+    # one plot shows lightcurves for both bansd. So, only make it when the b1 file is read in
+    # this just ensures that if you loop through both bands when using this function, 
+    # it doesn't re-do the same plot twice
+    if band == 'b1':
+        time_series_tab_path_b1 = f'{fits_dir_b1}/time_series_{name}_b1.ecsv'
+        time_series_tab_path_b2 = f'{fits_dir_b2}/time_series_{name}_b2.ecsv'
 
-    
-    colnames = time_series_tab.colnames
-    colnames.remove('time')
-
-    
-    apertures=[]
-    for ap_name in colnames:
-        if "TARGET" in ap_name:
-            ra = time_series_tab[ap_name].meta['ra[deg]']
-            dec = time_series_tab[ap_name].meta['dec[deg]']
-            a = time_series_tab[ap_name].meta['semi-major_axis[pix]'].value
-            b = time_series_tab[ap_name].meta['semi-minor_axis[pix]'].value
-            theta = time_series_tab[ap_name].meta['theta[rad]'].value
-            
-            aperture_position = coadd_wcs.world_to_pixel_values(ra, dec)
-            # x = aperture_position[0]
-            # y = aperture_position[1]
-
-            aperture = EllipticalAperture(aperture_position, a, b, theta)
-            apertures.append(aperture)
-        else: 
-            ra = time_series_tab[ap_name].meta['ra[deg]']
-            dec = time_series_tab[ap_name].meta['dec[deg]']
-            rad = time_series_tab[ap_name].meta['aperture_rad[pix]'].value
-            aperture_position = coadd_wcs.world_to_pixel_values(ra, dec)
-            aperture = CircularAperture(aperture_position, rad)
-            apertures.append(aperture)
-    
-    l, u = lower_value, upper_value
-    if just_target==False:
-        image, l, u = make_image_user_input(coadd_data, apertures=apertures, plot_apertures=True, cmap=cmap)
-    else:
-        make_image_user_input(coadd_data, first_file=False,
-                              apertures=apertures, plot_apertures=True, 
-                              cmap=cmap, lower_value=l, upper_value=u)
-    
-    while True:
-        try:
-                
-            apertures_to_keep = []
-    
-    
-            y_lower = float(input("Enter the lower y limit: "))
-            y_upper = float(input("Enter the upper y limit: "))
-            plot_lightcurve(time_series_tab, obj_name=name, band=band,endswith=endswith, 
-                            y_lower=y_lower, y_upper=y_upper, style=style, show_plot=True)
-                    
-            if just_target == False:
-                # Ask the user which apertures to remove
-                what_to_keep = input("Enter the indices of the apertures to keep (comma-separated): ")
-                for i in what_to_keep.split(','):
-                    apertures_to_keep.append(int(i))
-                
-                
-                for ap_name in colnames:
-                    ap = ap_name.replace('TARGET aperture:','')
-                    ap = ap.replace('aperture:','')
-                    # print(f'ap:{ap}, aps to keep:{apertures_to_keep}')
-                    if int(ap) in apertures_to_keep:
-                        time_series_tab[ap_name].meta['ignore_aperture']= 'False'
-                        
-                        # checkpoint
-                        # print('checkpoint',time_series_tab[ap_name].meta['ignore_aperture'])
-                    else:
-                        time_series_tab[ap_name].meta['ignore_aperture'] = 'True'
-    
-
-            plot_lightcurve(time_series_tab,obj_name=name, band=band, 
-                            endswith=endswith, y_lower=y_lower, y_upper=y_upper, 
-                            just_target=just_target, show_plot=True)
-            
-            kept_apertures=[]
-            for i, aperture in enumerate(apertures):
-                if i in apertures_to_keep:
-                    kept_apertures.append(aperture)
-                
-            image, l, u = make_image_user_input(coadd_data, apertures=kept_apertures, 
-                                  first_file=False,lower_value=l, upper_value=u, plot_apertures=True, cmap=cmap)
-                    
-                    
-            content = input("Are you content with the plot? (yes/no): ")
-            
-            
-            if content.lower() == "yes":
-                if just_target==True:
-                    
-                   
-                    # remake final image to save it
-                    plot = plot_lightcurve(time_series_tab,obj_name=name, band=band, 
-                                          endswith=endswith, y_lower=y_lower, y_upper=y_upper,
-                                          just_target=just_target, show_plot=False)
-                    
-                    plot_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_lc.png'
-                    plot.savefig(plot_save_path)
-                    
-                    
-                else: # if compstars are also plotted
-                
-                    # remake final image to save it
-                    plot = plot_lightcurve(time_series_tab,obj_name=name, band=band, 
-                                          endswith=endswith, y_lower=y_lower, y_upper=y_upper,
-                                          just_target=just_target, show_plot=False)
-                    
-                
-                    plot_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_and_compstars_lc.png'
-                    ap_save_path = f'/users/dzakaria/DATA/dzfiles/lightcurves/{name}_{band}{endswith_base}_target_and_compstars_aps.png'
-                    plt.savefig(plot_save_path)
-                    image.save(ap_save_path, format="PNG")
-                break
-        except Exception as e:
-            # checkpoint
-            print(f'exception2:{e}')
-            pass
-
-    
-    coadd_hdul.close()
-    time_series_tab.write(time_series_tab_path, format='ascii.ecsv', overwrite=True)
-    
-    return l, u
+        # open time_series_tab
+        ts_tab_b1=QTable.read(time_series_tab_path_b1)
+        
+        # open time_series_tab
+        ts_tab_b2=QTable.read(time_series_tab_path_b2)
+        
+        lightcurve = plot_lightcurve(ts_tab_b1, ts_tab_b2, obj_name=name)
+  
+        lightcurve.savefig(plot_save_path, transparent=False, facecolor='#d4dff1')
 
 
 #%% combine_images
@@ -1430,8 +1411,8 @@ def mask_target(processed_images_dir, sigma_coeff=1):
     
     hdul = fits.open(image_file)
     data = hdul[0].data
-    header = hdul[0].header
-    wcs = WCS(header)
+    # header = hdul[0].header
+    # wcs = WCS(header)
     median_counts = np.median(data) # calculate median counts per pixel of image
     stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
     # pixel_scale_y = header['CDELT2'] *u.deg
@@ -1458,10 +1439,10 @@ def subtract_coadd(processed_images_dir):
     
     coadd_hdul = fits.open(image_file)
     coadd_data = coadd_hdul[0].data
-    coadd_header = coadd_hdul[0].header
-    coadd_wcs = WCS(coadd_header)
-    median_counts = np.median(coadd_data) # calculate median counts per pixel of image
-    stdev_counts = np.std(coadd_data)  # calculate standard deviation of the counts per pixel
+    # coadd_header = coadd_hdul[0].header
+    # coadd_wcs = WCS(coadd_header)
+    # median_counts = np.median(coadd_data) # calculate median counts per pixel of image
+    # stdev_counts = np.std(coadd_data)  # calculate standard deviation of the counts per pixel
     
     # print(median_counts)
 
@@ -1484,9 +1465,9 @@ def subtract_coadd(processed_images_dir):
         hdul = fits.open(image_file)
         data = hdul[0].data
         header = hdul[0].header
-        wcs = WCS(header)
-        median_counts = np.median(data) # calculate median counts per pixel of image
-        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+        # wcs = WCS(header)
+        # median_counts = np.median(data) # calculate median counts per pixel of image
+        # stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
 
         scale_ratio = 1 / (file_counter)
         
@@ -1525,10 +1506,10 @@ def divide_coadd(processed_images_dir):
     
     coadd_hdul = fits.open(image_file)
     coadd_data = coadd_hdul[0].data
-    coadd_header = coadd_hdul[0].header
-    coadd_wcs = WCS(coadd_header)
-    median_counts = np.median(coadd_data) # calculate median counts per pixel of image
-    stdev_counts = np.std(coadd_data)  # calculate standard deviation of the counts per pixel
+    # coadd_header = coadd_hdul[0].header
+    # coadd_wcs = WCS(coadd_header)
+    # median_counts = np.median(coadd_data) # calculate median counts per pixel of image
+    # stdev_counts = np.std(coadd_data)  # calculate standard deviation of the counts per pixel
     
     # print(median_counts)
 
@@ -1551,9 +1532,9 @@ def divide_coadd(processed_images_dir):
         hdul = fits.open(image_file)
         data = hdul[0].data
         header = hdul[0].header
-        wcs = WCS(header)
-        median_counts = np.median(data) # calculate median counts per pixel of image
-        stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
+        # wcs = WCS(header)
+        # median_counts = np.median(data) # calculate median counts per pixel of image
+        # stdev_counts = np.std(data)  # calculate standard deviation of the counts per pixel
 
         scale_ratio = 1 / (file_counter)
         
@@ -1830,4 +1811,224 @@ def fix_ts_tab(fits_dir,epochs_tab_path):
     ts_tab_new.write(f'{fits_dir}/time_series_{name}_{band}.ecsv', format='ascii.ecsv', overwrite=True)
     ts_tab_new.write(f'{fits_dir}/time_series_{name}_{band}.csv', format='ascii.csv', overwrite=True)          
     
+
+#%% get_summarizing_info
+
+def get_summarizing_info(obj_names, bands, coadd_directory, style='classic', lower_value=0, upper_value=3):
+    """
+    1) open the time series tables
+    2) display the coadd image with apertures plotted
+    3) choose which apertures to keep
+    4) choose y min and maxes for plots
+    5) save plot
+    
+    """
+    
+    plt.style.use(style)
+    # plot_save_path = '/users/dzakaria/DATA/dzfiles/lightcurves/dmag_histogram.png'
+    
+    # make an astropy table to save info from each object
+    summary_tab = Table()
+    
+    new_column  = MaskedColumn(name='obj_name', dtype='<U64')
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='band', dtype='<U16')
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='target_ap', dtype='<U64')
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='delta_flux', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='frac_delta_flux', dtype=float)
+    summary_tab.add_column(new_column)
+    summary_tab['frac_delta_flux'].meta['mag_to_flux_conversion'] = '10**((magzp - mags)/2.5)'
+    summary_tab['frac_delta_flux'].meta['description'] = 'Fractional change in flux: (max_flux - min_flux) / median_flux'
+    
+    new_column  = MaskedColumn(name='delta_mag', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='frac_delta_mag', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='med_mag', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='med_flux', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    new_column  = MaskedColumn(name='mult_delta_flux', dtype=float)
+    summary_tab.add_column(new_column)
+    
+    # initialize rownum counter
+    row = 0
+    for name in obj_names:
+        for band in bands:
+            
+            file_dir = f'{coadd_directory}{name}/mosaic-int_fits/{band}'
+
+            time_series_tab_path = f'{file_dir}/time_series_{name}_{band}.ecsv'
+            
+            # open time_series_tab
+            ts_tab = QTable.read(time_series_tab_path)
+            
+           
+            colnames = ts_tab.colnames
+            colnames.remove('time')
+                
+            for column in colnames:
+                if "TARGET" in column:
+                    
+                    summary_tab.add_row()
+                    
+                    mags = np.array(ts_tab[column])
+                    
+                    delta_mag = max(mags) - min(mags)
+                    frac_delta_mag = delta_mag/(np.median(mags))
+                    
+                    # convert back to flux from mag
+                    if band == 'b1':
+                        fluxzp = 309.540
+                    if band == 'b2':
+                        fluxzp = 171.787
+                        
+                    fluxes = fluxzp * 10**(-mags/2.5)
+                    
+                    max_flux = max(fluxes)
+                    min_flux = min(fluxes)
+                    median_flux = np.mean(fluxes)
+                    delta_flux = max_flux - min_flux
+                    
+                    mult_delta_flux = max_flux/min_flux
+                    
+                    if row % 10 ==0:
+                        print(max_flux)
+                    
+                    frac_delta_flux = delta_flux/median_flux 
+                    
+                    summary_tab['obj_name'][row] = name
+                    summary_tab['band'][row] = band
+                    summary_tab['target_ap'] = column
+                    summary_tab['delta_flux'][row] = delta_flux
+                    summary_tab['frac_delta_flux'][row] = frac_delta_flux
+                    summary_tab['delta_mag'][row] = delta_mag
+                    summary_tab['frac_delta_mag'][row] = frac_delta_mag
+                    summary_tab['mult_delta_flux'][row] = mult_delta_flux
+                    
+                    row += 1
+                    
+    return summary_tab
+                    
+        
+#%% show compstars
+
+def plot_compstar_aps(combined_image_file, file_dir):
+    
+    # read in obj name and band
+    split_path = file_dir.split('/')
+    name = split_path[6]
+    band = split_path[8]
+    
+    time_series_tab_path = f'{file_dir}/time_series_{name}_{band}.ecsv'
+    
+    # open time_series_tab
+    ts_tab = QTable.read(time_series_tab_path)
+    
+    path= f'{file_dir}/{combined_image_file}'
+    # fig, ax = plt.subplots()
+    with fits.open(path) as hdul:
+        data = hdul[0].data
+        # header = hdul[0].header 
+      
+    wcs = WCS(hdul[0].header)
+    # pixel_scale_y = header['CDELT2'] *u.deg
+    
+    # Convert the pixel scale to arcseconds
+    # pixel_scale_x = pixel_scale_x.to(u.arcsec).value
+    # pixel_scale = pixel_scale_y.to(u.arcsec).value
+    
+    
+    # data = np.sqrt(data)
+    # store image 
+    # unit = u.electron/u.s
+    # xdf_image=CCDData(data, unit=unit, meta=header)
+    
+    
+    image, lower_value, upper_value = make_image_user_input(data)
+    
+    
+    
+    fig, ax = plt.subplots()
+    
+    scaled_data = np.sqrt(data)
+    
+    
+    fig.clear()
+
+     
+    while True:
+        try:
+             
+           
+            lower_percentile = float(input("Enter the lower percentile (0-100): "))
+            upper_percentile = float(input("Enter the upper percentile (0-100): "))
+            lower_value = np.percentile(scaled_data, lower_percentile)
+            upper_value = np.percentile(scaled_data, upper_percentile)
+            norm = Normalize(lower_value, upper_value)
+     
+             
+
+            fig.clear()
+            ax = fig.add_subplot(111)
+             
+            # if show_axes==False:
+            ax.axis('off')
+     
+            # im = ax.imshow(scaled_data, cmap='gray', origin='lower', norm=norm)
+            ax.imshow(scaled_data, cmap='gray', origin='lower', norm=norm)
+     
+            # plot aps
+            for column in ts_tab.colnames:
+                if "TARGET" not in column and "time" not in column:
+                    ra = ts_tab[column].meta['ra[deg]']
+                    dec = ts_tab[column].meta['dec[deg]'] 
+                    ap_rad = ts_tab[column].meta['aperture_rad[pix]'].value
+                    ap_inner = ts_tab[column].meta['annulus_inner_rad[pix]'].value
+                    ap_outter = ts_tab[column].meta['annulus_outer_rad[pix]'].value
+                
+    
+                    position = wcs.world_to_pixel_values(ra, dec)
+                    aperture = CircularAperture(position, ap_rad)
+                    aperture.plot(color='red', alpha=1, axes = ax, lw=2)
+                    
+                    annulus_aperture = CircularAnnulus(position, r_in=ap_inner, r_out=ap_outter)
+                    
+                    annulus_aperture.plot(color='blue', alpha=1, axes=ax, lw=2)
+                    
+                    # ax1.scatter(position.x, position.y, marker='.', facecolor='r', edgecolor='r', s=20)
+                    
+        except:
+            pass                   
+                     
+                     
+                     
+             
+            ax.set_aspect('equal')
+            
+           
+            
+            canvas = FigureCanvasTkAgg(fig, master=tk.Tk())
+            canvas.draw()
+            canvas.get_tk_widget().pack()
+    
+            image = Image.frombytes('RGB', canvas.get_width_height(), fig.canvas.tostring_rgb())
+    
+            plt.close(fig)
+    
+            plt.imshow(image)
+            plt.show()
               
+    
+    
