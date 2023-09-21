@@ -1,2 +1,7 @@
-coadds-0_06677/
-
+/protostar-variability/coadds-0_0667/
+/protostar-variability/coadds-0_0667
+/coadds-0_0667/
+coadds-0_0667/
+*.xml
+*.fits
+**/*.xml 
